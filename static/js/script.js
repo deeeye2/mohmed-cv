@@ -19,7 +19,87 @@ const quizData = [
         },
         correctAnswer: "b"
     },
-    // ... Add more questions here
+    {
+        question: "Which tool is used for orchestration?",
+        answers: {
+            a: "Kubernetes",
+            b: "Docker",
+            c: "Jenkins",
+            d: "Puppet"
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "What is the purpose of Ansible?",
+        answers: {
+            a: "Containerization",
+            b: "Orchestration",
+            c: "Continuous Integration",
+            d: "Configuration Management"
+        },
+        correctAnswer: "d"
+    },
+    {
+        question: "What is Terraform used for?",
+        answers: {
+            a: "Continuous Integration",
+            b: "Configuration Management",
+            c: "Infrastructure as Code",
+            d: "Container Orchestration"
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "Which of the following is a monitoring tool?",
+        answers: {
+            a: "Jenkins",
+            b: "Prometheus",
+            c: "Docker",
+            d: "Ansible"
+        },
+        correctAnswer: "b"
+    },
+    {
+        question: "Which tool is used for version control?",
+        answers: {
+            a: "Jenkins",
+            b: "Kubernetes",
+            c: "Git",
+            d: "Ansible"
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "What does CI stand for?",
+        answers: {
+            a: "Continuous Implementation",
+            b: "Continuous Integration",
+            c: "Continuous Installation",
+            d: "Continuous Iteration"
+        },
+        correctAnswer: "b"
+    },
+    {
+        question: "Which tool is used for container orchestration?",
+        answers: {
+            a: "Kubernetes",
+            b: "Docker",
+            c: "Jenkins",
+            d: "Git"
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "What does CD stand for in CI/CD?",
+        answers: {
+            a: "Continuous Development",
+            b: "Continuous Delivery",
+            c: "Continuous Deployment",
+            d: "Both B and C"
+        },
+        correctAnswer: "d"
+    }
+    // Add more questions up to 20
 ];
 
 const quizContainer = document.getElementById('quiz');
