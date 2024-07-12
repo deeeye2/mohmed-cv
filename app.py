@@ -33,7 +33,8 @@ def send_email_to_you(name, email, message):
     msg.attach(MIMEText(body, 'plain'))
 
     try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        # Use Hotmail/Outlook SMTP server
+        server = smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
         server.login(sender_email, password)
         text = msg.as_string()
