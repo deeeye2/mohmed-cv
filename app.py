@@ -2,8 +2,12 @@ from flask import Flask, request, render_template
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import logging
 
 app = Flask(__name__)
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
 def index():
@@ -16,8 +20,10 @@ def send_email():
     message = request.form['message']
 
     if send_email_to_you(name, email, message):
+        logging.info('Email sent successfully')
         return 'Thank you for your message! We will get back to you shortly.'
     else:
+        logging.error('Failed to send email')
         return 'Failed to send your message. Please try again later.'
 
 def send_email_to_you(name, email, message):
@@ -35,16 +41,22 @@ def send_email_to_you(name, email, message):
 
     try:
         # Use Hotmail/Outlook SMTP server
+        logging.debug('Connecting to SMTP server')
         server = smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
+        logging.debug('Logging in to SMTP server')
         server.login(sender_email, password)
+        logging.debug('Sending email')
         text = msg.as_string()
         server.sendmail(sender_email, receiver_email, text)
         server.quit()
-        print('Email sent successfully')
+        logging.info('Email sent successfully')
         return True
+    except smtplib.SMTPException as e:
+        logging.error('SMTP error: {}'.format(e))
+        return False
     except Exception as e:
-        print('Error: {}'.format(e))
+        logging.error('General error: {}'.format(e))
         return False
 
 if __name__ == '__main__':
