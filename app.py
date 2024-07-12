@@ -15,9 +15,10 @@ def send_email():
     email = request.form['email']
     message = request.form['message']
 
-    send_email_to_you(name, email, message)
-
-    return 'Thank you for your message! We will get back to you shortly.'
+    if send_email_to_you(name, email, message):
+        return 'Thank you for your message! We will get back to you shortly.'
+    else:
+        return 'Failed to send your message. Please try again later.'
 
 def send_email_to_you(name, email, message):
     sender_email = "dee.eye@hotmail.com"
@@ -29,7 +30,7 @@ def send_email_to_you(name, email, message):
     msg['To'] = receiver_email
     msg['Subject'] = 'New Contact Form Submission'
 
-    body = f'Name: {name}\nEmail: {email}\nMessage: {message}'
+    body = 'Name: {}\nEmail: {}\nMessage: {}'.format(name, email, message)
     msg.attach(MIMEText(body, 'plain'))
 
     try:
@@ -40,8 +41,11 @@ def send_email_to_you(name, email, message):
         text = msg.as_string()
         server.sendmail(sender_email, receiver_email, text)
         server.quit()
+        print('Email sent successfully')
+        return True
     except Exception as e:
-        print(f'Error: {e}')
+        print('Error: {}'.format(e))
+        return False
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
