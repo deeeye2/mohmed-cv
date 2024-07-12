@@ -40,7 +40,6 @@ def send_email_to_you(name, email, message):
     msg.attach(MIMEText(body, 'plain'))
 
     try:
-        # Use Hotmail/Outlook SMTP server
         logging.debug('Connecting to SMTP server')
         server = smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
