@@ -34,6 +34,7 @@
                     <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Introduction</a></li>
                     <li class="nav-item"><a href="#about" class="nav-link smoothScroll">About Me</a></li>
                     <li class="nav-item"><a href="#certification" class="nav-link smoothScroll">Certification</a></li>
+                    <li class="nav-item"><a href="#quiz" class="nav-link smoothScroll">DevOps-Quiz</a></li>
                     <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Contact</a></li>
                 </ul>
                 <div class="mt-lg-0 mt-3 mb-4 mb-lg-0"> 
@@ -168,52 +169,6 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-12">
                     <img src="{{ url_for('static', filename='images/udemy_certificate.jpg') }}" class="certification-image img-fluid" alt="Udemy DevOps Project Certificate">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section class="contact section-padding pt-0" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <form action="/send-email" method="post" class="contact-form webform" role="form">
-                        <div class="form-group d-flex flex-column-reverse">
-                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
-                            <label for="cf-name" class="webform-label">Full Name</label>
-                        </div>
-                        <div class="form-group d-flex flex-column-reverse">
-                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
-                            <label for="cf-email" class="webform-label">Your Email</label>
-                        </div>
-                        <div class="form-group d-flex flex-column-reverse">
-                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
-                            <label for="cf-message" class="webform-label">Message</label>
-                        </div>
-                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
-                    </form>
-                </div>
-                <div class="mx-auto col-lg-4 col-md-6 col-12">
-                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
-                    <p class="mb-1">+4915901773752</p>
-                    <p>
-                        <a href="mailto:mohamed.sesay@outlook.com.au">
-                            mohamed.sesay@outlook.com.au
-                        <i class="fas fa-arrow-right custom-icon"></i>
-                        </a>
-                    </p>
-                    <a href="https://wa.me/491783547905" class="btn btn-success">
-                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
-                    </a>
-                    <ul class="social-links mt-2">
-                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
-                    </ul>
-                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
                 </div>
             </div>
         </div>
@@ -789,6 +744,51 @@ nextButton.addEventListener('click', nextQuestion);
 submitButton.addEventListener('click', showResults);
 abortButton.addEventListener('click', abortQuiz);
 
-    </script>
+</script>
+<!-- CONTACT SECTION -->
+    <section class="contact section-padding pt-0" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <form action="/send-email" method="post" class="contact-form webform" role="form">
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
+                            <label for="cf-name" class="webform-label">Full Name</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
+                            <label for="cf-email" class="webform-label">Your Email</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
+                            <label for="cf-message" class="webform-label">Message</label>
+                        </div>
+                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
+                    </form>
+                </div>
+                <div class="mx-auto col-lg-4 col-md-6 col-12">
+                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
+                    <p class="mb-1">+4915901773752</p>
+                    <p>
+                        <a href="mailto:mohamed.sesay@outlook.com.au">
+                            mohamed.sesay@outlook.com.au
+                        <i class="fas fa-arrow-right custom-icon"></i>
+                        </a>
+                    </p>
+                    <a href="https://wa.me/491783547905" class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
+                    </a>
+                    <ul class="social-links mt-2">
+                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
+                    </ul>
+                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
