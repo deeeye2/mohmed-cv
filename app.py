@@ -22,7 +22,9 @@ class Visit(db.Model):
     location = db.Column(db.String(100))
     visit_time = db.Column(db.DateTime, default=datetime.utcnow)
 
-db.create_all()
+# Ensure the database tables are created within the application context
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
