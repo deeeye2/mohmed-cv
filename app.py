@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///visits.db'
 db = SQLAlchemy(app)
 
 class Visit(db.Model):
-    id = db.Column(db.Integer, primary key=True)
+    id = db.Column(db.Integer, primary_key=True)
     ip_address = db.Column(db.String(15))
     location = db.Column(db.String(100))
     visit_time = db.Column(db.DateTime, default=datetime.utcnow)
@@ -96,4 +96,3 @@ def get_location(ip_address):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
