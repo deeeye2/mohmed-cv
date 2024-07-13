@@ -218,7 +218,7 @@
             </div>
         </div>
     </section>
-    <!-- QUIZ SECTION -->
+<!-- QUIZ SECTION -->
     <section class="quiz section-padding" id="quiz">
         <div class="container">
             <div class="row">
@@ -919,6 +919,12 @@
                 }
             });
             resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
+            categoryContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            abortButton.style.display = 'none';
         }
 
         function nextQuestion() {
@@ -956,6 +962,12 @@
                 }
             });
             resultsContainer.innerHTML = `You aborted the quiz. ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+            categoryContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            abortButton.style.display = 'none';
         }
 
         prevButton.addEventListener('click', prevQuestion);
@@ -963,8 +975,5 @@
         submitButton.addEventListener('click', showResults);
         abortButton.addEventListener('click', abortQuiz);
     </script>
-
 </body>
 </html>
-
-    
