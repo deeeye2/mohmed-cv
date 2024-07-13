@@ -90,12 +90,19 @@ def log_visit(request):
 
 def get_location(ip_address):
     try:
+        logging.debug(f'Fetching location for IP address: {ip_address}')
         response = requests.get(f'http://ip-api.com/json/{ip_address}')
         data = response.json()
-        return f"{data['city']}, {data['country']}"
+        if data['status'] == 'fail':
+            logging.error(f'Failed to fetch location for IP address: {ip_address}')
+            return "Unknown"
+        location = f"{data['city']}, {data['country']}"
+        logging.debug(f'Location for IP address {ip_address}: {location}')
+        return location
     except Exception as e:
         logging.error('Error fetching location: {}'.format(e))
         return "Unknown"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
