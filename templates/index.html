@@ -214,7 +214,7 @@
         </div>
     </section>
 
-  <!-- DEVOPS QUIZ SECTION -->
+  <!-- QUIZ SECTION -->
     <section class="quiz section-padding" id="devops-quiz">
         <div class="container mt-5">
             <div class="dashboard">
@@ -241,831 +241,827 @@
         </div>
     </section>
 
-    <!-- SCRIPTS -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/log-visit', { method: 'POST' });
-    });
-   </script>
-
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script>
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit-quiz');
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        const abortButton = document.getElementById('abort-quiz');
+        const categoryContainer = document.getElementById('category-container');
+        let currentQuestionIndex = 0;
+        let currentCategory = '';
+        const userAnswers = {};
 
-
-<script>        
-const quizContainer = document.getElementById('quiz-container');
-const resultsContainer = document.getElementById('results');
-const submitButton = document.getElementById('submit-quiz');
-const prevButton = document.getElementById('prev-question');
-const nextButton = document.getElementById('next-question');
-const abortButton = document.getElementById('abort-quiz');
-const categoryContainer = document.getElementById('category-container');
-
-let currentQuestionIndex = 0;
-let currentCategory = '';
-let userAnswers = {};
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/log-visit', { method: 'POST' });
+        });
+    </script>
 
         const questions = {
-    linux: [
-        { 
-            question: "1. What command is used to display disk usage?", 
-            answers: { 
-                a: "ls", 
-                b: "du", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "2. How do you check the available disk space?", 
-            answers: { 
-                a: "ls", 
-                b: "df", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "3. Which command is used to list files in a directory?", 
-            answers: { 
-                a: "ls", 
-                b: "cd", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "4. How do you change the current directory?", 
-            answers: { 
-                a: "ls", 
-                b: "cd", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "5. What command is used to display the current directory path?", 
-            answers: { 
-                a: "ls", 
-                b: "cd", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "6. What command is used to create a new directory?", 
-            answers: { 
-                a: "ls", 
-                b: "cd", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "7. How do you display the contents of a file?", 
-            answers: { 
-                a: "ls", 
-                b: "cat", 
-                c: "pwd", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "8. What command is used to move or rename a file?", 
-            answers: { 
-                a: "mv", 
-                b: "cp", 
-                c: "rm", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "9. Which command is used to copy files?", 
-            answers: { 
-                a: "mv", 
-                b: "cp", 
-                c: "rm", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "10. What command is used to remove files?", 
-            answers: { 
-                a: "mv", 
-                b: "cp", 
-                c: "rm", 
-                d: "mkdir" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "11. How do you display the first few lines of a file?", 
-            answers: { 
-                a: "head", 
-                b: "tail", 
-                c: "cat", 
-                d: "less" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "12. Which command is used to display the last few lines of a file?", 
-            answers: { 
-                a: "head", 
-                b: "tail", 
-                c: "cat", 
-                d: "less" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "13. What command is used to search for a specific pattern in a file?", 
-            answers: { 
-                a: "grep", 
-                b: "find", 
-                c: "awk", 
-                d: "sed" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "14. How do you change file permissions?", 
-            answers: { 
-                a: "chmod", 
-                b: "chown", 
-                c: "chgrp", 
-                d: "ls -l" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "15. Which command is used to change file ownership?", 
-            answers: { 
-                a: "chmod", 
-                b: "chown", 
-                c: "chgrp", 
-                d: "ls -l" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "16. What command is used to display running processes?", 
-            answers: { 
-                a: "ps", 
-                b: "top", 
-                c: "htop", 
-                d: "jobs" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "17. How do you display system information?", 
-            answers: { 
-                a: "uname -a", 
-                b: "uname -r", 
-                c: "uname -m", 
-                d: "uname -s" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "18. Which command is used to display the last login information?", 
-            answers: { 
-                a: "last", 
-                b: "who", 
-                c: "w", 
-                d: "id" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "19. How do you display the current date and time?", 
-            answers: { 
-                a: "date", 
-                b: "time", 
-                c: "cal", 
-                d: "clock" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "20. What command is used to display logged-in users?", 
-            answers: { 
-                a: "who", 
-                b: "whoami", 
-                c: "w", 
-                d: "id" 
-            }, 
-            correctAnswer: "a" 
-        }
-    ],
-    docker: [
-        { 
-            question: "1. Which command is used to build a Docker image?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker create", 
-                d: "docker image" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "2. Which command is used to run a Docker container?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker create", 
-                d: "docker image" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "3. Which command is used to list Docker containers?", 
-            answers: { 
-                a: "docker ps", 
-                b: "docker images", 
-                c: "docker run", 
-                d: "docker start" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "4. Which command is used to stop a running container?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker stop", 
-                d: "docker remove" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "5. How do you remove a Docker container?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker stop", 
-                d: "docker rm" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "6. Which command is used to list Docker images?", 
-            answers: { 
-                a: "docker images", 
-                b: "docker ps", 
-                c: "docker run", 
-                d: "docker start" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "7. Which command is used to pull an image from Docker Hub?", 
-            answers: { 
-                a: "docker pull", 
-                b: "docker push", 
-                c: "docker run", 
-                d: "docker build" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "8. How do you push an image to Docker Hub?", 
-            answers: { 
-                a: "docker pull", 
-                b: "docker push", 
-                c: "docker run", 
-                d: "docker build" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "9. Which command is used to view the logs of a running container?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker logs", 
-                d: "docker start" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "10. What is the command to get the details of a running container?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker ps", 
-                d: "docker inspect" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "11. Which command is used to remove all stopped containers?", 
-            answers: { 
-                a: "docker build", 
-                b: "docker run", 
-                c: "docker prune", 
-                d: "docker rm" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "12. How do you start a stopped container?", 
-            answers: { 
-                a: "docker start", 
-                b: "docker run", 
-                c: "docker stop", 
-                d: "docker kill" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "13. Which command is used to attach to a running container?", 
-            answers: { 
-                a: "docker attach", 
-                b: "docker exec", 
-                c: "docker run", 
-                d: "docker start" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "14. How do you list all networks in Docker?", 
-            answers: { 
-                a: "docker network ls", 
-                b: "docker network create", 
-                c: "docker network inspect", 
-                d: "docker network rm" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "15. Which command is used to create a new network in Docker?", 
-            answers: { 
-                a: "docker network ls", 
-                b: "docker network create", 
-                c: "docker network inspect", 
-                d: "docker network rm" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "16. How do you inspect a Docker network?", 
-            answers: { 
-                a: "docker network ls", 
-                b: "docker network create", 
-                c: "docker network inspect", 
-                d: "docker network rm" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "17. Which command is used to remove a Docker network?", 
-            answers: { 
-                a: "docker network ls", 
-                b: "docker network create", 
-                c: "docker network inspect", 
-                d: "docker network rm" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "18. What is the command to stop all running containers?", 
-            answers: { 
-                a: "docker stop $(docker ps -q)", 
-                b: "docker rm $(docker ps -q)", 
-                c: "docker kill $(docker ps -q)", 
-                d: "docker pause $(docker ps -q)" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "19. How do you create a new image from a container’s changes?", 
-            answers: { 
-                a: "docker create", 
-                b: "docker commit", 
-                c: "docker build", 
-                d: "docker run" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "20. Which command is used to rename a Docker container?", 
-            answers: { 
-                a: "docker rename", 
-                b: "docker move", 
-                c: "docker cp", 
-                d: "docker commit" 
-            }, 
-            correctAnswer: "a" 
-        }
-    ],
-    jenkins: [
-        { 
-            question: "1. Which plugin is used to integrate Jenkins with GitHub?", 
-            answers: { 
-                a: "Git Plugin", 
-                b: "GitHub Plugin", 
-                c: "SVN Plugin", 
-                d: "Mercurial Plugin" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "2. Which command is used to start Jenkins from the command line?", 
-            answers: { 
-                a: "jenkins start", 
-                b: "java -jar jenkins.war", 
-                c: "start jenkins", 
-                d: "run jenkins" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "3. What is the default port for Jenkins?", 
-            answers: { 
-                a: "80", 
-                b: "443", 
-                c: "8080", 
-                d: "8443" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "4. Which language is Jenkins primarily written in?", 
-            answers: { 
-                a: "Python", 
-                b: "Ruby", 
-                c: "Java", 
-                d: "C#" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "5. Which Jenkins plugin is used for visualizing the pipeline?", 
-            answers: { 
-                a: "Blue Ocean", 
-                b: "Green Field", 
-                c: "Yellow Stream", 
-                d: "Red Flow" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "18. Which feature allows Jenkins to distribute the workload of building across multiple machines?", 
-            answers: { 
-                a: "Build Pipelines", 
-                b: "Job Scheduling", 
-                c: "Master/Slave Architecture", 
-                d: "Cloud Agents" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "19. What is the function of the 'Poll SCM' option in Jenkins?", 
-            answers: { 
-                a: "To poll the network for new servers", 
-                b: "To check for changes in the source code repository", 
-                c: "To poll the internet for updates", 
-                d: "To check for updates in Jenkins plugins" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "20. How do you install a new plugin in Jenkins?", 
-            answers: { 
-                a: "From the 'Manage Jenkins' section", 
-                b: "Using the Jenkins CLI", 
-                c: "By editing the Jenkins file", 
-                d: "By restarting Jenkins" 
-            }, 
-            correctAnswer: "a" 
-        }
-    ],
-    ansible: [
-        { 
-            question: "1. Which file is used to define Ansible playbooks?", 
-            answers: { 
-                a: "ansible.cfg", 
-                b: "inventory", 
-                c: "playbook.yaml", 
-                d: "ansible-playbook" 
-            }, 
-            correctAnswer: "c" 
-        },
-        { 
-            question: "2. Which command is used to run an Ansible playbook?", 
-            answers: { 
-                a: "ansible", 
-                b: "ansible-playbook", 
-                c: "ansible-run", 
-                d: "ansible-execute" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "3. Which file is used to configure Ansible settings?", 
-            answers: { 
-                a: "ansible.cfg", 
-                b: "inventory", 
-                c: "playbook.yaml", 
-                d: "ansible.ini" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "4. Which module is used to copy files in Ansible?", 
-            answers: { 
-                a: "copy", 
-                b: "file", 
-                c: "fetch", 
-                d: "synchronize" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "5. Which command is used to test the connectivity of the inventory hosts in Ansible?", 
-            answers: { 
-                a: "ansible-connect", 
-                b: "ansible-ping", 
-                c: "ansible-test", 
-                d: "ansible" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "6. Which keyword is used to define a task in an Ansible playbook?", 
-            answers: { 
-                a: "task", 
-                b: "tasks", 
-                c: "command", 
-                d: "run" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "7. Which command is used to display the configuration settings in Ansible?", 
-            answers: { 
-                a: "ansible-config", 
-                b: "ansible-settings", 
-                c: "ansible-show", 
-                d: "ansible-info" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "8. Which module is used to install packages in Ansible?", 
-            answers: { 
-                a: "install", 
-                b: "package", 
-                c: "yum", 
-                d: "apt" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "9. Which command is used to list the inventory hosts in Ansible?", 
-            answers: { 
-                a: "ansible-inventory", 
-                b: "ansible-hosts", 
-                c: "ansible-list", 
-                d: "ansible-show" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "10. Which keyword is used to define a play in an Ansible playbook?", 
-            answers: { 
-                a: "play", 
-                b: "plays", 
-                c: "name", 
-                d: "hosts" 
-            }, 
-            correctAnswer: "d" 
-        },
-        { 
-            question: "11. Which file is used to define the inventory in Ansible?", 
-            answers: { 
-                a: "ansible.cfg", 
-                b: "inventory", 
-                c: "hosts.yaml", 
-                d: "playbook.yaml" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "12. Which module is used to manage services in Ansible?", 
-            answers: { 
-                a: "command", 
-                b: "service", 
-                c: "systemd", 
-                d: "init" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "13. Which module is used to execute shell commands in Ansible?", 
-            answers: { 
-                a: "command", 
-                b: "shell", 
-                c: "script", 
-                d: "run" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "14. Which Ansible ad-hoc command is used to gather facts about the remote hosts?", 
-            answers: { 
-                a: "ansible all -m gather_facts", 
-                b: "ansible all -m setup", 
-                c: "ansible all -m facts", 
-                d: "ansible all -m get_facts" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "15. Which module is used to create a user in Ansible?", 
-            answers: { 
-                a: "user", 
-                b: "add_user", 
-                c: "create_user", 
-                d: "manage_user" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "16. Which keyword is used to define variables in an Ansible playbook?", 
-            answers: { 
-                a: "vars", 
-                b: "variables", 
-                c: "params", 
-                d: "parameters" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "17. Which Ansible module is used to manage files and directories?", 
-            answers: { 
-                a: "file", 
-                b: "copy", 
-                c: "fetch", 
-                d: "synchronize" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "18. Which keyword is used to specify the remote user in an Ansible playbook?", 
-            answers: { 
-                a: "user", 
-                b: "remote_user", 
-                c: "login_user", 
-                d: "ssh_user" 
-            }, 
-            correctAnswer: "b" 
-        },
-        { 
-            question: "19. Which module is used to reboot a server in Ansible?", 
-            answers: { 
-                a: "reboot", 
-                b: "restart", 
-                c: "power", 
-                d: "shutdown" 
-            }, 
-            correctAnswer: "a" 
-        },
-        { 
-            question: "20. Which Ansible command is used to check the syntax of a playbook?", 
-            answers: { 
-                a: "ansible-playbook --syntax-check", 
-                b: "ansible-playbook --check-syntax", 
-                c: "ansible-playbook --validate", 
-                d: "ansible-playbook --check" 
-            }, 
-            correctAnswer: "a" 
-        }
-    ]
-    terraform: [
-        {
-            question: "1. Which file contains the provider configuration in Terraform?",
-            answers: {
-                a: "main.tf",
-                b: "variables.tf",
-                c: "provider.tf",
-                d: "terraform.tfvars"
-            },
-            correctAnswer: "c"
-        },
-        {
-            question: "2. Which command is used to initialize a Terraform configuration?",
-            answers: {
-                a: "terraform apply",
-                b: "terraform plan",
-                c: "terraform init",
-                d: "terraform validate"
-            },
-            correctAnswer: "c"
-        },
-        {
-            question: "3. How do you preview the changes that Terraform will make to your infrastructure?",
-            answers: {
-                a: "terraform plan",
-                b: "terraform apply",
-                c: "terraform init",
-                d: "terraform destroy"
-            },
-            correctAnswer: "a"
-        },
-        {
-            question: "4. Which file is used to define input variables in Terraform?",
-            answers: {
-                a: "main.tf",
-                b: "variables.tf",
-                c: "provider.tf",
-                d: "terraform.tfvars"
-            },
-            correctAnswer: "b"
-        },
-        {
-            question: "5. How do you apply the changes required to reach the desired state of the configuration in Terraform?",
-            answers: {
-                a: "terraform plan",
-                b: "terraform apply",
-                c: "terraform init",
-                d: "terraform destroy"
-            },
-            correctAnswer: "b"
-        },
-        {
-            question: "6. Which command is used to remove the resources managed by Terraform?",
-            answers: {
-                a: "terraform plan",
-                b: "terraform apply",
-                c: "terraform init",
-                d: "terraform destroy"
-            },
-            correctAnswer: "d"
-        },
-        {
-            question: "7. What is the default state file name in Terraform?",
-            answers: {
-                a: "terraform.tfstate",
-                b: "main.tfstate",
-                c: "state.tf",
-                d: "terraform.state"
-            },
-            correctAnswer: "a"
-        },
-        {
-            question: "8. How do you validate the syntax and configuration of your Terraform files?",
-            answers: {
-                a: "terraform apply",
-                b: "terraform plan",
-                c: "terraform init",
-                d: "terraform validate"
-            },
-            correctAnswer: "d"
-        },
-        {
-            question: "9. Which keyword is used to define a resource in Terraform?",
-            answers: {
-                a: "resource",
-                b: "provider",
-                c: "variable",
-                d: "output"
-            },
-            correctAnswer: "a"
-        },
-        {
-            question: "10. How do you output values from your Terraform configuration?",
-            answers: {
-                a: "resource",
-                b: "provider",
-                c: "variable",
-                d: "output"
-            },
-            correctAnswer: "d"
-        },
-        {
-            question: "11. Which Terraform command can be used to inspect the current state of the infrastructure?",
-            answers: {
-                a: "terraform show",
-                b: "terraform inspect",
-                c: "terraform output",
-                d: "terraform view"
-            },
+            linux: [
+                { 
+                    question: "1. What command is used to display disk usage?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "du", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "2. How do you check the available disk space?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "df", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which command is used to list files in a directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. How do you change the current directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "5. What command is used to display the current directory path?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "6. What command is used to create a new directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "7. How do you display the contents of a file?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cat", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "8. What command is used to move or rename a file?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "9. Which command is used to copy files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "10. What command is used to remove files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "11. How do you display the first few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "12. Which command is used to display the last few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "13. What command is used to search for a specific pattern in a file?", 
+                    answers: { 
+                        a: "grep", 
+                        b: "find", 
+                        c: "awk", 
+                        d: "sed" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "14. How do you change file permissions?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "15. Which command is used to change file ownership?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "16. What command is used to display running processes?", 
+                    answers: { 
+                        a: "ps", 
+                        b: "top", 
+                        c: "htop", 
+                        d: "jobs" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "17. How do you display system information?", 
+                    answers: { 
+                        a: "uname -a", 
+                        b: "uname -r", 
+                        c: "uname -m", 
+                        d: "uname -s" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which command is used to display the last login information?", 
+                    answers: { 
+                        a: "last", 
+                        b: "who", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "19. How do you display the current date and time?", 
+                    answers: { 
+                        a: "date", 
+                        b: "time", 
+                        c: "cal", 
+                        d: "clock" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "20. What command is used to display logged-in users?", 
+                    answers: { 
+                        a: "who", 
+                        b: "whoami", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            docker: [
+                { 
+                    question: "1. Which command is used to build a Docker image?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "2. Which command is used to run a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which command is used to list Docker containers?", 
+                    answers: { 
+                        a: "docker ps", 
+                        b: "docker images", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. Which command is used to stop a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker remove" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "5. How do you remove a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "6. Which command is used to list Docker images?", 
+                    answers: { 
+                        a: "docker images", 
+                        b: "docker ps", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "7. Which command is used to pull an image from Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "8. How do you push an image to Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "9. Which command is used to view the logs of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker logs", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "10. What is the command to get the details of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker ps", 
+                        d: "docker inspect" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "11. Which command is used to remove all stopped containers?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker prune", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "12. How do you start a stopped container?", 
+                    answers: { 
+                        a: "docker start", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker kill" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "13. Which command is used to attach to a running container?", 
+                    answers: { 
+                        a: "docker attach", 
+                        b: "docker exec", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "14. How do you list all networks in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "15. Which command is used to create a new network in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "16. How do you inspect a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "17. Which command is used to remove a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "18. What is the command to stop all running containers?", 
+                    answers: { 
+                        a: "docker stop $(docker ps -q)", 
+                        b: "docker rm $(docker ps -q)", 
+                        c: "docker kill $(docker ps -q)", 
+                        d: "docker pause $(docker ps -q)" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "19. How do you create a new image from a container’s changes?", 
+                    answers: { 
+                        a: "docker create", 
+                        b: "docker commit", 
+                        c: "docker build", 
+                        d: "docker run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "20. Which command is used to rename a Docker container?", 
+                    answers: { 
+                        a: "docker rename", 
+                        b: "docker move", 
+                        c: "docker cp", 
+                        d: "docker commit" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            jenkins: [
+                { 
+                    question: "1. Which plugin is used to integrate Jenkins with GitHub?", 
+                    answers: { 
+                        a: "Git Plugin", 
+                        b: "GitHub Plugin", 
+                        c: "SVN Plugin", 
+                        d: "Mercurial Plugin" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "2. Which command is used to start Jenkins from the command line?", 
+                    answers: { 
+                        a: "jenkins start", 
+                        b: "java -jar jenkins.war", 
+                        c: "start jenkins", 
+                        d: "run jenkins" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. What is the default port for Jenkins?", 
+                    answers: { 
+                        a: "80", 
+                        b: "443", 
+                        c: "8080", 
+                        d: "8443" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "4. Which language is Jenkins primarily written in?", 
+                    answers: { 
+                        a: "Python", 
+                        b: "Ruby", 
+                        c: "Java", 
+                        d: "C#" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "5. Which Jenkins plugin is used for visualizing the pipeline?", 
+                    answers: { 
+                        a: "Blue Ocean", 
+                        b: "Green Field", 
+                        c: "Yellow Stream", 
+                        d: "Red Flow" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which feature allows Jenkins to distribute the workload of building across multiple machines?", 
+                    answers: { 
+                        a: "Build Pipelines", 
+                        b: "Job Scheduling", 
+                        c: "Master/Slave Architecture", 
+                        d: "Cloud Agents" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "19. What is the function of the 'Poll SCM' option in Jenkins?", 
+                    answers: { 
+                        a: "To poll the network for new servers", 
+                        b: "To check for changes in the source code repository", 
+                        c: "To poll the internet for updates", 
+                        d: "To check for updates in Jenkins plugins" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "20. How do you install a new plugin in Jenkins?", 
+                    answers: { 
+                        a: "From the 'Manage Jenkins' section", 
+                        b: "Using the Jenkins CLI", 
+                        c: "By editing the Jenkins file", 
+                        d: "By restarting Jenkins" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            ansible: [
+                { 
+                    question: "1. Which file is used to define Ansible playbooks?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "playbook.yaml", 
+                        d: "ansible-playbook" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "2. Which command is used to run an Ansible playbook?", 
+                    answers: { 
+                        a: "ansible", 
+                        b: "ansible-playbook", 
+                        c: "ansible-run", 
+                        d: "ansible-execute" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which file is used to configure Ansible settings?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "playbook.yaml", 
+                        d: "ansible.ini" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. Which module is used to copy files in Ansible?", 
+                    answers: { 
+                        a: "copy", 
+                        b: "file", 
+                        c: "fetch", 
+                        d: "synchronize" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "5. Which command is used to test the connectivity of the inventory hosts in Ansible?", 
+                    answers: { 
+                        a: "ansible-connect", 
+                        b: "ansible-ping", 
+                        c: "ansible-test", 
+                        d: "ansible" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "6. Which keyword is used to define a task in an Ansible playbook?", 
+                    answers: { 
+                        a: "task", 
+                        b: "tasks", 
+                        c: "command", 
+                        d: "run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "7. Which command is used to display the configuration settings in Ansible?", 
+                    answers: { 
+                        a: "ansible-config", 
+                        b: "ansible-settings", 
+                        c: "ansible-show", 
+                        d: "ansible-info" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "8. Which module is used to install packages in Ansible?", 
+                    answers: { 
+                        a: "install", 
+                        b: "package", 
+                        c: "yum", 
+                        d: "apt" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "9. Which command is used to list the inventory hosts in Ansible?", 
+                    answers: { 
+                        a: "ansible-inventory", 
+                        b: "ansible-hosts", 
+                        c: "ansible-list", 
+                        d: "ansible-show" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "10. Which keyword is used to define a play in an Ansible playbook?", 
+                    answers: { 
+                        a: "play", 
+                        b: "plays", 
+                        c: "name", 
+                        d: "hosts" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "11. Which file is used to define the inventory in Ansible?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "hosts.yaml", 
+                        d: "playbook.yaml" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "12. Which module is used to manage services in Ansible?", 
+                    answers: { 
+                        a: "command", 
+                        b: "service", 
+                        c: "systemd", 
+                        d: "init" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "13. Which module is used to execute shell commands in Ansible?", 
+                    answers: { 
+                        a: "command", 
+                        b: "shell", 
+                        c: "script", 
+                        d: "run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "14. Which Ansible ad-hoc command is used to gather facts about the remote hosts?", 
+                    answers: { 
+                        a: "ansible all -m gather_facts", 
+                        b: "ansible all -m setup", 
+                        c: "ansible all -m facts", 
+                        d: "ansible all -m get_facts" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "15. Which module is used to create a user in Ansible?", 
+                    answers: { 
+                        a: "user", 
+                        b: "add_user", 
+                        c: "create_user", 
+                        d: "manage_user" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "16. Which keyword is used to define variables in an Ansible playbook?", 
+                    answers: { 
+                        a: "vars", 
+                        b: "variables", 
+                        c: "params", 
+                        d: "parameters" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "17. Which Ansible module is used to manage files and directories?", 
+                    answers: { 
+                        a: "file", 
+                        b: "copy", 
+                        c: "fetch", 
+                        d: "synchronize" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which keyword is used to specify the remote user in an Ansible playbook?", 
+                    answers: { 
+                        a: "user", 
+                        b: "remote_user", 
+                        c: "login_user", 
+                        d: "ssh_user" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "19. Which module is used to reboot a server in Ansible?", 
+                    answers: { 
+                        a: "reboot", 
+                        b: "restart", 
+                        c: "power", 
+                        d: "shutdown" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "20. Which Ansible command is used to check the syntax of a playbook?", 
+                    answers: { 
+                        a: "ansible-playbook --syntax-check", 
+                        b: "ansible-playbook --check-syntax", 
+                        c: "ansible-playbook --validate", 
+                        d: "ansible-playbook --check" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            terraform: [
+                {
+                    question: "1. Which file contains the provider configuration in Terraform?",
+                    answers: {
+                        a: "main.tf",
+                        b: "variables.tf",
+                        c: "provider.tf",
+                        d: "terraform.tfvars"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "2. Which command is used to initialize a Terraform configuration?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform validate"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "3. How do you preview the changes that Terraform will make to your infrastructure?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "4. Which file is used to define input variables in Terraform?",
+                    answers: {
+                        a: "main.tf",
+                        b: "variables.tf",
+                        c: "provider.tf",
+                        d: "terraform.tfvars"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "5. How do you apply the changes required to reach the desired state of the configuration in Terraform?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "6. Which command is used to remove the resources managed by Terraform?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "7. What is the default state file name in Terraform?",
+                    answers: {
+                        a: "terraform.tfstate",
+                        b: "main.tfstate",
+                        c: "state.tf",
+                        d: "terraform.state"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "8. How do you validate the syntax and configuration of your Terraform files?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform validate"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "9. Which keyword is used to define a resource in Terraform?",
+                    answers: {
+                        a: "resource",
+                        b: "provider",
+                        c: "variable",
+                        d: "output"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "10. How do you output values from your Terraform configuration?",
+                    answers: {
+                        a: "resource",
+                        b: "provider",
+                        c: "variable",
+                        d: "output"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "11. Which Terraform command can be used to inspect the current state of the infrastructure?",
+                    answers: {
+                        a: "terraform show",
+                        b: "terraform inspect",
+                        c: "terraform output",
+                        d: "terraform view"
+                },
             correctAnswer: "a"
         },
         {
@@ -1159,7 +1155,7 @@ let userAnswers = {};
             correctAnswer: "c"
         }
     ],
-    /kubernetes: [
+    kubernetes: [
         {
             question: "1. What is the command to create a new Kubernetes cluster using Minikube?",
             answers: {
@@ -2178,6 +2174,7 @@ function startQuiz(category) {
         submitButton.addEventListener('click', showResults);
         abortButton.addEventListener('click', abortQuiz);
     </script>
+    
 <!-- CONTACT SECTION -->
     <section class="contact section-padding pt-0" id="contact">
         <div class="container">
