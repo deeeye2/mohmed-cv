@@ -2032,7 +2032,7 @@
 };
 
 
-        let currentCategory = '';
+let currentCategory = '';
 let currentQuestionIndex = 0;
 let userAnswers = {};
 const categoryContainer = document.getElementById('category-container');
@@ -2062,15 +2062,15 @@ function showQuestion() {
     for (letter in currentQuestion.answers) {
         const isChecked = userAnswers[currentCategory][currentQuestionIndex] === letter ? 'checked' : '';
         answers.push(
-            `<label>
+            <label>
                 <input type="radio" name="question${currentQuestionIndex}" value="${letter}" ${isChecked}>
                 ${letter} :
                 ${currentQuestion.answers[letter]}
-            </label><br>`
+            </label><br>
         );
     }
-    quizContainer.innerHTML = `<div class="question">${currentQuestionIndex + 1}. ${currentQuestion.question}</div>
-                               <div class="answers">${answers.join('')}</div>`;
+    quizContainer.innerHTML = <div class="question">${currentQuestionIndex + 1}. ${currentQuestion.question}</div>
+                               <div class="answers">${answers.join('')}</div>;
 }
 
 function showResults() {
@@ -2083,7 +2083,7 @@ function showResults() {
             numCorrect++;
         }
     });
-    resultsContainer.innerHTML = `You scored ${numCorrect} out of ${questions[currentCategory].length}.`;
+    resultsContainer.innerHTML = You scored ${numCorrect} out of ${questions[currentCategory].length}.;
     setTimeout(() => {
         resultsContainer.innerHTML = ''; // Clear results after navigating back to the main menu
         resetQuizState();
@@ -2122,7 +2122,7 @@ function abortQuiz() {
             numCorrect++;
         }
     });
-    resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+    resultsContainer.innerHTML = You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!;
     setTimeout(() => {
         resultsContainer.innerHTML = ''; // Clear results after navigating back to the main menu
         resetQuizState();
@@ -2131,7 +2131,7 @@ function abortQuiz() {
 
 function saveAnswer() {
     const answerContainer = quizContainer.querySelector('.answers');
-    const selector = `input[name=question${currentQuestionIndex}]:checked`;
+    const selector = input[name=question${currentQuestionIndex}]:checked;
     const userAnswer = (answerContainer.querySelector(selector) || {}).value;
     userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
 }
@@ -2149,7 +2149,6 @@ prevButton.addEventListener('click', prevQuestion);
 nextButton.addEventListener('click', nextQuestion);
 submitButton.addEventListener('click', showResults);
 abortButton.addEventListener('click', abortQuiz);
-
 
 </script>
 <!-- CONTACT SECTION -->
