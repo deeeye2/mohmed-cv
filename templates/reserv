@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mohamed's Resume - Profile HTML Page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/png">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
+    
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-ben-resume-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+</head>
+
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mohamed Resume</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Introduction</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link smoothScroll">About Me</a></li>
+                    <li class="nav-item"><a href="#certification" class="nav-link smoothScroll">Certification</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Contact</a></li>
+                </ul>
+                <div class="mt-lg-0 mt-3 mb-4 mb-lg-0"> 
+                    <a href="static/images/MohamedCV.pdf" class="custom-btn btn" download>Download CV</a> 
+                </div> 
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero d-flex flex-column justify-content-center align-items-center" id="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-10 mx-auto">
+                    <img src="{{ url_for('static', filename='images/dev.png') }}" class="img-fluid" alt="Mohamed Resume">
+                </div>
+                <div class="col-lg-7 col-md-7 col-12 d-flex flex-column justify-content-center align-items-center">
+                    <div class="hero-text">
+                        <h1 class="hero-title">👋 Mohamed, a DevOps Engineer</h1>
+                        <a href="mailto:mohamed.sesay@outlook.com.au" class="email-link">mohamed.sesay@outlook.com.au</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about section-padding" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h3 class="mb-4">This is Mohamed's Resume</h3>
+                    <p>"Mohamed is a DevOps Engineer | Seeking Opportunities in Automation & Infrastructure Management."</p>
+                    <p>As an undergraduate, I embarked on a journey fueled by ambition, but financial constraints forced me to pause my university education...</p>
+                    <ul class="profile-list list-unstyled mt-4 mb-5 mb-lg-0">
+                        <li><strong>Full Name :</strong> Mohamed Sesay</li>
+                        <li><strong>Date of Birth:</strong> 22 June 1998</li>
+                        <li><strong>Website :</strong> dee-empire.com</li>
+                        <li><strong>Email :</strong> mohamed.sesay@outlook.com.au</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-6 col-12 mx-auto">
+                    <img src="{{ url_for('static', filename='images/devops.jpg') }}" class="about-image img-fluid" alt="Mohamed's Resume">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATION SECTION -->
+    <section class="certification section-padding" id="certification">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h3 class="mb-4">Certification</h3>
+                    <p>How I Earned My DevOps Engineer Certification from Edureka!</p>
+                    <p>I am excited to share my journey towards earning my DevOps Engineer certification from Edureka...</p>
+                    <h4>Training and Learning</h4>
+                    <p>My journey involved 140 hours of intensive learning that covered a comprehensive curriculum...</p>
+                    <h4>Tools and Technologies Learned</h4>
+                    <ul>
+                        <li>Version Control Systems: Git and GitHub for source code management and collaboration.</li>
+                        <li>Continuous Integration and Continuous Deployment (CI/CD): Jenkins for automating the integration and deployment processes.</li>
+                        <li>Containerization: Docker for containerizing applications to ensure consistency across various environments.</li>
+                        <li>Configuration Management: Ansible and Puppet for automating the management of infrastructure.</li>
+                        <li>Orchestration: Kubernetes for automating the deployment, scaling, and operations of application containers.</li>
+                        <li>Cloud Platforms: AWS for cloud computing solutions, including EC2, S3, and IAM.</li>
+                        <li>Monitoring and Logging: Prometheus and Grafana for monitoring system performance and visualizing data.</li>
+                        <li>Scripting and Automation: Python and Shell scripting for automating repetitive tasks.</li>
+                    </ul>
+                    <h4>Hands-on Projects</h4>
+                    <ul>
+                        <li><strong>Project 1: Automated Deployment Pipeline</strong>
+                            <ul>
+                                <li>Created a CI/CD pipeline using Jenkins and GitHub.</li>
+                                <li>Implemented automated testing and deployment scripts.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 2: Containerized Application Deployment</strong>
+                            <ul>
+                                <li>Developed Docker containers for a multi-tier application.</li>
+                                <li>Deployed and managed the containers using Kubernetes.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 3: Infrastructure as Code (IaC)</strong>
+                            <ul>
+                                <li>Used Ansible to automate the setup and configuration of a web server.</li>
+                                <li>Implemented IaC practices to ensure reproducibility and consistency.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 4: Cloud Infrastructure Setup</strong>
+                            <ul>
+                                <li>Set up and managed cloud infrastructure using AWS services.</li>
+                                <li>Configured security groups, load balancers, and auto-scaling.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Certification Details</h4>
+                    <ul>
+                        <li>Certification Issuer: Edureka</li>
+                        <li>Certified As: DevOps Engineer</li>
+                        <li>Grade: A</li>
+                        <li>Date of Completion: 22nd June 2024</li>
+                        <li>Certificate ID: 5E2X36C4Q</li>
+                    </ul>
+                    <p>This certification marks the culmination of my efforts and the support provided by Edureka's comprehensive and well-structured training program. The experience has significantly enhanced my skills and prepared me to take on challenging roles in the field of DevOps. I am proud of this achievement and look forward to applying my knowledge in real-world scenarios to drive continuous improvement and innovation.</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/imcf.jpg') }}" class="certification-image img-fluid" alt="Certification Image">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h4 class="mb-4">Code Institute's 5 Day Coding Challenge</h4>
+                    <ul>
+                        <li>Certification Issuer: Code Institute</li>
+                        <li>Course: 5 Day Coding Challenge</li>
+                        <li>Date of Completion: 13th April 2024</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/coding_certificate.jpg') }}" class="certification-image img-fluid" alt="Code Institute 5 Day Coding Challenge Certificate">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h4 class="mb-4">DevOps Project 1 - CI/CD with Git Jenkins Ansible Kubernetes</h4>
+                    <ul>
+                        <li>Certification Issuer: Udemy</li>
+                        <li>Course: DevOps Project 1 - CI/CD with Git Jenkins Ansible Kubernetes</li>
+                        <li>Date of Completion: 17th May 2024</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/udemy_certificate.jpg') }}" class="certification-image img-fluid" alt="Udemy DevOps Project Certificate">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact section-padding pt-0" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <form action="/send-email" method="post" class="contact-form webform" role="form">
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
+                            <label for="cf-name" class="webform-label">Full Name</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
+                            <label for="cf-email" class="webform-label">Your Email</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
+                            <label for="cf-message" class="webform-label">Message</label>
+                        </div>
+                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
+                    </form>
+                </div>
+                <div class="mx-auto col-lg-4 col-md-6 col-12">
+                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
+                    <p class="mb-1">+4915901773752</p>
+                    <p>
+                        <a href="mailto:mohamed.sesay@outlook.com.au">
+                            mohamed.sesay@outlook.com.au
+                        <i class="fas fa-arrow-right custom-icon"></i>
+                        </a>
+                    </p>
+                    <a href="https://wa.me/491783547905" class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
+                    </a>
+                    <ul class="social-links mt-2">
+                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
+                    </ul>
+                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- QUIZ SECTION -->
+    <section class="quiz section-padding" id="quiz">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="mb-4">DevOps Quiz</h3>
+                    <form id="quiz-form">
+                        <div id="category-container">
+                            <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('jenkins')">Jenkins</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('ansible')">Ansible</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('terraform')">Terraform</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('kubernetes')">Kubernetes</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('grafana')">Grafana</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('prometheus')">Prometheus</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('git')">Git</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('github')">GitHub</button>
+                        </div>
+                        <div id="quiz-container" style="display:none;"></div>
+                        <button type="button" id="prev-question" class="form-control mt-3" style="display:none;">Previous Question</button>
+                        <button type="button" id="next-question" class="form-control mt-3" style="display:none;">Next Question</button>
+                        <button type="button" id="submit-quiz" class="form-control mt-3" style="display:none;">Submit Quiz</button>
+                        <button type="button" id="abort-quiz" class="form-control mt-3" style="display:none;">Abort Quiz</button>
+                    </form>
+                    <div id="results" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script>
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit-quiz');
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        const abortButton = document.getElementById('abort-quiz');
+        const categoryContainer = document.getElementById('category-container');
+        let currentQuestionIndex = 0;
+        let currentCategory = '';
+        let userAnswers = {};
+        
+        const questions = {
+            linux: [
+                { 
+                    question: "What command is used to display disk usage?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "du", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you check the available disk space?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "df", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to list files in a directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you change the current directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to display the current directory path?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What command is used to create a new directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "How do you display the contents of a file?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cat", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to move or rename a file?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to copy files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to remove files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you display the first few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to display the last few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to search for a specific pattern in a file?", 
+                    answers: { 
+                        a: "grep", 
+                        b: "find", 
+                        c: "awk", 
+                        d: "sed" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you change file permissions?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to change file ownership?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to display running processes?", 
+                    answers: { 
+                        a: "ps", 
+                        b: "top", 
+                        c: "htop", 
+                        d: "jobs" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you display system information?", 
+                    answers: { 
+                        a: "uname -a", 
+                        b: "uname -r", 
+                        c: "uname -m", 
+                        d: "uname -s" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to display the last login information?", 
+                    answers: { 
+                        a: "last", 
+                        b: "who", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you display the current date and time?", 
+                    answers: { 
+                        a: "date", 
+                        b: "time", 
+                        c: "cal", 
+                        d: "clock" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What command is used to display logged-in users?", 
+                    answers: { 
+                        a: "who", 
+                        b: "whoami", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            docker: [
+                { 
+                    question: "Which command is used to build a Docker image?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to run a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to list Docker containers?", 
+                    answers: { 
+                        a: "docker ps", 
+                        b: "docker images", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to stop a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker remove" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you remove a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "Which command is used to list Docker images?", 
+                    answers: { 
+                        a: "docker images", 
+                        b: "docker ps", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to pull an image from Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you push an image to Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to view the logs of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker logs", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What is the command to get the details of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker ps", 
+                        d: "docker inspect" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "Which command is used to remove all stopped containers?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker prune", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you start a stopped container?", 
+                    answers: { 
+                        a: "docker start", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker kill" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to attach to a running container?", 
+                    answers: { 
+                        a: "docker attach", 
+                        b: "docker exec", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you list all networks in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to create a new network in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you inspect a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "Which command is used to remove a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "What is the command to stop all running containers?", 
+                    answers: { 
+                        a: "docker stop $(docker ps -q)", 
+                        b: "docker rm $(docker ps -q)", 
+                        c: "docker kill $(docker ps -q)", 
+                        d: "docker pause $(docker ps -q)" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you create a new image from a container’s changes?", 
+                    answers: { 
+                        a: "docker create", 
+                        b: "docker commit", 
+                        c: "docker build", 
+                        d: "docker run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to rename a Docker container?", 
+                    answers: { 
+                        a: "docker rename", 
+                        b: "docker move", 
+                        c: "docker cp", 
+                        d: "docker commit" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            jenkins: [
+                { 
+                    question: "What is Jenkins used for?", 
+                    answers: { 
+                        a: "Configuration management", 
+                        b: "Continuous integration and delivery", 
+                        c: "Container orchestration", 
+                        d: "Version control" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which plugin is used to integrate Jenkins with Git?", 
+                    answers: { 
+                        a: "GitHub Plugin", 
+                        b: "Maven Plugin", 
+                        c: "Docker Plugin", 
+                        d: "Pipeline Plugin" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you create a new job in Jenkins?", 
+                    answers: { 
+                        a: "Install a plugin", 
+                        b: "Create a new view", 
+                        c: "Create a new item", 
+                        d: "Configure a node" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What is a Jenkins Pipeline?", 
+                    answers: { 
+                        a: "A series of commands to build, test, and deploy applications", 
+                        b: "A tool for container orchestration", 
+                        c: "A version control system", 
+                        d: "A configuration management tool" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to start Jenkins manually?", 
+                    answers: { 
+                        a: "jenkins start", 
+                        b: "java -jar jenkins.war", 
+                        c: "jenkins run", 
+                        d: "java -jenkins start" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you install a Jenkins plugin?", 
+                    answers: { 
+                        a: "Using the Jenkins CLI", 
+                        b: "Manually uploading a file", 
+                        c: "Through the Plugin Manager in the web interface", 
+                        d: "By running a shell script" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What is the default port for Jenkins?", 
+                    answers: { 
+                        a: "8080", 
+                        b: "80", 
+                        c: "8443", 
+                        d: "443" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What is a Jenkins node?", 
+                    answers: { 
+                        a: "A build agent", 
+                        b: "A configuration file", 
+                        c: "A pipeline step", 
+                        d: "A job trigger" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you trigger a Jenkins job manually?", 
+                    answers: { 
+                        a: "By configuring a webhook", 
+                        b: "By clicking 'Build Now' in the Jenkins UI", 
+                        c: "By writing a script", 
+                        d: "By configuring a cron job" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What is a Jenkins workspace?", 
+                    answers: { 
+                        a: "A directory on a node where Jenkins builds a project", 
+                        b: "A container for pipeline steps", 
+                        c: "A plugin for managing jobs", 
+                        d: "A user interface for Jenkins" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you back up Jenkins configurations?", 
+                    answers: { 
+                        a: "By exporting jobs", 
+                        b: "By copying the Jenkins home directory", 
+                        c: "By using the Jenkins CLI", 
+                        d: "By creating a snapshot" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which tool can be integrated with Jenkins for code quality analysis?", 
+                    answers: { 
+                        a: "SonarQube", 
+                        b: "Docker", 
+                        c: "Kubernetes", 
+                        d: "Ansible" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What is a Jenkins job?", 
+                    answers: { 
+                        a: "A pipeline step", 
+                        b: "A single task to be executed", 
+                        c: "A build agent", 
+                        d: "A configuration file" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you secure Jenkins?", 
+                    answers: { 
+                        a: "By installing security plugins", 
+                        b: "By configuring security settings in the web interface", 
+                        c: "By using an external security tool", 
+                        d: "All of the above" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "What is the purpose of Jenkins Blue Ocean?", 
+                    answers: { 
+                        a: "To provide a modern user interface for Jenkins", 
+                        b: "To manage Docker containers", 
+                        c: "To monitor system performance", 
+                        d: "To automate cloud infrastructure" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you upgrade Jenkins?", 
+                    answers: { 
+                        a: "By downloading the latest version and replacing the existing files", 
+                        b: "By running a script", 
+                        c: "Through the Plugin Manager", 
+                        d: "By reinstalling Jenkins" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What is a Jenkins agent?", 
+                    answers: { 
+                        a: "A plugin for monitoring jobs", 
+                        b: "A server that executes jobs", 
+                        c: "A configuration file", 
+                        d: "A tool for container orchestration" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you configure a Jenkins pipeline?", 
+                    answers: { 
+                        a: "By writing a Jenkinsfile", 
+                        b: "By using the web interface", 
+                        c: "By installing a plugin", 
+                        d: "By configuring a node" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What is Jenkinsfile?", 
+                    answers: { 
+                        a: "A configuration file for jobs", 
+                        b: "A script that defines a Jenkins pipeline", 
+                        c: "A log file for builds", 
+                        d: "A tool for monitoring jobs" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you restart Jenkins?", 
+                    answers: { 
+                        a: "By stopping and starting the Jenkins service", 
+                        b: "By clicking 'Restart' in the web interface", 
+                        c: "By running a script", 
+                        d: "All of the above" 
+                    }, 
+                    correctAnswer: "d" 
+                }
+            ],
+            // Add more categories here with 20 questions each...
+        };
+
+        unction startQuiz(category) {
+            currentCategory = category;
+            currentQuestionIndex = 0;
+            userAnswers[currentCategory] = {};
+            categoryContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'block';
+            nextButton.style.display = 'block';
+            abortButton.style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestion = questions[currentCategory][currentQuestionIndex];
+            const answers = [];
+            for (letter in currentQuestion.answers) {
+                const isChecked = userAnswers[currentCategory][currentQuestionIndex] === letter ? 'checked' : '';
+                answers.push(
+                    `<label>
+                        <input type="radio" name="question${currentQuestionIndex}" value="${letter}" ${isChecked}>
+                        ${letter} :
+                        ${currentQuestion.answers[letter]}
+                    </label><br>`
+                );
+            }
+            quizContainer.innerHTML = `<div class="question">${currentQuestion.question}</div>
+                                       <div class="answers">${answers.join('')}</div>`;
+        }
+
+        function saveAnswer() {
+            const answerContainer = quizContainer.querySelector('.answers');
+            const selector = `input[name=question${currentQuestionIndex}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
+        }
+
+        function showResults() {
+            saveAnswer();
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+            let numCorrect = 0;
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+                const userAnswer = userAnswers[currentCategory][questionNumber];
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'lightgreen';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
+                }
+            });
+            resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
+            resetQuizState();
+        }
+
+        function nextQuestion() {
+            saveAnswer();
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions[currentCategory].length) {
+                currentQuestionIndex--;
+                submitButton.style.display = 'block';
+                nextButton.style.display = 'none';
+            } else {
+                showQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            saveAnswer();
+            currentQuestionIndex--;
+            if (currentQuestionIndex < 0) {
+                currentQuestionIndex = 0;
+            } else {
+                showQuestion();
+            }
+        }
+
+        function abortQuiz() {
+            saveAnswer();
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+            let numCorrect = 0;
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+                const userAnswer = userAnswers[currentCategory][questionNumber];
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'lightgreen';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
+                }
+            });
+            resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+            resetQuizState();
+        }
+
+        function resetQuizState() {
+            categoryContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            abortButton.style.display = 'none';
+        }
+
+        prevButton.addEventListener('click', prevQuestion);
+        nextButton.addEventListener('click', nextQuestion);
+        submitButton.addEventListener('click', showResults);
+        abortButton.addEventListener('click', abortQuiz);
+    </script>
+
+</body>
+</html>
