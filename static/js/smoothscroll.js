@@ -31,3 +31,12 @@ a=b.extend({},c.defaults,a);return a.lazy?this.bind(a.event,function(d){var c=b(
 
 // Initialize all .smoothScroll links
 jQuery(function($){ $.localScroll({filter:'.smoothScroll'}); });
+document.querySelectorAll('.smoothScroll').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
