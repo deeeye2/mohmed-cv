@@ -70,7 +70,7 @@
                     <p>As an undergraduate, I embarked on a journey fueled by ambition, but financial constraints forced me to pause my university education...</p>
                     <ul class="profile-list list-unstyled mt-4 mb-5 mb-lg-0">
                         <li><strong>Full Name :</strong> Mohamed Sesay</li>
-                        <li><strong>Date of Birth:</strong> 22 June 1998</li>
+                        <li><strong>Date of Birth:</strong> 22 June 1988</li>
                         <li><strong>Website :</strong> dee-empire.com</li>
                         <li><strong>Email :</strong> mohamed.sesay@outlook.com.au</li>
                     </ul>
@@ -251,6 +251,12 @@
     </section>
 
     <!-- SCRIPTS -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/log-visit', { method: 'POST' });
+    });
+   </script>
+
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
