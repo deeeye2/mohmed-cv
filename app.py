@@ -28,7 +28,13 @@ with app.app_context():
 
 @app.route('/')
 def index():
+    log_visit(request)
     return render_template('index.html')
+
+@app.route('/visitors')
+def show_visitors():
+    visits = Visit.query.all()
+    return render_template('visitors.html', visits=visits)
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
@@ -56,7 +62,7 @@ def send_email_to_you(name, email, message):
     body = 'Name: {}\nEmail: {}\nMessage: {}'.format(name, email, message)
     msg.attach(MIMEText(body, 'plain'))
 
-     try:
+    try:
         logging.debug('Connecting to SMTP server')
         server = smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
