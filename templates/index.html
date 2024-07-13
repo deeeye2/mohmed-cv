@@ -266,12 +266,12 @@
         const categoryContainer = document.getElementById('category-container');
         let currentQuestionIndex = 0;
         let currentCategory = '';
-        let userAnswers = {};
+        const userAnswers = {};
 
         const questions = {
             linux: [
                 { 
-                    question: "What command is used to display disk usage?", 
+                    question: "1. What command is used to display disk usage?", 
                     answers: { 
                         a: "ls", 
                         b: "du", 
@@ -281,7 +281,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "How do you check the available disk space?", 
+                    question: "2. How do you check the available disk space?", 
                     answers: { 
                         a: "ls", 
                         b: "df", 
@@ -291,7 +291,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "Which command is used to list files in a directory?", 
+                    question: "3. Which command is used to list files in a directory?", 
                     answers: { 
                         a: "ls", 
                         b: "cd", 
@@ -301,7 +301,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you change the current directory?", 
+                    question: "4. How do you change the current directory?", 
                     answers: { 
                         a: "ls", 
                         b: "cd", 
@@ -311,7 +311,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "What command is used to display the current directory path?", 
+                    question: "5. What command is used to display the current directory path?", 
                     answers: { 
                         a: "ls", 
                         b: "cd", 
@@ -321,7 +321,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "What command is used to create a new directory?", 
+                    question: "6. What command is used to create a new directory?", 
                     answers: { 
                         a: "ls", 
                         b: "cd", 
@@ -331,7 +331,7 @@
                     correctAnswer: "d" 
                 },
                 { 
-                    question: "How do you display the contents of a file?", 
+                    question: "7. How do you display the contents of a file?", 
                     answers: { 
                         a: "ls", 
                         b: "cat", 
@@ -341,7 +341,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "What command is used to move or rename a file?", 
+                    question: "8. What command is used to move or rename a file?", 
                     answers: { 
                         a: "mv", 
                         b: "cp", 
@@ -351,7 +351,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to copy files?", 
+                    question: "9. Which command is used to copy files?", 
                     answers: { 
                         a: "mv", 
                         b: "cp", 
@@ -361,7 +361,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "What command is used to remove files?", 
+                    question: "10. What command is used to remove files?", 
                     answers: { 
                         a: "mv", 
                         b: "cp", 
@@ -371,7 +371,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "How do you display the first few lines of a file?", 
+                    question: "11. How do you display the first few lines of a file?", 
                     answers: { 
                         a: "head", 
                         b: "tail", 
@@ -381,7 +381,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to display the last few lines of a file?", 
+                    question: "12. Which command is used to display the last few lines of a file?", 
                     answers: { 
                         a: "head", 
                         b: "tail", 
@@ -391,7 +391,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "What command is used to search for a specific pattern in a file?", 
+                    question: "13. What command is used to search for a specific pattern in a file?", 
                     answers: { 
                         a: "grep", 
                         b: "find", 
@@ -401,7 +401,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you change file permissions?", 
+                    question: "14. How do you change file permissions?", 
                     answers: { 
                         a: "chmod", 
                         b: "chown", 
@@ -411,7 +411,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to change file ownership?", 
+                    question: "15. Which command is used to change file ownership?", 
                     answers: { 
                         a: "chmod", 
                         b: "chown", 
@@ -421,7 +421,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "What command is used to display running processes?", 
+                    question: "16. What command is used to display running processes?", 
                     answers: { 
                         a: "ps", 
                         b: "top", 
@@ -431,7 +431,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you display system information?", 
+                    question: "17. How do you display system information?", 
                     answers: { 
                         a: "uname -a", 
                         b: "uname -r", 
@@ -441,7 +441,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to display the last login information?", 
+                    question: "18. Which command is used to display the last login information?", 
                     answers: { 
                         a: "last", 
                         b: "who", 
@@ -451,7 +451,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you display the current date and time?", 
+                    question: "19. How do you display the current date and time?", 
                     answers: { 
                         a: "date", 
                         b: "time", 
@@ -461,7 +461,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "What command is used to display logged-in users?", 
+                    question: "20. What command is used to display logged-in users?", 
                     answers: { 
                         a: "who", 
                         b: "whoami", 
@@ -473,7 +473,7 @@
             ],
             docker: [
                 { 
-                    question: "Which command is used to build a Docker image?", 
+                    question: "1. Which command is used to build a Docker image?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -483,7 +483,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to run a Docker container?", 
+                    question: "2. Which command is used to run a Docker container?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -493,7 +493,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "Which command is used to list Docker containers?", 
+                    question: "3. Which command is used to list Docker containers?", 
                     answers: { 
                         a: "docker ps", 
                         b: "docker images", 
@@ -503,7 +503,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to stop a running container?", 
+                    question: "4. Which command is used to stop a running container?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -513,7 +513,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "How do you remove a Docker container?", 
+                    question: "5. How do you remove a Docker container?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -523,7 +523,7 @@
                     correctAnswer: "d" 
                 },
                 { 
-                    question: "Which command is used to list Docker images?", 
+                    question: "6. Which command is used to list Docker images?", 
                     answers: { 
                         a: "docker images", 
                         b: "docker ps", 
@@ -533,7 +533,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to pull an image from Docker Hub?", 
+                    question: "7. Which command is used to pull an image from Docker Hub?", 
                     answers: { 
                         a: "docker pull", 
                         b: "docker push", 
@@ -543,7 +543,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you push an image to Docker Hub?", 
+                    question: "8. How do you push an image to Docker Hub?", 
                     answers: { 
                         a: "docker pull", 
                         b: "docker push", 
@@ -553,7 +553,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "Which command is used to view the logs of a running container?", 
+                    question: "9. Which command is used to view the logs of a running container?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -563,7 +563,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "What is the command to get the details of a running container?", 
+                    question: "10. What is the command to get the details of a running container?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -573,7 +573,7 @@
                     correctAnswer: "d" 
                 },
                 { 
-                    question: "Which command is used to remove all stopped containers?", 
+                    question: "11. Which command is used to remove all stopped containers?", 
                     answers: { 
                         a: "docker build", 
                         b: "docker run", 
@@ -583,7 +583,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "How do you start a stopped container?", 
+                    question: "12. How do you start a stopped container?", 
                     answers: { 
                         a: "docker start", 
                         b: "docker run", 
@@ -593,7 +593,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to attach to a running container?", 
+                    question: "13. Which command is used to attach to a running container?", 
                     answers: { 
                         a: "docker attach", 
                         b: "docker exec", 
@@ -603,7 +603,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you list all networks in Docker?", 
+                    question: "14. How do you list all networks in Docker?", 
                     answers: { 
                         a: "docker network ls", 
                         b: "docker network create", 
@@ -613,7 +613,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "Which command is used to create a new network in Docker?", 
+                    question: "15. Which command is used to create a new network in Docker?", 
                     answers: { 
                         a: "docker network ls", 
                         b: "docker network create", 
@@ -623,7 +623,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "How do you inspect a Docker network?", 
+                    question: "16. How do you inspect a Docker network?", 
                     answers: { 
                         a: "docker network ls", 
                         b: "docker network create", 
@@ -633,7 +633,7 @@
                     correctAnswer: "c" 
                 },
                 { 
-                    question: "Which command is used to remove a Docker network?", 
+                    question: "17. Which command is used to remove a Docker network?", 
                     answers: { 
                         a: "docker network ls", 
                         b: "docker network create", 
@@ -643,7 +643,7 @@
                     correctAnswer: "d" 
                 },
                 { 
-                    question: "What is the command to stop all running containers?", 
+                    question: "18. What is the command to stop all running containers?", 
                     answers: { 
                         a: "docker stop $(docker ps -q)", 
                         b: "docker rm $(docker ps -q)", 
@@ -653,7 +653,7 @@
                     correctAnswer: "a" 
                 },
                 { 
-                    question: "How do you create a new image from a container’s changes?", 
+                    question: "19. How do you create a new image from a container’s changes?", 
                     answers: { 
                         a: "docker create", 
                         b: "docker commit", 
@@ -663,7 +663,7 @@
                     correctAnswer: "b" 
                 },
                 { 
-                    question: "Which command is used to rename a Docker container?", 
+                    question: "20. Which command is used to rename a Docker container?", 
                     answers: { 
                         a: "docker rename", 
                         b: "docker move", 
@@ -673,208 +673,6 @@
                     correctAnswer: "a" 
                 }
             ],
-            jenkins: [
-                { 
-                    question: "Which tool is commonly used for Continuous Integration?", 
-                    answers: { 
-                        a: "Docker", 
-                        b: "Kubernetes", 
-                        c: "Jenkins", 
-                        d: "Ansible" 
-                    }, 
-                    correctAnswer: "c" 
-                },
-                { 
-                    question: "What is the default port for Jenkins?", 
-                    answers: { 
-                        a: "8080", 
-                        b: "8081", 
-                        c: "9090", 
-                        d: "9091" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "How do you create a new Jenkins job?", 
-                    answers: { 
-                        a: "Click on 'New Item'", 
-                        b: "Click on 'Manage Jenkins'", 
-                        c: "Click on 'Build Now'", 
-                        d: "Click on 'Configure System'" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "What is Jenkins pipeline?", 
-                    answers: { 
-                        a: "A script to build applications", 
-                        b: "A way to define the entire lifecycle of the build", 
-                        c: "A tool for container orchestration", 
-                        d: "A type of configuration management" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "How do you trigger a build in Jenkins?", 
-                    answers: { 
-                        a: "Click on 'Manage Jenkins'", 
-                        b: "Click on 'Build Now'", 
-                        c: "Click on 'New Item'", 
-                        d: "Click on 'Configure System'" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "Which file is used to define a Jenkins pipeline?", 
-                    answers: { 
-                        a: "Dockerfile", 
-                        b: "Jenkinsfile", 
-                        c: "Buildfile", 
-                        d: "Pipelinefile" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "What is Jenkins Blue Ocean?", 
-                    answers: { 
-                        a: "A type of container", 
-                        b: "A Jenkins plugin for a new user experience", 
-                        c: "A cloud service", 
-                        d: "A configuration management tool" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "How do you install Jenkins plugins?", 
-                    answers: { 
-                        a: "Through the Jenkins Dashboard", 
-                        b: "Through the command line", 
-                        c: "Through the Jenkinsfile", 
-                        d: "Through the Jenkins agent" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "What is the purpose of Jenkins nodes?", 
-                    answers: { 
-                        a: "To build containers", 
-                        b: "To run Jenkins jobs on different machines", 
-                        c: "To manage configuration", 
-                        d: "To monitor performance" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "How do you secure Jenkins?", 
-                    answers: { 
-                        a: "By installing security plugins", 
-                        b: "By configuring authentication and authorization", 
-                        c: "By running Jenkins behind a firewall", 
-                        d: "All of the above" 
-                    }, 
-                    correctAnswer: "d" 
-                },
-                { 
-                    question: "What is a Jenkins agent?", 
-                    answers: { 
-                        a: "A tool for monitoring", 
-                        b: "A node that runs jobs", 
-                        c: "A configuration management tool", 
-                        d: "A container orchestration tool" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "Which command is used to start Jenkins on Linux?", 
-                    answers: { 
-                        a: "jenkins start", 
-                        b: "systemctl start jenkins", 
-                        c: "service jenkins start", 
-                        d: "initctl start jenkins" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "How do you backup Jenkins configurations?", 
-                    answers: { 
-                        a: "By copying the Jenkins home directory", 
-                        b: "By exporting jobs", 
-                        c: "By exporting builds", 
-                        d: "By copying the Jenkins log files" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "What is the purpose of Jenkins pipeline stages?", 
-                    answers: { 
-                        a: "To define steps in the build process", 
-                        b: "To define the build environment", 
-                        c: "To define the build container", 
-                        d: "To define the build agent" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "How do you view build logs in Jenkins?", 
-                    answers: { 
-                        a: "By clicking on the job", 
-                        b: "By clicking on 'Build Now'", 
-                        c: "By clicking on 'Configure System'", 
-                        d: "By clicking on 'New Item'" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "What is a Jenkins freestyle project?", 
-                    answers: { 
-                        a: "A project with no constraints", 
-                        b: "A project with a custom build process", 
-                        c: "A project for container builds", 
-                        d: "A project for configuration management" 
-                    }, 
-                    correctAnswer: "b" 
-                },
-                { 
-                    question: "Which plugin is used for code analysis in Jenkins?", 
-                    answers: { 
-                        a: "Cobertura", 
-                        b: "FindBugs", 
-                        c: "PMD", 
-                        d: "All of the above" 
-                    }, 
-                    correctAnswer: "d" 
-                },
-                { 
-                    question: "What is Jenkins master?", 
-                    answers: { 
-                        a: "The central controller that manages jobs", 
-                        b: "A node that runs jobs", 
-                        c: "A configuration management tool", 
-                        d: "A container orchestration tool" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "How do you configure email notifications in Jenkins?", 
-                    answers: { 
-                        a: "By configuring the email plugin", 
-                        b: "By configuring the Jenkinsfile", 
-                        c: "By configuring the Dockerfile", 
-                        d: "By configuring the build job" 
-                    }, 
-                    correctAnswer: "a" 
-                },
-                { 
-                    question: "Which file is used to store Jenkins configuration?", 
-                    answers: { 
-                        a: "config.xml", 
-                        b: "jenkins.xml", 
-                        c: "build.xml", 
-                        d: "pipeline.xml" 
-                    }, 
-                    correctAnswer: "a" 
-                }
-            ]
             // Add more categories here with 20 questions each...
         };
 
@@ -908,13 +706,6 @@
                                        <div class="answers">${answers.join('')}</div>`;
         }
 
-        function saveAnswer() {
-            const answerContainer = quizContainer.querySelector('.answers');
-            const selector = `input[name=question${currentQuestionIndex}]:checked`;
-            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
-        }
-
         function showResults() {
             saveAnswer();
             const answerContainers = quizContainer.querySelectorAll('.answers');
@@ -923,12 +714,9 @@
                 const userAnswer = userAnswers[currentCategory][questionNumber];
                 if (userAnswer === currentQuestion.correctAnswer) {
                     numCorrect++;
-                    answerContainers[questionNumber].style.color = 'lightgreen';
-                } else {
-                    answerContainers[questionNumber].style.color = 'red';
                 }
             });
-            resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
+            resultsContainer.innerHTML = `You scored ${numCorrect} out of ${questions[currentCategory].length}.`;
             resetQuizState();
         }
 
@@ -962,13 +750,19 @@
                 const userAnswer = userAnswers[currentCategory][questionNumber];
                 if (userAnswer === currentQuestion.correctAnswer) {
                     numCorrect++;
-                    answerContainers[questionNumber].style.color = 'lightgreen';
-                } else {
-                    answerContainers[questionNumber].style.color = 'red';
                 }
             });
             resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
-            resetQuizState();
+            setTimeout(() => {
+                resetQuizState();
+            }, 3000); // Show the results for 3 seconds before resetting
+        }
+
+        function saveAnswer() {
+            const answerContainer = quizContainer.querySelector('.answers');
+            const selector = `input[name=question${currentQuestionIndex}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
         }
 
         function resetQuizState() {
@@ -985,6 +779,6 @@
         submitButton.addEventListener('click', showResults);
         abortButton.addEventListener('click', abortQuiz);
     </script>
-
 </body>
 </html>
+
