@@ -214,8 +214,8 @@
         </div>
     </section>
 
-   <!-- QUIZ SECTION -->
-    <section class="quiz section-padding" id="devops-quiz">
+    <!-- DEVOPS QUIZ SECTION -->
+    <section class="section-padding" id="devops-quiz">
         <div class="container mt-5">
             <div class="dashboard">
                 <h1 class="dashboard-title">DevOps Quiz</h1>
@@ -241,12 +241,17 @@
         </div>
     </section>
 
+    <!-- SCRIPTS -->
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/log-visit', { method: 'POST' });
+        });
+
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-quiz');
@@ -258,11 +263,6 @@
         let currentCategory = '';
         const userAnswers = {};
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/log-visit', { method: 'POST' });
-        });
-    </script>
 
         const questions = {
             linux: [
@@ -2174,6 +2174,7 @@ function startQuiz(category) {
         submitButton.addEventListener('click', showResults);
         abortButton.addEventListener('click', abortQuiz);
     </script>
+
     
 <!-- CONTACT SECTION -->
     <section class="contact section-padding pt-0" id="contact">
