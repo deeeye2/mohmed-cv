@@ -2034,7 +2034,18 @@
 };
 
 
-        function startQuiz(category) {
+        let currentCategory = '';
+let currentQuestionIndex = 0;
+let userAnswers = {};
+const categoryContainer = document.getElementById('category-container');
+const quizContainer = document.getElementById('quiz-container');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit-quiz');
+const prevButton = document.getElementById('prev-question');
+const nextButton = document.getElementById('next-question');
+const abortButton = document.getElementById('abort-quiz');
+
+function startQuiz(category) {
     currentCategory = category;
     currentQuestionIndex = 0;
     userAnswers[currentCategory] = {};
@@ -2140,7 +2151,6 @@ prevButton.addEventListener('click', prevQuestion);
 nextButton.addEventListener('click', nextQuestion);
 submitButton.addEventListener('click', showResults);
 abortButton.addEventListener('click', abortQuiz);
-
 
 
 </script>
