@@ -225,7 +225,7 @@
 <body>
     <div class="container mt-5">
         <div class="dashboard">
-            <h1 class="dashboard-title">DevOps Quiz Dashboard</h1>
+            <h1 class="dashboard-title">DevOps Quiz</h1>
             <div id="category-container" class="category-container">
                 <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
                 <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
@@ -263,8 +263,8 @@
     <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-    <script>
-        const quizContainer = document.getElementById('quiz-container');
+        
+const quizContainer = document.getElementById('quiz-container');
 const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit-quiz');
 const prevButton = document.getElementById('prev-question');
@@ -2080,19 +2080,6 @@ let userAnswers = {};
     // Other categories go here...
 };
 
-const questions = {
-    linux: [ /* Add your Linux questions here */ ],
-    docker: [ /* Add your Docker questions here */ ],
-    jenkins: [ /* Add your Jenkins questions here */ ],
-    ansible: [ /* Add your Ansible questions here */ ],
-    terraform: [ /* Add your Terraform questions here */ ],
-    kubernetes: [ /* Add your Kubernetes questions here */ ],
-    grafana: [ /* Add your Grafana questions here */ ],
-    prometheus: [ /* Add your Prometheus questions here */ ],
-    git: [ /* Add your Git questions here */ ],
-    github: [ /* Add your GitHub questions here */ ]
-    // Add other categories as needed
-};
 
 function startQuiz(category) {
     currentCategory = category;
