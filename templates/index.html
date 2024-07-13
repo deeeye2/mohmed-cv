@@ -714,9 +714,12 @@
                 const userAnswer = userAnswers[currentCategory][questionNumber];
                 if (userAnswer === currentQuestion.correctAnswer) {
                     numCorrect++;
+                    answerContainers[questionNumber].style.color = 'lightgreen';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
                 }
             });
-            resultsContainer.innerHTML = `You scored ${numCorrect} out of ${questions[currentCategory].length}.`;
+            resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
             resetQuizState();
         }
 
@@ -750,12 +753,23 @@
                 const userAnswer = userAnswers[currentCategory][questionNumber];
                 if (userAnswer === currentQuestion.correctAnswer) {
                     numCorrect++;
+                    answerContainers[questionNumber].style.color = 'lightgreen';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
                 }
             });
             resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+
+            // Reset the state and navigate back to the main menu after showing results
             setTimeout(() => {
-                resetQuizState();
-            }, 3000); // Show the results for 3 seconds before resetting
+                resultsContainer.innerHTML = '';
+                categoryContainer.style.display = 'block';
+                quizContainer.style.display = 'none';
+                submitButton.style.display = 'none';
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+                abortButton.style.display = 'none';
+            }, 5000); // Show the results for 5 seconds before resetting
         }
 
         function saveAnswer() {
@@ -781,4 +795,3 @@
     </script>
 </body>
 </html>
-
