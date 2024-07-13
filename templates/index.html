@@ -241,372 +241,487 @@
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
     <script>
+    <!-- QUIZ SECTION -->
+    <section class="quiz section-padding" id="quiz">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="mb-4">DevOps Quiz</h3>
+                    <form id="quiz-form">
+                        <div id="category-container">
+                            <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('jenkins')">Jenkins</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('ansible')">Ansible</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('terraform')">Terraform</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('kubernetes')">Kubernetes</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('grafana')">Grafana</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('prometheus')">Prometheus</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('git')">Git</button>
+                            <button type="button" class="category-btn" onclick="startQuiz('github')">GitHub</button>
+                        </div>
+                        <div id="quiz-container" style="display:none;"></div>
+                        <button type="button" id="prev-question" class="form-control mt-3" style="display:none;">Previous Question</button>
+                        <button type="button" id="next-question" class="form-control mt-3" style="display:none;">Next Question</button>
+                        <button type="button" id="submit-quiz" class="form-control mt-3" style="display:none;">Submit Quiz</button>
+                        <button type="button" id="abort-quiz" class="form-control mt-3" style="display:none;">Abort Quiz</button>
+                    </form>
+                    <div id="results" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-quiz');
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        const abortButton = document.getElementById('abort-quiz');
+        const categoryContainer = document.getElementById('category-container');
+        let currentQuestionIndex = 0;
+        let currentCategory = '';
 
-        const quizCategories = {
+        const questions = {
             linux: [
-                {
-                    question: "What command is used to list files in a directory?",
-                    answers: {
-                        a: "ls",
-                        b: "cd",
-                        c: "pwd",
-                        d: "mkdir"
-                    },
-                    correctAnswer: "a"
+                { 
+                    question: "What command is used to display disk usage?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "du", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
                 },
-                {
-                    question: "How do you change the current directory?",
-                    answers: {
-                        a: "ls",
-                        b: "cd",
-                        c: "pwd",
-                        d: "mkdir"
-                    },
-                    correctAnswer: "b"
+                { 
+                    question: "How do you check the available disk space?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "df", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
                 },
-                {
-                    question: "What command is used to display the current directory path?",
-                    answers: {
-                        a: "ls",
-                        b: "cd",
-                        c: "pwd",
-                        d: "mkdir"
-                    },
-                    correctAnswer: "c"
+                { 
+                    question: "Which command is used to list files in a directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
                 },
-                // Add more Linux questions here...
+                { 
+                    question: "How do you change the current directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to display the current directory path?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What command is used to create a new directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "How do you display the contents of a file?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cat", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to move or rename a file?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to copy files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to remove files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you display the first few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to display the last few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to search for a specific pattern in a file?", 
+                    answers: { 
+                        a: "grep", 
+                        b: "find", 
+                        c: "awk", 
+                        d: "sed" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you change file permissions?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to change file ownership?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "What command is used to display running processes?", 
+                    answers: { 
+                        a: "ps", 
+                        b: "top", 
+                        c: "htop", 
+                        d: "jobs" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you display system information?", 
+                    answers: { 
+                        a: "uname -a", 
+                        b: "uname -r", 
+                        c: "uname -m", 
+                        d: "uname -s" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to display the last login information?", 
+                    answers: { 
+                        a: "last", 
+                        b: "who", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you display the current date and time?", 
+                    answers: { 
+                        a: "date", 
+                        b: "time", 
+                        c: "cal", 
+                        d: "clock" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "What command is used to display logged-in users?", 
+                    answers: { 
+                        a: "who", 
+                        b: "whoami", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                }
             ],
             docker: [
-                {
-                    question: "What command is used to list Docker containers?",
-                    answers: {
-                        a: "docker ps",
-                        b: "docker run",
-                        c: "docker images",
-                        d: "docker build"
-                    },
-                    correctAnswer: "a"
+                { 
+                    question: "Which command is used to build a Docker image?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "a" 
                 },
-                {
-                    question: "How do you build a Docker image?",
-                    answers: {
-                        a: "docker ps",
-                        b: "docker run",
-                        c: "docker images",
-                        d: "docker build"
-                    },
-                    correctAnswer: "d"
+                { 
+                    question: "Which command is used to run a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "b" 
                 },
-                {
-                    question: "What is the command to stop a running container?",
-                    answers: {
-                        a: "docker start",
-                        b: "docker stop",
-                        c: "docker restart",
-                        d: "docker pause"
-                    },
-                    correctAnswer: "b"
+                { 
+                    question: "Which command is used to list Docker containers?", 
+                    answers: { 
+                        a: "docker ps", 
+                        b: "docker images", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
                 },
-                // Add more Docker questions here...
+                { 
+                    question: "Which command is used to stop a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker remove" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you remove a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "Which command is used to list Docker images?", 
+                    answers: { 
+                        a: "docker images", 
+                        b: "docker ps", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to pull an image from Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you push an image to Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to view the logs of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker logs", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "What is the command to get the details of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker ps", 
+                        d: "docker inspect" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "Which command is used to remove all stopped containers?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker prune", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "How do you start a stopped container?", 
+                    answers: { 
+                        a: "docker start", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker kill" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to attach to a running container?", 
+                    answers: { 
+                        a: "docker attach", 
+                        b: "docker exec", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you list all networks in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "Which command is used to create a new network in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "How do you inspect a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "Which command is used to remove a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "What is the command to stop all running containers?", 
+                    answers: { 
+                        a: "docker stop $(docker ps -q)", 
+                        b: "docker rm $(docker ps -q)", 
+                        c: "docker kill $(docker ps -q)", 
+                        d: "docker pause $(docker ps -q)" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "How do you create a new image from a container’s changes?", 
+                    answers: { 
+                        a: "docker create", 
+                        b: "docker commit", 
+                        c: "docker build", 
+                        d: "docker run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "Which command is used to rename a Docker container?", 
+                    answers: { 
+                        a: "docker rename", 
+                        b: "docker move", 
+                        c: "docker cp", 
+                        d: "docker commit" 
+                    }, 
+                    correctAnswer: "a" 
+                }
             ],
-            jenkins: [
-                {
-                    question: "What is Jenkins used for?",
-                    answers: {
-                        a: "Monitoring",
-                        b: "Continuous Integration and Continuous Deployment",
-                        c: "Configuration Management",
-                        d: "Container Orchestration"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "Which plugin is commonly used for Git integration in Jenkins?",
-                    answers: {
-                        a: "GitHub Plugin",
-                        b: "Git Plugin",
-                        c: "Subversion Plugin",
-                        d: "Maven Plugin"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "How do you trigger a build in Jenkins?",
-                    answers: {
-                        a: "Manually from the Jenkins UI",
-                        b: "Using a webhook",
-                        c: "Using a Jenkinsfile",
-                        d: "All of the above"
-                    },
-                    correctAnswer: "d"
-                },
-                // Add more Jenkins questions here...
-            ],
-            ansible: [
-                {
-                    question: "What is Ansible used for?",
-                    answers: {
-                        a: "Monitoring applications",
-                        b: "Configuration management",
-                        c: "Code deployment",
-                        d: "Container Orchestration"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "What language are Ansible playbooks written in?",
-                    answers: {
-                        a: "YAML",
-                        b: "JSON",
-                        c: "XML",
-                        d: "INI"
-                    },
-                    correctAnswer: "a"
-                },
-                {
-                    question: "How do you run an Ansible playbook?",
-                    answers: {
-                        a: "ansible-playbook <playbook.yml>",
-                        b: "ansible <playbook.yml>",
-                        c: "run-playbook <playbook.yml>",
-                        d: "playbook <playbook.yml>"
-                    },
-                    correctAnswer: "a"
-                },
-                // Add more Ansible questions here...
-            ],
-            terraform: [
-                {
-                    question: "What is Terraform used for?",
-                    answers: {
-                        a: "Containerization",
-                        b: "Configuration Management",
-                        c: "Infrastructure as Code",
-                        d: "Continuous Integration"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "Which command is used to initialize a Terraform configuration?",
-                    answers: {
-                        a: "terraform apply",
-                        b: "terraform plan",
-                        c: "terraform init",
-                        d: "terraform destroy"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "How do you apply a Terraform configuration?",
-                    answers: {
-                        a: "terraform apply",
-                        b: "terraform plan",
-                        c: "terraform init",
-                        d: "terraform destroy"
-                    },
-                    correctAnswer: "a"
-                },
-                // Add more Terraform questions here...
-            ],
-            kubernetes: [
-                {
-                    question: "What is Kubernetes used for?",
-                    answers: {
-                        a: "Continuous Integration",
-                        b: "Container Orchestration",
-                        c: "Configuration Management",
-                        d: "Infrastructure as Code"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "What is the command to create a Kubernetes deployment?",
-                    answers: {
-                        a: "kubectl apply",
-                        b: "kubectl create deployment",
-                        c: "kubectl run deployment",
-                        d: "kubectl deploy"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "What is a Kubernetes pod?",
-                    answers: {
-                        a: "A node in the cluster",
-                        b: "A container image",
-                        c: "The smallest deployable unit",
-                        d: "A configuration file"
-                    },
-                    correctAnswer: "c"
-                },
-                // Add more Kubernetes questions here...
-            ],
-            grafana: [
-                {
-                    question: "What is Grafana used for?",
-                    answers: {
-                        a: "Monitoring and alerting",
-                        b: "Configuration Management",
-                        c: "Container Orchestration",
-                        d: "Infrastructure as Code"
-                    },
-                    correctAnswer: "a"
-                },
-                {
-                    question: "Which database is commonly used with Grafana for time-series data?",
-                    answers: {
-                        a: "MySQL",
-                        b: "PostgreSQL",
-                        c: "InfluxDB",
-                        d: "MongoDB"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "What is a Grafana dashboard?",
-                    answers: {
-                        a: "A configuration file",
-                        b: "A collection of widgets",
-                        c: "A monitoring tool",
-                        d: "A database"
-                    },
-                    correctAnswer: "b"
-                },
-                // Add more Grafana questions here...
-            ],
-            prometheus: [
-                {
-                    question: "What is Prometheus used for?",
-                    answers: {
-                        a: "Continuous integration",
-                        b: "Configuration management",
-                        c: "Monitoring and alerting",
-                        d: "Infrastructure as Code"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "What language is Prometheus configuration written in?",
-                    answers: {
-                        a: "YAML",
-                        b: "JSON",
-                        c: "XML",
-                        d: "INI"
-                    },
-                    correctAnswer: "a"
-                },
-                {
-                    question: "What is a Prometheus metric?",
-                    answers: {
-                        a: "A unit of measurement",
-                        b: "A data point",
-                        c: "A configuration file",
-                        d: "A query language"
-                    },
-                    correctAnswer: "b"
-                },
-                // Add more Prometheus questions here...
-            ],
-            git: [
-                {
-                    question: "What is Git used for?",
-                    answers: {
-                        a: "Monitoring",
-                        b: "Version control",
-                        c: "Continuous Integration",
-                        d: "Configuration Management"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "What command is used to clone a Git repository?",
-                    answers: {
-                        a: "git init",
-                        b: "git clone",
-                        c: "git pull",
-                        d: "git push"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "How do you create a new branch in Git?",
-                    answers: {
-                        a: "git branch <branch-name>",
-                        b: "git checkout <branch-name>",
-                        c: "git merge <branch-name>",
-                        d: "git pull <branch-name>"
-                    },
-                    correctAnswer: "a"
-                },
-                // Add more Git questions here...
-            ],
-            github: [
-                {
-                    question: "What is GitHub used for?",
-                    answers: {
-                        a: "Container Orchestration",
-                        b: "Version control hosting",
-                        c: "Continuous Integration",
-                        d: "Configuration Management"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "How do you create a new repository on GitHub?",
-                    answers: {
-                        a: "Using the GitHub UI",
-                        b: "Using the GitHub CLI",
-                        c: "Using the GitHub API",
-                        d: "All of the above"
-                    },
-                    correctAnswer: "d"
-                },
-                {
-                    question: "What is a pull request on GitHub?",
-                    answers: {
-                        a: "A request to pull code from a remote repository",
-                        b: "A request to merge code into a branch",
-                        c: "A request to create a new branch",
-                        d: "A request to delete a branch"
-                    },
-                    correctAnswer: "b"
-                },
-                // Add more GitHub questions here...
-            ]
+            // Add more categories here with 20 questions each...
         };
 
-        let currentCategoryIndex = 0;
-        const categories = Object.keys(quizCategories);
-        let currentQuestions = quizCategories[categories[currentCategoryIndex]];
+        function startQuiz(category) {
+            currentCategory = category;
+            currentQuestionIndex = 0;
+            categoryContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'block';
+            nextButton.style.display = 'block';
+            abortButton.style.display = 'block';
+            showQuestion();
+        }
 
-        function buildQuiz() {
-            const output = [];
-            currentQuestions.forEach((currentQuestion, questionNumber) => {
-                const answers = [];
-                for (letter in currentQuestion.answers) {
-                    answers.push(
-                        `<label>
-                            <input type="radio" name="question${questionNumber}" value="${letter}">
-                            ${letter} :
-                            ${currentQuestion.answers[letter]}
-                        </label>`
-                    );
-                }
-                output.push(
-                    `<div class="question"> ${currentQuestion.question} </div>
-                    <div class="answers"> ${answers.join('')} </div>`
+        function showQuestion() {
+            const currentQuestion = questions[currentCategory][currentQuestionIndex];
+            const answers = [];
+            for (letter in currentQuestion.answers) {
+                answers.push(
+                    `<label>
+                        <input type="radio" name="question${currentQuestionIndex}" value="${letter}">
+                        ${letter} :
+                        ${currentQuestion.answers[letter]}
+                    </label><br>`
                 );
-            });
-            quizContainer.innerHTML = output.join('');
+            }
+            quizContainer.innerHTML = `<div class="question">${currentQuestion.question}</div>
+                                       <div class="answers">${answers.join('')}</div>`;
         }
 
         function showResults() {
             const answerContainers = quizContainer.querySelectorAll('.answers');
             let numCorrect = 0;
-            currentQuestions.forEach((currentQuestion, questionNumber) => {
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
                 const answerContainer = answerContainers[questionNumber];
                 const selector = `input[name=question${questionNumber}]:checked`;
                 const userAnswer = (answerContainer.querySelector(selector) || {}).value;
@@ -617,41 +732,51 @@
                     answerContainers[questionNumber].style.color = 'red';
                 }
             });
-            resultsContainer.innerHTML = `${numCorrect} out of ${currentQuestions.length}`;
+            resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
         }
 
-        function showNextCategory() {
-            if (currentCategoryIndex < categories.length - 1) {
-                currentCategoryIndex++;
-                currentQuestions = quizCategories[categories[currentCategoryIndex]];
-                buildQuiz();
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions[currentCategory].length) {
+                currentQuestionIndex--;
+                submitButton.style.display = 'block';
+                nextButton.style.display = 'none';
+            } else {
+                showQuestion();
             }
         }
 
-        function showPrevCategory() {
-            if (currentCategoryIndex > 0) {
-                currentCategoryIndex--;
-                currentQuestions = quizCategories[categories[currentCategoryIndex]];
-                buildQuiz();
+        function prevQuestion() {
+            currentQuestionIndex--;
+            if (currentQuestionIndex < 0) {
+                currentQuestionIndex = 0;
+            } else {
+                showQuestion();
             }
         }
 
         function abortQuiz() {
-            alert("Hope you will come back!");
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+            let numCorrect = 0;
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const selector = `input[name=question${questionNumber}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'lightgreen';
+                } else {
+                    answerContainers[questionNumber].style.color = 'red';
+                }
+            });
+            resultsContainer.innerHTML = `You aborted the quiz. ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
         }
 
-        buildQuiz();
+        prevButton.addEventListener('click', prevQuestion);
+        nextButton.addEventListener('click', nextQuestion);
         submitButton.addEventListener('click', showResults);
-        document.getElementById('next-category').addEventListener('click', showNextCategory);
-        document.getElementById('prev-category').addEventListener('click', showPrevCategory);
-        document.getElementById('abort-quiz').addEventListener('click', abortQuiz);
+        abortButton.addEventListener('click', abortQuiz);
     </script>
-    <!-- SCRIPTS -->
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 </body>
 </html>
