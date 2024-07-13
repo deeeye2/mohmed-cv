@@ -225,29 +225,6 @@
                 <div class="col-lg-12 col-md-12 col-12">
                     <h3 class="mb-4">DevOps Quiz</h3>
                     <form id="quiz-form">
-                        <div id="quiz-container"></div>
-                        <button type="button" id="submit-quiz" class="form-control mt-3">Submit Quiz</button>
-                    </form>
-                    <div id="results" class="mt-3"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SCRIPTS -->
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-    <script>
-    <!-- QUIZ SECTION -->
-    <section class="quiz section-padding" id="quiz">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-12">
-                    <h3 class="mb-4">DevOps Quiz</h3>
-                    <form id="quiz-form">
                         <div id="category-container">
                             <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
                             <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
@@ -272,6 +249,13 @@
         </div>
     </section>
 
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script>
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-quiz');
