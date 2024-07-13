@@ -256,15 +256,16 @@
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
     <script>
-        const quizContainer = document.getElementById('quiz-container');
-        const resultsContainer = document.getElementById('results');
-        const submitButton = document.getElementById('submit-quiz');
-        const prevButton = document.getElementById('prev-question');
-        const nextButton = document.getElementById('next-question');
-        const abortButton = document.getElementById('abort-quiz');
-        const categoryContainer = document.getElementById('category-container');
-        let currentQuestionIndex = 0;
-        let currentCategory = '';
+    const quizContainer = document.getElementById('quiz-container');
+    const resultsContainer = document.getElementById('results');
+    const submitButton = document.getElementById('submit-quiz');
+    const prevButton = document.getElementById('prev-question');
+    const nextButton = document.getElementById('next-question');
+    const abortButton = document.getElementById('abort-quiz');
+    const categoryContainer = document.getElementById('category-container');
+    let currentQuestionIndex = 0;
+    let currentCategory = '';
+    let userAnswers = {};
 
         const questions = {
             linux: [
@@ -888,92 +889,112 @@
             showQuestion();
         }
 
-        function showQuestion() {
-            const currentQuestion = questions[currentCategory][currentQuestionIndex];
-            const answers = [];
-            for (letter in currentQuestion.answers) {
-                answers.push(
-                    `<label>
-                        <input type="radio" name="question${currentQuestionIndex}" value="${letter}">
-                        ${letter} :
-                        ${currentQuestion.answers[letter]}
-                    </label><br>`
-                );
-            }
-            quizContainer.innerHTML = `<div class="question">${currentQuestion.question}</div>
-                                       <div class="answers">${answers.join('')}</div>`;
-        }
+        function startQuiz(category) {
+        currentCategory = category;
+        currentQuestionIndex = 0;
+        userAnswers[currentCategory] = {};
+        categoryContainer.style.display = 'none';
+        quizContainer.style.display = 'block';
+        submitButton.style.display = 'none';
+        prevButton.style.display = 'block';
+        nextButton.style.display = 'block';
+        abortButton.style.display = 'block';
+        showQuestion();
+    }
 
-        function showResults() {
-            const answerContainers = quizContainer.querySelectorAll('.answers');
-            let numCorrect = 0;
-            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
-                const answerContainer = answerContainers[questionNumber];
-                const selector = `input[name=question${questionNumber}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-                if (userAnswer === currentQuestion.correctAnswer) {
-                    numCorrect++;
-                    answerContainers[questionNumber].style.color = 'lightgreen';
-                } else {
-                    answerContainers[questionNumber].style.color = 'red';
-                }
-            });
-            resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
-            categoryContainer.style.display = 'block';
-            quizContainer.style.display = 'none';
-            submitButton.style.display = 'none';
-            prevButton.style.display = 'none';
-            nextButton.style.display = 'none';
-            abortButton.style.display = 'none';
+    function showQuestion() {
+        const currentQuestion = questions[currentCategory][currentQuestionIndex];
+        const answers = [];
+        for (letter in currentQuestion.answers) {
+            const isChecked = userAnswers[currentCategory][currentQuestionIndex] === letter ? 'checked' : '';
+            answers.push(
+                `<label>
+                    <input type="radio" name="question${currentQuestionIndex}" value="${letter}" ${isChecked}>
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                </label><br>`
+            );
         }
+        quizContainer.innerHTML = `<div class="question">${currentQuestion.question}</div>
+                                   <div class="answers">${answers.join('')}</div>`;
+    }
 
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex >= questions[currentCategory].length) {
-                currentQuestionIndex--;
-                submitButton.style.display = 'block';
-                nextButton.style.display = 'none';
+    function showResults() {
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+        let numCorrect = 0;
+        questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+            const userAnswer = userAnswers[currentCategory][questionNumber];
+            if (userAnswer === currentQuestion.correctAnswer) {
+                numCorrect++;
+                answerContainers[questionNumber].style.color = 'lightgreen';
             } else {
-                showQuestion();
+                answerContainers[questionNumber].style.color = 'red';
             }
-        }
+        });
+        resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
+        categoryContainer.style.display = 'block';
+        quizContainer.style.display = 'none';
+        submitButton.style.display = 'none';
+        prevButton.style.display = 'none';
+        nextButton.style.display = 'none';
+        abortButton.style.display = 'none';
+    }
 
-        function prevQuestion() {
+    function nextQuestion() {
+        saveAnswer();
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= questions[currentCategory].length) {
             currentQuestionIndex--;
-            if (currentQuestionIndex < 0) {
-                currentQuestionIndex = 0;
-            } else {
-                showQuestion();
-            }
-        }
-
-        function abortQuiz() {
-            const answerContainers = quizContainer.querySelectorAll('.answers');
-            let numCorrect = 0;
-            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
-                const answerContainer = answerContainers[questionNumber];
-                const selector = `input[name=question${questionNumber}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-                if (userAnswer === currentQuestion.correctAnswer) {
-                    numCorrect++;
-                    answerContainers[questionNumber].style.color = 'lightgreen';
-                } else {
-                    answerContainers[questionNumber].style.color = 'red';
-                }
-            });
-            resultsContainer.innerHTML = `You aborted the quiz. ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
-            categoryContainer.style.display = 'block';
-            quizContainer.style.display = 'none';
-            submitButton.style.display = 'none';
-            prevButton.style.display = 'none';
+            submitButton.style.display = 'block';
             nextButton.style.display = 'none';
-            abortButton.style.display = 'none';
+        } else {
+            showQuestion();
         }
+    }
 
-        prevButton.addEventListener('click', prevQuestion);
-        nextButton.addEventListener('click', nextQuestion);
-        submitButton.addEventListener('click', showResults);
-        abortButton.addEventListener('click', abortQuiz);
-    </script>
+    function prevQuestion() {
+        saveAnswer();
+        currentQuestionIndex--;
+        if (currentQuestionIndex < 0) {
+            currentQuestionIndex = 0;
+        } else {
+            showQuestion();
+        }
+    }
+
+    function abortQuiz() {
+        saveAnswer();
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+        let numCorrect = 0;
+        questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+            const userAnswer = userAnswers[currentCategory][questionNumber];
+            if (userAnswer === currentQuestion.correctAnswer) {
+                numCorrect++;
+                answerContainers[questionNumber].style.color = 'lightgreen';
+            } else {
+                answerContainers[questionNumber].style.color = 'red';
+            }
+        });
+        resultsContainer.innerHTML = `You aborted the quiz. ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+        categoryContainer.style.display = 'block';
+        quizContainer.style.display = 'none';
+        submitButton.style.display = 'none';
+        prevButton.style.display = 'none';
+        nextButton.style.display = 'none';
+        abortButton.style.display = 'none';
+    }
+
+    function saveAnswer() {
+        const selectedOption = quizContainer.querySelector(`input[name=question${currentQuestionIndex}]:checked`);
+        if (selectedOption) {
+            userAnswers[currentCategory][currentQuestionIndex] = selectedOption.value;
+        }
+    }
+
+    prevButton.addEventListener('click', prevQuestion);
+    nextButton.addEventListener('click', nextQuestion);
+    submitButton.addEventListener('click', showResults);
+    abortButton.addEventListener('click', abortQuiz);
+</script>
 </body>
 </html>
