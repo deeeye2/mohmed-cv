@@ -962,6 +962,45 @@
         }
     }
 
+    function showResults() {
+        saveAnswer();
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+        let numCorrect = 0;
+        questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+            const userAnswer = userAnswers[currentCategory][questionNumber];
+            if (userAnswer === currentQuestion.correctAnswer) {
+                numCorrect++;
+                answerContainers[questionNumber].style.color = 'lightgreen';
+            } else {
+                answerContainers[questionNumber].style.color = 'red';
+            }
+        });
+        resultsContainer.innerHTML = `${numCorrect} out of ${questions[currentCategory].length}`;
+        resetQuizState();
+    }
+
+    function nextQuestion() {
+        saveAnswer();
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= questions[currentCategory].length) {
+            currentQuestionIndex--;
+            submitButton.style.display = 'block';
+            nextButton.style.display = 'none';
+        } else {
+            showQuestion();
+        }
+    }
+
+    function prevQuestion() {
+        saveAnswer();
+        currentQuestionIndex--;
+        if (currentQuestionIndex < 0) {
+            currentQuestionIndex = 0;
+        } else {
+            showQuestion();
+        }
+    }
+
     function abortQuiz() {
         saveAnswer();
         const answerContainers = quizContainer.querySelectorAll('.answers');
@@ -975,7 +1014,28 @@
                 answerContainers[questionNumber].style.color = 'red';
             }
         });
-        resultsContainer.innerHTML = `You aborted the quiz. ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+        resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+
+        // Reset the state and navigate back to the main menu after showing results
+        setTimeout(() => {
+            categoryContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            abortButton.style.display = 'none';
+            resultsContainer.innerHTML = '';
+        }, 5000); // Show the results for 5 seconds before resetting
+    }
+
+    function saveAnswer() {
+        const answerContainer = quizContainer.querySelector('.answers');
+        const selector = `input[name=question${currentQuestionIndex}]:checked`;
+        const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+        userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
+    }
+
+    function resetQuizState() {
         categoryContainer.style.display = 'block';
         quizContainer.style.display = 'none';
         submitButton.style.display = 'none';
@@ -984,17 +1044,8 @@
         abortButton.style.display = 'none';
     }
 
-    function saveAnswer() {
-        const selectedOption = quizContainer.querySelector(`input[name=question${currentQuestionIndex}]:checked`);
-        if (selectedOption) {
-            userAnswers[currentCategory][currentQuestionIndex] = selectedOption.value;
-        }
-    }
-
     prevButton.addEventListener('click', prevQuestion);
     nextButton.addEventListener('click', nextQuestion);
     submitButton.addEventListener('click', showResults);
     abortButton.addEventListener('click', abortQuiz);
 </script>
-</body>
-</html>
