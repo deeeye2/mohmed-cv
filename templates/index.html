@@ -245,104 +245,346 @@
         const resultsContainer = document.getElementById('results');
         const submitButton = document.getElementById('submit-quiz');
 
-        const myQuestions = [
-            {
-                question: "What does CI/CD stand for?",
-                answers: {
-                    a: "Continuous Integration and Continuous Delivery",
-                    b: "Continuous Improvement and Continuous Deployment",
-                    c: "Continuous Integration and Continuous Deployment"
+        const quizCategories = {
+            linux: [
+                {
+                    question: "What command is used to list files in a directory?",
+                    answers: {
+                        a: "ls",
+                        b: "cd",
+                        c: "pwd",
+                        d: "mkdir"
+                    },
+                    correctAnswer: "a"
                 },
-                correctAnswer: "c"
-            },
-            {
-                question: "Which tool is commonly used for container orchestration?",
-                answers: {
-                    a: "Jenkins",
-                    b: "Docker",
-                    c: "Kubernetes"
+                {
+                    question: "How do you change the current directory?",
+                    answers: {
+                        a: "ls",
+                        b: "cd",
+                        c: "pwd",
+                        d: "mkdir"
+                    },
+                    correctAnswer: "b"
                 },
-                correctAnswer: "c"
-            },
-            {
-                question: "What is the purpose of a configuration management tool?",
-                answers: {
-                    a: "To automate the deployment of applications",
-                    b: "To manage and automate infrastructure",
-                    c: "To monitor application performance"
+                {
+                    question: "What command is used to display the current directory path?",
+                    answers: {
+                        a: "ls",
+                        b: "cd",
+                        c: "pwd",
+                        d: "mkdir"
+                    },
+                    correctAnswer: "c"
                 },
-                correctAnswer: "b"
-            },
-            {
-                question: "Which of the following is a popular CI/CD tool?",
-                answers: {
-                    a: "Jenkins",
-                    b: "Nagios",
-                    c: "Splunk"
+                // Add more Linux questions here...
+            ],
+            docker: [
+                {
+                    question: "What command is used to list Docker containers?",
+                    answers: {
+                        a: "docker ps",
+                        b: "docker run",
+                        c: "docker images",
+                        d: "docker build"
+                    },
+                    correctAnswer: "a"
                 },
-                correctAnswer: "a"
-            },
-            {
-                question: "What is Docker primarily used for?",
-                answers: {
-                    a: "Monitoring applications",
-                    b: "Automating tests",
-                    c: "Containerizing applications"
+                {
+                    question: "How do you build a Docker image?",
+                    answers: {
+                        a: "docker ps",
+                        b: "docker run",
+                        c: "docker images",
+                        d: "docker build"
+                    },
+                    correctAnswer: "d"
                 },
-                correctAnswer: "c"
-            },
-            {
-                question: "Which of these tools is used for infrastructure as code?",
-                answers: {
-                    a: "Terraform",
-                    b: "Jenkins",
-                    c: "Prometheus"
+                {
+                    question: "What is the command to stop a running container?",
+                    answers: {
+                        a: "docker start",
+                        b: "docker stop",
+                        c: "docker restart",
+                        d: "docker pause"
+                    },
+                    correctAnswer: "b"
                 },
-                correctAnswer: "a"
-            },
-            {
-                question: "What does YAML stand for?",
-                answers: {
-                    a: "Yet Another Markup Language",
-                    b: "YAML Ain't Markup Language",
-                    c: "Yet Another Management Language"
+                // Add more Docker questions here...
+            ],
+            jenkins: [
+                {
+                    question: "What is Jenkins used for?",
+                    answers: {
+                        a: "Monitoring",
+                        b: "Continuous Integration and Continuous Deployment",
+                        c: "Configuration Management",
+                        d: "Container Orchestration"
+                    },
+                    correctAnswer: "b"
                 },
-                correctAnswer: "b"
-            },
-            {
-                question: "What is Prometheus used for?",
-                answers: {
-                    a: "Continuous integration",
-                    b: "Configuration management",
-                    c: "Monitoring and alerting"
+                {
+                    question: "Which plugin is commonly used for Git integration in Jenkins?",
+                    answers: {
+                        a: "GitHub Plugin",
+                        b: "Git Plugin",
+                        c: "Subversion Plugin",
+                        d: "Maven Plugin"
+                    },
+                    correctAnswer: "b"
                 },
-                correctAnswer: "c"
-            },
-            {
-                question: "What is Ansible used for?",
-                answers: {
-                    a: "Monitoring applications",
-                    b: "Configuration management",
-                    c: "Code deployment"
+                {
+                    question: "How do you trigger a build in Jenkins?",
+                    answers: {
+                        a: "Manually from the Jenkins UI",
+                        b: "Using a webhook",
+                        c: "Using a Jenkinsfile",
+                        d: "All of the above"
+                    },
+                    correctAnswer: "d"
                 },
-                correctAnswer: "b"
-            },
-            {
-                question: "What does SRE stand for?",
-                answers: {
-                    a: "Site Reliability Engineering",
-                    b: "System Reliability Engineering",
-                    c: "Service Reliability Engineering"
+                // Add more Jenkins questions here...
+            ],
+            ansible: [
+                {
+                    question: "What is Ansible used for?",
+                    answers: {
+                        a: "Monitoring applications",
+                        b: "Configuration management",
+                        c: "Code deployment",
+                        d: "Container Orchestration"
+                    },
+                    correctAnswer: "b"
                 },
-                correctAnswer: "a"
-            }
-        ];
+                {
+                    question: "What language are Ansible playbooks written in?",
+                    answers: {
+                        a: "YAML",
+                        b: "JSON",
+                        c: "XML",
+                        d: "INI"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "How do you run an Ansible playbook?",
+                    answers: {
+                        a: "ansible-playbook <playbook.yml>",
+                        b: "ansible <playbook.yml>",
+                        c: "run-playbook <playbook.yml>",
+                        d: "playbook <playbook.yml>"
+                    },
+                    correctAnswer: "a"
+                },
+                // Add more Ansible questions here...
+            ],
+            terraform: [
+                {
+                    question: "What is Terraform used for?",
+                    answers: {
+                        a: "Containerization",
+                        b: "Configuration Management",
+                        c: "Infrastructure as Code",
+                        d: "Continuous Integration"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "Which command is used to initialize a Terraform configuration?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "How do you apply a Terraform configuration?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "a"
+                },
+                // Add more Terraform questions here...
+            ],
+            kubernetes: [
+                {
+                    question: "What is Kubernetes used for?",
+                    answers: {
+                        a: "Continuous Integration",
+                        b: "Container Orchestration",
+                        c: "Configuration Management",
+                        d: "Infrastructure as Code"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "What is the command to create a Kubernetes deployment?",
+                    answers: {
+                        a: "kubectl apply",
+                        b: "kubectl create deployment",
+                        c: "kubectl run deployment",
+                        d: "kubectl deploy"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "What is a Kubernetes pod?",
+                    answers: {
+                        a: "A node in the cluster",
+                        b: "A container image",
+                        c: "The smallest deployable unit",
+                        d: "A configuration file"
+                    },
+                    correctAnswer: "c"
+                },
+                // Add more Kubernetes questions here...
+            ],
+            grafana: [
+                {
+                    question: "What is Grafana used for?",
+                    answers: {
+                        a: "Monitoring and alerting",
+                        b: "Configuration Management",
+                        c: "Container Orchestration",
+                        d: "Infrastructure as Code"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "Which database is commonly used with Grafana for time-series data?",
+                    answers: {
+                        a: "MySQL",
+                        b: "PostgreSQL",
+                        c: "InfluxDB",
+                        d: "MongoDB"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "What is a Grafana dashboard?",
+                    answers: {
+                        a: "A configuration file",
+                        b: "A collection of widgets",
+                        c: "A monitoring tool",
+                        d: "A database"
+                    },
+                    correctAnswer: "b"
+                },
+                // Add more Grafana questions here...
+            ],
+            prometheus: [
+                {
+                    question: "What is Prometheus used for?",
+                    answers: {
+                        a: "Continuous integration",
+                        b: "Configuration management",
+                        c: "Monitoring and alerting",
+                        d: "Infrastructure as Code"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "What language is Prometheus configuration written in?",
+                    answers: {
+                        a: "YAML",
+                        b: "JSON",
+                        c: "XML",
+                        d: "INI"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "What is a Prometheus metric?",
+                    answers: {
+                        a: "A unit of measurement",
+                        b: "A data point",
+                        c: "A configuration file",
+                        d: "A query language"
+                    },
+                    correctAnswer: "b"
+                },
+                // Add more Prometheus questions here...
+            ],
+            git: [
+                {
+                    question: "What is Git used for?",
+                    answers: {
+                        a: "Monitoring",
+                        b: "Version control",
+                        c: "Continuous Integration",
+                        d: "Configuration Management"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "What command is used to clone a Git repository?",
+                    answers: {
+                        a: "git init",
+                        b: "git clone",
+                        c: "git pull",
+                        d: "git push"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "How do you create a new branch in Git?",
+                    answers: {
+                        a: "git branch <branch-name>",
+                        b: "git checkout <branch-name>",
+                        c: "git merge <branch-name>",
+                        d: "git pull <branch-name>"
+                    },
+                    correctAnswer: "a"
+                },
+                // Add more Git questions here...
+            ],
+            github: [
+                {
+                    question: "What is GitHub used for?",
+                    answers: {
+                        a: "Container Orchestration",
+                        b: "Version control hosting",
+                        c: "Continuous Integration",
+                        d: "Configuration Management"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "How do you create a new repository on GitHub?",
+                    answers: {
+                        a: "Using the GitHub UI",
+                        b: "Using the GitHub CLI",
+                        c: "Using the GitHub API",
+                        d: "All of the above"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "What is a pull request on GitHub?",
+                    answers: {
+                        a: "A request to pull code from a remote repository",
+                        b: "A request to merge code into a branch",
+                        c: "A request to create a new branch",
+                        d: "A request to delete a branch"
+                    },
+                    correctAnswer: "b"
+                },
+                // Add more GitHub questions here...
+            ]
+        };
 
-        let currentQuestionIndex = 0;
+        let currentCategoryIndex = 0;
+        const categories = Object.keys(quizCategories);
+        let currentQuestions = quizCategories[categories[currentCategoryIndex]];
 
         function buildQuiz() {
             const output = [];
-            myQuestions.forEach((currentQuestion, questionNumber) => {
+            currentQuestions.forEach((currentQuestion, questionNumber) => {
                 const answers = [];
                 for (letter in currentQuestion.answers) {
                     answers.push(
@@ -354,28 +596,17 @@
                     );
                 }
                 output.push(
-                    `<div class="question" style="display: none;"> ${currentQuestion.question} </div>
-                    <div class="answers" style="display: none;"> ${answers.join('')} </div>`
+                    `<div class="question"> ${currentQuestion.question} </div>
+                    <div class="answers"> ${answers.join('')} </div>`
                 );
             });
             quizContainer.innerHTML = output.join('');
         }
 
-        function showQuestion(index) {
-            const questions = quizContainer.querySelectorAll('.question');
-            const answers = quizContainer.querySelectorAll('.answers');
-            questions.forEach((question, i) => {
-                question.style.display = i === index ? 'block' : 'none';
-            });
-            answers.forEach((answer, i) => {
-                answer.style.display = i === index ? 'block' : 'none';
-            });
-        }
-
         function showResults() {
             const answerContainers = quizContainer.querySelectorAll('.answers');
             let numCorrect = 0;
-            myQuestions.forEach((currentQuestion, questionNumber) => {
+            currentQuestions.forEach((currentQuestion, questionNumber) => {
                 const answerContainer = answerContainers[questionNumber];
                 const selector = `input[name=question${questionNumber}]:checked`;
                 const userAnswer = (answerContainer.querySelector(selector) || {}).value;
@@ -386,32 +617,42 @@
                     answerContainers[questionNumber].style.color = 'red';
                 }
             });
-            resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+            resultsContainer.innerHTML = `${numCorrect} out of ${currentQuestions.length}`;
         }
 
-        function handleNextQuestion() {
-            const answerContainers = quizContainer.querySelectorAll('.answers');
-            const currentAnswerContainer = answerContainers[currentQuestionIndex];
-            const selector = `input[name=question${currentQuestionIndex}]:checked`;
-            const userAnswer = (currentAnswerContainer.querySelector(selector) || {}).value;
-
-            if (userAnswer) {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < myQuestions.length) {
-                    showQuestion(currentQuestionIndex);
-                } else {
-                    showResults();
-                }
-            } else {
-                alert("Please select an answer before proceeding.");
+        function showNextCategory() {
+            if (currentCategoryIndex < categories.length - 1) {
+                currentCategoryIndex++;
+                currentQuestions = quizCategories[categories[currentCategoryIndex]];
+                buildQuiz();
             }
         }
 
+        function showPrevCategory() {
+            if (currentCategoryIndex > 0) {
+                currentCategoryIndex--;
+                currentQuestions = quizCategories[categories[currentCategoryIndex]];
+                buildQuiz();
+            }
+        }
+
+        function abortQuiz() {
+            alert("Hope you will come back!");
+        }
+
         buildQuiz();
-        showQuestion(currentQuestionIndex);
-        submitButton.addEventListener('click', handleNextQuestion);
+        submitButton.addEventListener('click', showResults);
+        document.getElementById('next-category').addEventListener('click', showNextCategory);
+        document.getElementById('prev-category').addEventListener('click', showPrevCategory);
+        document.getElementById('abort-quiz').addEventListener('click', abortQuiz);
     </script>
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
 </body>
 </html>
-
     
