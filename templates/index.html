@@ -338,6 +338,8 @@
             }
         ];
 
+        let currentQuestionIndex = 0;
+
         function buildQuiz() {
             const output = [];
             myQuestions.forEach((currentQuestion, questionNumber) => {
@@ -352,11 +354,22 @@
                     );
                 }
                 output.push(
-                    `<div class="question"> ${currentQuestion.question} </div>
-                    <div class="answers"> ${answers.join('')} </div>`
+                    `<div class="question" style="display: none;"> ${currentQuestion.question} </div>
+                    <div class="answers" style="display: none;"> ${answers.join('')} </div>`
                 );
             });
             quizContainer.innerHTML = output.join('');
+        }
+
+        function showQuestion(index) {
+            const questions = quizContainer.querySelectorAll('.question');
+            const answers = quizContainer.querySelectorAll('.answers');
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? 'block' : 'none';
+            });
+            answers.forEach((answer, i) => {
+                answer.style.display = i === index ? 'block' : 'none';
+            });
         }
 
         function showResults() {
@@ -376,10 +389,28 @@
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
         }
 
-        buildQuiz();
-        submitButton.addEventListener('click', showResults);
-    </script>
+        function handleNextQuestion() {
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+            const currentAnswerContainer = answerContainers[currentQuestionIndex];
+            const selector = `input[name=question${currentQuestionIndex}]:checked`;
+            const userAnswer = (currentAnswerContainer.querySelector(selector) || {}).value;
 
+            if (userAnswer) {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < myQuestions.length) {
+                    showQuestion(currentQuestionIndex);
+                } else {
+                    showResults();
+                }
+            } else {
+                alert("Please select an answer before proceeding.");
+            }
+        }
+
+        buildQuiz();
+        showQuestion(currentQuestionIndex);
+        submitButton.addEventListener('click', handleNextQuestion);
+    </script>
 </body>
 </html>
 
