@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/png">
@@ -175,35 +176,32 @@
     </section>
 
    <!-- QUIZ SECTION -->
-<section class="quiz section-padding" id="devops-quiz">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-12">
-                <h3 class="mb-4">DevOps Quiz</h3>
-                <form id="quiz-form">
-                    <div id="category-container">
-                        <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('jenkins')">Jenkins</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('ansible')">Ansible</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('terraform')">Terraform</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('kubernetes')">Kubernetes</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('grafana')">Grafana</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('prometheus')">Prometheus</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('git')">Git</button>
-                        <button type="button" class="category-btn" onclick="startQuiz('github')">GitHub</button>
-                    </div>
-                    <div id="quiz-container" style="display:none;"></div>
-                    <button type="button" id="prev-question" class="form-control mt-3" style="display:none;">Previous Question</button>
-                    <button type="button" id="next-question" class="form-control mt-3" style="display:none;">Next Question</button>
-                    <button type="button" id="submit-quiz" class="form-control mt-3" style="display:none;">Submit Quiz</button>
-                    <button type="button" id="abort-quiz" class="form-control mt-3" style="display:none;">Abort Quiz</button>
-                </form>
+    <section class="quiz section-padding" id="quiz">
+        <div class="container mt-5">
+            <div class="dashboard">
+                <h1 class="dashboard-title">DevOps Quiz Dashboard</h1>
+                <div id="category-container" class="category-container">
+                    <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('jenkins')">Jenkins</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('ansible')">Ansible</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('terraform')">Terraform</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('kubernetes')">Kubernetes</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('grafana')">Grafana</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('prometheus')">Prometheus</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('git')">Git</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('github')">GitHub</button>
+                </div>
+                <div id="quiz-container" class="quiz-container" style="display:none;"></div>
+                <button type="button" id="prev-question" class="btn btn-secondary mt-3" style="display:none;">Previous Question</button>
+                <button type="button" id="next-question" class="btn btn-secondary mt-3" style="display:none;">Next Question</button>
+                <button type="button" id="submit-quiz" class="btn btn-primary mt-3" style="display:none;">Submit Quiz</button>
+                <button type="button" id="abort-quiz" class="btn btn-danger mt-3" style="display:none;">Abort Quiz</button>
                 <div id="results" class="mt-3"></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
 
     <!-- SCRIPTS -->
     <script>
