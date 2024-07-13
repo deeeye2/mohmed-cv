@@ -56,7 +56,7 @@ def send_email_to_you(name, email, message):
     body = 'Name: {}\nEmail: {}\nMessage: {}'.format(name, email, message)
     msg.attach(MIMEText(body, 'plain'))
 
-    try:
+     try:
         logging.debug('Connecting to SMTP server')
         server = smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
@@ -74,11 +74,6 @@ def send_email_to_you(name, email, message):
     except Exception as e:
         logging.error('General error: {}'.format(e))
         return False
-
-@app.route('/log-visit', methods=['POST'])
-def log_visit_route():
-    log_visit(request)
-    return jsonify({"status": "success"})
 
 def log_visit(request):
     ip_address = request.remote_addr
