@@ -265,7 +265,7 @@
         const categoryContainer = document.getElementById('category-container');
         let currentQuestionIndex = 0;
         let currentCategory = '';
-        const userAnswers = {};
+        let userAnswers = {};
         
         const questions = {
             linux: [
@@ -877,7 +877,7 @@
             // Add more categories here with 20 questions each...
         };
 
-        function startQuiz(category) {
+        unction startQuiz(category) {
             currentCategory = category;
             currentQuestionIndex = 0;
             userAnswers[currentCategory] = {};
@@ -905,6 +905,13 @@
             }
             quizContainer.innerHTML = `<div class="question">${currentQuestion.question}</div>
                                        <div class="answers">${answers.join('')}</div>`;
+        }
+
+        function saveAnswer() {
+            const answerContainer = quizContainer.querySelector('.answers');
+            const selector = `input[name=question${currentQuestionIndex}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
         }
 
         function showResults() {
@@ -960,18 +967,7 @@
                 }
             });
             resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
-
-            // Reset the state and navigate back to the main menu after showing results
-            setTimeout(() => {
-                resetQuizState();
-            }, 5000); // Show the results for 5 seconds before resetting
-        }
-
-        function saveAnswer() {
-            const answerContainer = quizContainer.querySelector('.answers');
-            const selector = `input[name=question${currentQuestionIndex}]:checked`;
-            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
+            resetQuizState();
         }
 
         function resetQuizState() {
@@ -981,7 +977,6 @@
             prevButton.style.display = 'none';
             nextButton.style.display = 'none';
             abortButton.style.display = 'none';
-            resultsContainer.innerHTML = '';
         }
 
         prevButton.addEventListener('click', prevQuestion);
