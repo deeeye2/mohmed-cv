@@ -6,6 +6,10 @@ import logging
 import requests
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -105,4 +109,5 @@ def get_location(ip_address):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
