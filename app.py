@@ -50,9 +50,9 @@ def send_email():
         return 'Failed to send your message. Please try again later.'
 
 def send_email_to_you(name, email, message):
-    sender_email = "dee.eye@hotmail.com"
-    receiver_email = "dee.eye@hotmail.com"
-    password = "Sierraleone1@"
+    sender_email = os.getenv('SENDER_EMAIL')
+    receiver_email = os.getenv('RECEIVER_EMAIL')
+    password = os.getenv('EMAIL_PASSWORD')
 
     msg = MIMEMultipart()
     msg['From'] = sender_email
