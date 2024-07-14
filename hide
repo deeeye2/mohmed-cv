@@ -1,0 +1,5 @@
+echo ".env" >> .gitignore
+git rm --cached .env
+git commit -m "Hide .env file by adding it to .gitignore"
+git push origin master
+
