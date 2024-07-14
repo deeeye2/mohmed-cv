@@ -24,6 +24,37 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(120deg, #f0f0f0, #ffffff);
         }
+        /* TV-like Dashboard Styles */
+        #cv-container {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background-color: #000; /* Dark background */
+            border: 10px solid #333; /* TV-like border */
+            border-radius: 15px;
+            overflow: hidden; /* Hide overflow to make it look like a screen */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            color: #fff; /* White text color */
+            padding: 20px;
+        }
+
+        #cv-container.active {
+            display: block; /* Display when active */
+        }
+
+        #cv-frame {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove border from iframe */
+        }
+
+        #cv-toggle-btn {
+            margin: 20px;
+        }
         .dashboard {
             margin-top: 50px;
             background: #fff;
@@ -311,6 +342,20 @@
             </div>
         </div>
     </section>
+
+    <button id="cv-toggle-btn" class="btn btn-primary">Toggle CV Display</button>
+    <div id="cv-container">
+        <h1 class="text-center">My CV</h1>
+        <!-- Embedded PDF Viewer -->
+        <iframe id="cv-frame" src="static/images/MohamedCV.pdf"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('cv-toggle-btn').addEventListener('click', function() {
+            const cvContainer = document.getElementById('cv-container');
+            cvContainer.classList.toggle('active');
+        });
+    </script>
 
     <!-- DEVOPS QUIZ SECTION -->
     <section class="section-padding" id="devops-quiz">
