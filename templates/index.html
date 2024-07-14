@@ -2459,8 +2459,42 @@ function startQuiz(category) {
         }
 
         showNextDockerStage();
-    });
+    }); 
 
+    // Kubernetes Demo Script
+    document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
+        const k8sStages = [
+            { id: 'k8s-stage-manifest', class: 'manifest', command: 'Write Kubernetes manifests (YAML files) defining the desired state of your application' },
+            { id: 'k8s-stage-kubectl', class: 'kubectl', command: 'Run "kubectl apply -f <manifest>" to apply the configuration' },
+            { id: 'k8s-stage-api', class: 'api', command: 'The API server receives the configuration and validates it' },
+            { id: 'k8s-stage-etcd', class: 'etcd', command: 'The desired state is stored in etcd (the cluster store)' },
+            { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'The scheduler schedules the pods on appropriate nodes' },
+            { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'The Kubelet on each node receives the pod specification and starts the containers' },
+            { id: 'k8s-stage-runtime', class: 'runtime', command: 'The container runtime (e.g., Docker, containerd) pulls the image and runs the containers' },
+            { id: 'k8s-stage-running', class: 'running', command: 'The application is now running on the cluster' }
+        ];
+        let currentStage = 0;
+
+        document.getElementById('k8s-deploy-container').style.display = 'flex';
+        document.getElementById('k8s-command-box').style.display = 'block';
+
+        function showNextK8sStage() {
+            if (currentStage > 0) {
+                const prevStage = k8sStages[currentStage - 1];
+                document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+            }
+            if (currentStage < k8sStages.length) {
+                const nextStage = k8sStages[currentStage];
+                document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                document.getElementById('k8s-command-box').innerText = nextStage.command;
+                currentStage++;
+                setTimeout(showNextK8sStage, 3000); // 3 seconds delay for each stage
+            }
+        }
+
+        showNextK8sStage();
+    });
+</script>
     <!-- Blue-Green Deployment Demonstration Section -->
     <section class="section-padding" id="blue-green-deploy-demo">
         <div class="container mt-5">
@@ -2547,41 +2581,6 @@ function startQuiz(category) {
 
             showNextStage();
         });
-
-    // Kubernetes Demo Script
-    document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
-        const k8sStages = [
-            { id: 'k8s-stage-manifest', class: 'manifest', command: 'Write Kubernetes manifests (YAML files) defining the desired state of your application' },
-            { id: 'k8s-stage-kubectl', class: 'kubectl', command: 'Run "kubectl apply -f <manifest>" to apply the configuration' },
-            { id: 'k8s-stage-api', class: 'api', command: 'The API server receives the configuration and validates it' },
-            { id: 'k8s-stage-etcd', class: 'etcd', command: 'The desired state is stored in etcd (the cluster store)' },
-            { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'The scheduler schedules the pods on appropriate nodes' },
-            { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'The Kubelet on each node receives the pod specification and starts the containers' },
-            { id: 'k8s-stage-runtime', class: 'runtime', command: 'The container runtime (e.g., Docker, containerd) pulls the image and runs the containers' },
-            { id: 'k8s-stage-running', class: 'running', command: 'The application is now running on the cluster' }
-        ];
-        let currentStage = 0;
-
-        document.getElementById('k8s-deploy-container').style.display = 'flex';
-        document.getElementById('k8s-command-box').style.display = 'block';
-
-        function showNextK8sStage() {
-            if (currentStage > 0) {
-                const prevStage = k8sStages[currentStage - 1];
-                document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
-            }
-            if (currentStage < k8sStages.length) {
-                const nextStage = k8sStages[currentStage];
-                document.getElementById(nextStage.id).classList.add('active', nextStage.class);
-                document.getElementById('k8s-command-box').innerText = nextStage.command;
-                currentStage++;
-                setTimeout(showNextK8sStage, 3000); // 3 seconds delay for each stage
-            }
-        }
-
-        showNextK8sStage();
-    });
-</script>
     
 
 <!-- CONTACT SECTION -->
