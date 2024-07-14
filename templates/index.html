@@ -104,16 +104,17 @@
         .ci-cd-stage.operate { background-color: #00cc99; } /* Teal for Operate */
         .ci-cd-stage.monitor { background-color: #9933ff; } /* Violet for Monitor */
 
-        /* Docker specific styles */
-        .docker-stage {
-            background-color: #ddd;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+        /* Adjusted Docker specific styles */
+.docker-stage {
+    background-color: #ddd;
+    width: 180px; /* Adjusted width */
+    height: 150px; /* Adjusted height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px; /* Ensure boxes do not touch each other */
+}
         .docker-stage.dockerfile { background-color: #ffcc00; } /* Yellow for Dockerfile */
         .docker-stage.cli { background-color: #ff6600; } /* Orange for CLI */
         .docker-stage.daemon { background-color: #ff3300; } /* Red for Daemon */
@@ -123,17 +124,18 @@
         .docker-stage.unions { background-color: #00cc99; } /* Teal for Union FS */
         .docker-stage.image { background-color: #9933ff; } /* Violet for Image */
 
-        /* Kubernetes specific styles */
-        .k8s-stage {
-            background-color: #ddd;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+        /* Adjusted Kubernetes specific styles to move text to bottom */
+.k8s-stage {
+    background-color: #ddd;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align items to the bottom */
+    text-align: center;
+    padding-bottom: 10px; /* Add padding to ensure text is at the bottom */
+}
         .k8s-stage.manifest { background-color: #ffcc00; } /* Yellow for Write Manifest */
         .k8s-stage.kubectl { background-color: #ff6600; } /* Orange for kubectl apply */
         .k8s-stage.api { background-color: #ff3300; } /* Red for API Server */
