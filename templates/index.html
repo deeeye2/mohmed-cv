@@ -24,6 +24,54 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(120deg, #f0f0f0, #ffffff);
         }
+        .docker-build-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            flex-wrap: wrap;
+        }
+
+        .docker-build-stage {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #ddd;
+            font-size: 1em;
+            text-align: center;
+            transition: background-color 0.5s, transform 0.5s;
+            margin: 10px;
+        }
+
+        .docker-build-stage.active {
+            transform: scale(1.1);
+        }
+
+        .docker-build-stage.dockerfile { background-color: #ffcc00; } /* Yellow for Dockerfile */
+        .docker-build-stage.cli { background-color: #ff6600; }       /* Orange for CLI */
+        .docker-build-stage.daemon { background-color: #ff3300; }    /* Red for Daemon */
+        .docker-build-stage.parser { background-color: #cc33ff; }    /* Purple for Parser */
+        .docker-build-stage.layers { background-color: #3399ff; }    /* Blue for Layers */
+        .docker-build-stage.cgroup { background-color: #33cc33; }    /* Green for Cgroup */
+        .docker-build-stage.unions { background-color: #00cc99; }    /* Teal for Union FS */
+        .docker-build-stage.image { background-color: #9933ff; }     /* Violet for Image */
+
+        .command-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+            font-family: monospace;
+            white-space: pre-wrap;
+            text-align: left;
+        }
         .ci-cd-container {
             display: flex;
             justify-content: space-around;
@@ -2257,6 +2305,60 @@ function startQuiz(category) {
                     document.getElementById(nextStage.id).classList.add('active', nextStage.class);
                     currentStage++;
                     setTimeout(showNextStage, 2000); // 2 seconds delay for each stage
+                }
+            }
+
+            showNextStage();
+        });
+    </script>
+    <!-- Docker Build Process Demonstration Section -->
+    <title>Docker Build Process Demonstration</title>
+    <section class="section-padding" id="docker-build-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Docker Build Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-docker-build-demo">Start Docker Build Demo</button>
+            <div id="docker-build-container" class="docker-build-container mt-4" style="display: none;">
+                <div class="docker-build-stage" id="stage-dockerfile">Dockerfile</div>
+                <div class="docker-build-stage" id="stage-cli">Docker CLI</div>
+                <div class="docker-build-stage" id="stage-daemon">Docker Daemon</div>
+                <div class="docker-build-stage" id="stage-parser">Parser</div>
+                <div class="docker-build-stage" id="stage-layers">Layers Creation</div>
+                <div class="docker-build-stage" id="stage-cgroup">Cgroup</div>
+                <div class="docker-build-stage" id="stage-unions">Union FS</div>
+                <div class="docker-build-stage" id="stage-image">Final Image</div>
+            </div>
+            <div id="command-box" class="command-box" style="display: none;"></div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('start-docker-build-demo').addEventListener('click', function() {
+            const stages = [
+                { id: 'stage-dockerfile', class: 'dockerfile', command: 'Write a Dockerfile with necessary instructions' },
+                { id: 'stage-cli', class: 'cli', command: 'docker build -t your-image-name .' },
+                { id: 'stage-daemon', class: 'daemon', command: 'Docker CLI sends context to Docker Daemon' },
+                { id: 'stage-parser', class: 'parser', command: 'Docker Daemon parses the Dockerfile' },
+                { id: 'stage-layers', class: 'layers', command: 'Docker Daemon creates image layers for each instruction' },
+                { id: 'stage-cgroup', class: 'cgroup', command: 'Docker uses cgroups to isolate resources for containers' },
+                { id: 'stage-unions', class: 'unions', command: 'Docker uses Union FS to manage file system layers' },
+                { id: 'stage-image', class: 'image', command: 'Docker Daemon assembles final image from layers' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('docker-build-container').style.display = 'flex';
+            document.getElementById('command-box').style.display = 'block';
+
+            function showNextStage() {
+                if (currentStage > 0) {
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
                 }
             }
 
