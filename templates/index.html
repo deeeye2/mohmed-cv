@@ -215,15 +215,6 @@
             transform: scale(1.1);
         }
 
-        .ci-cd-stage.plan { background-color: #ffcc00; }     /* Yellow for Plan */
-        .ci-cd-stage.code { background-color: #ff6600; }     /* Orange for Code */
-        .ci-cd-stage.build { background-color: #ff3300; }    /* Red for Build */
-        .ci-cd-stage.test { background-color: #cc33ff; }     /* Purple for Test */
-        .ci-cd-stage.release { background-color: #3399ff; }  /* Blue for Release */
-        .ci-cd-stage.deploy { background-color: #33cc33; }   /* Green for Deploy */
-        .ci-cd-stage.operate { background-color: #00cc99; }  /* Teal for Operate */
-        .ci-cd-stage.monitor { background-color: #9933ff; }  /* Violet for Monitor */
-        }
         .dashboard {
             margin-top: 50px;
             background: #fff;
@@ -2395,7 +2386,7 @@ function startQuiz(category) {
     </section>
 
     <script>
-        ddocument.getElementById('start-ci-cd-demo').addEventListener('click', function() {
+        document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
             const stages = [
                 { id: 'ci-cd-stage-plan', class: 'plan', command: 'Plan your project and tasks using tools like JIRA, Trello, Asana' },
                 { id: 'ci-cd-stage-code', class: 'code', command: 'Write your code and push to version control systems like GitHub, GitLab, Bitbucket' },
