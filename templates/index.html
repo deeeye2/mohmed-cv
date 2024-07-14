@@ -41,35 +41,41 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
-            background-color: #ddd;
             font-size: 1em;
             text-align: center;
             transition: background-color 0.5s, transform 0.5s;
             margin: 10px;
         }
 
-        .demo-stage.active {
-            transform: scale(1.1);
+        .ci-cd-stage {
+            border-radius: 50%;
         }
 
-        .demo-stage.dockerfile { background-color: #ffcc00; } /* Yellow for Dockerfile */
-        .demo-stage.cli { background-color: #ff6600; }       /* Orange for CLI */
-        .demo-stage.daemon { background-color: #ff3300; }    /* Red for Daemon */
-        .demo-stage.parser { background-color: #cc33ff; }    /* Purple for Parser */
-        .demo-stage.layers { background-color: #3399ff; }    /* Blue for Layers */
-        .demo-stage.cgroup { background-color: #33cc33; }    /* Green for Cgroup */
-        .demo-stage.unions { background-color: #00cc99; }    /* Teal for Union FS */
-        .demo-stage.image { background-color: #9933ff; }     /* Violet for Image */
+        .docker-stage {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 150px solid #ddd;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-        .demo-stage.write-manifest { background-color: #ffcc00; }   /* Yellow for Write Manifest */
-        .demo-stage.kubectl-apply { background-color: #ff6600; }    /* Orange for kubectl apply */
-        .demo-stage.api-server { background-color: #ff3300; }       /* Red for API Server */
-        .demo-stage.etcd { background-color: #cc33ff; }             /* Purple for etcd */
-        .demo-stage.scheduler { background-color: #3399ff; }        /* Blue for Scheduler */
-        .demo-stage.kubelet { background-color: #33cc33; }          /* Green for Kubelet */
-        .demo-stage.container-runtime { background-color: #00cc99; } /* Teal for Container Runtime */
-        .demo-stage.running { background-color: #9933ff; }          /* Violet for Running */
+        .docker-stage span {
+            position: absolute;
+            top: 60px;
+        }
+
+        .k8s-stage {
+            border-radius: 5px;
+        }
+
+        .ci-cd-stage.active, .docker-stage.active, .k8s-stage.active {
+            transform: scale(1.1);
+        }
 
         .ci-cd-stage.plan { background-color: #ffcc00; }     /* Yellow for Plan */
         .ci-cd-stage.code { background-color: #ff6600; }     /* Orange for Code */
@@ -80,53 +86,23 @@
         .ci-cd-stage.operate { background-color: #00cc99; }  /* Teal for Operate */
         .ci-cd-stage.monitor { background-color: #9933ff; }  /* Violet for Monitor */
 
-        .command-box {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-            font-family: monospace;
-            white-space: pre-wrap;
-            text-align: left;
-        }
-        .k8s-deploy-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            flex-wrap: wrap;
-        }
+        .k8s-stage.write-manifest { background-color: #ffcc00; }   /* Yellow for Write Manifest */
+        .k8s-stage.kubectl-apply { background-color: #ff6600; }    /* Orange for kubectl apply */
+        .k8s-stage.api-server { background-color: #ff3300; }       /* Red for API Server */
+        .k8s-stage.etcd { background-color: #cc33ff; }             /* Purple for etcd */
+        .k8s-stage.scheduler { background-color: #3399ff; }        /* Blue for Scheduler */
+        .k8s-stage.kubelet { background-color: #33cc33; }          /* Green for Kubelet */
+        .k8s-stage.container-runtime { background-color: #00cc99; } /* Teal for Container Runtime */
+        .k8s-stage.running { background-color: #9933ff; }          /* Violet for Running */
 
-        .k8s-deploy-stage {
-            width: 150px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background-color: #ddd;
-            font-size: 1em;
-            text-align: center;
-            transition: background-color 0.5s, transform 0.5s;
-            margin: 10px;
-        }
-
-        .k8s-deploy-stage.active {
-            transform: scale(1.1);
-        }
-
-        .k8s-deploy-stage.write-manifest { background-color: #ffcc00; }   /* Yellow for Write Manifest */
-        .k8s-deploy-stage.kubectl-apply { background-color: #ff6600; }    /* Orange for kubectl apply */
-        .k8s-deploy-stage.api-server { background-color: #ff3300; }       /* Red for API Server */
-        .k8s-deploy-stage.etcd { background-color: #cc33ff; }             /* Purple for etcd */
-        .k8s-deploy-stage.scheduler { background-color: #3399ff; }        /* Blue for Scheduler */
-        .k8s-deploy-stage.kubelet { background-color: #33cc33; }          /* Green for Kubelet */
-        .k8s-deploy-stage.container-runtime { background-color: #00cc99; } /* Teal for Container Runtime */
-        .k8s-deploy-stage.running { background-color: #9933ff; }          /* Violet for Running */
+        .docker-stage.dockerfile { border-bottom-color: #ffcc00; } /* Yellow for Dockerfile */
+        .docker-stage.cli { border-bottom-color: #ff6600; }       /* Orange for CLI */
+        .docker-stage.daemon { border-bottom-color: #ff3300; }    /* Red for Daemon */
+        .docker-stage.parser { border-bottom-color: #cc33ff; }    /* Purple for Parser */
+        .docker-stage.layers { border-bottom-color: #3399ff; }    /* Blue for Layers */
+        .docker-stage.cgroup { border-bottom-color: #33cc33; }    /* Green for Cgroup */
+        .docker-stage.unions { border-bottom-color: #00cc99; }    /* Teal for Union FS */
+        .docker-stage.image { border-bottom-color: #9933ff; }     /* Violet for Image */
 
         .command-box {
             margin-top: 20px;
@@ -137,116 +113,6 @@
             font-family: monospace;
             white-space: pre-wrap;
             text-align: left;
-        }
-        .docker-build-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            flex-wrap: wrap;
-        }
-
-        .docker-build-stage {
-            width: 150px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background-color: #ddd;
-            font-size: 1em;
-            text-align: center;
-            transition: background-color 0.5s, transform 0.5s;
-            margin: 10px;
-        }
-
-        .docker-build-stage.active {
-            transform: scale(1.1);
-        }
-
-        .docker-build-stage.dockerfile { background-color: #ffcc00; } /* Yellow for Dockerfile */
-        .docker-build-stage.cli { background-color: #ff6600; }       /* Orange for CLI */
-        .docker-build-stage.daemon { background-color: #ff3300; }    /* Red for Daemon */
-        .docker-build-stage.parser { background-color: #cc33ff; }    /* Purple for Parser */
-        .docker-build-stage.layers { background-color: #3399ff; }    /* Blue for Layers */
-        .docker-build-stage.cgroup { background-color: #33cc33; }    /* Green for Cgroup */
-        .docker-build-stage.unions { background-color: #00cc99; }    /* Teal for Union FS */
-        .docker-build-stage.image { background-color: #9933ff; }     /* Violet for Image */
-
-        .command-box {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-            font-family: monospace;
-            white-space: pre-wrap;
-            text-align: left;
-        }
-        .ci-cd-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            flex-wrap: wrap;
-        }
-
-        .ci-cd-stage {
-            width: 150px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background-color: #ddd;
-            font-size: 1em;
-            text-align: center;
-            transition: background-color 0.5s, transform 0.5s;
-            margin: 10px;
-        }
-
-        .ci-cd-stage.active {
-            transform: scale(1.1);
-        }
-
-        .dashboard {
-            margin-top: 50px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .dashboard-title {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .category-btn {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 1.2em;
-            transition: transform 0.2s;
-        }
-        .category-btn:hover {
-            transform: scale(1.05);
-        }
-        .question {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        .answers label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        .btn {
-            margin: 5px;
         }
     </style>
 </head>
@@ -2372,18 +2238,19 @@ function startQuiz(category) {
             <h1 class="text-center">CI/CD Process Demonstration</h1>
             <button type="button" class="btn btn-primary" id="start-ci-cd-demo">Start CI/CD Demo</button>
             <div id="ci-cd-container" class="demo-container mt-4" style="display: none;">
-                <div class="demo-stage" id="ci-cd-stage-plan">Plan<br>(JIRA)</div>
-                <div class="demo-stage" id="ci-cd-stage-code">Code<br>(GitHub)</div>
-                <div class="demo-stage" id="ci-cd-stage-build">Build<br>(Jenkins)</div>
-                <div class="demo-stage" id="ci-cd-stage-test">Test<br>(JUnit)</div>
-                <div class="demo-stage" id="ci-cd-stage-release">Release<br>(Docker)</div>
-                <div class="demo-stage" id="ci-cd-stage-deploy">Deploy<br>(Kubernetes)</div>
-                <div class="demo-stage" id="ci-cd-stage-operate">Operate<br>(Prometheus)</div>
-                <div class="demo-stage" id="ci-cd-stage-monitor">Monitor<br>(Grafana)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-plan">Plan<br>(JIRA)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-code">Code<br>(GitHub)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-build">Build<br>(Jenkins)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-test">Test<br>(JUnit)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-release">Release<br>(Docker)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-deploy">Deploy<br>(Kubernetes)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-operate">Operate<br>(Prometheus)</div>
+                <div class="ci-cd-stage" id="ci-cd-stage-monitor">Monitor<br>(Grafana)</div>
             </div>
             <div id="ci-cd-command-box" class="command-box" style="display: none;"></div>
         </div>
     </section>
+
 
     <script>
         document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
@@ -2426,14 +2293,14 @@ function startQuiz(category) {
             <h1 class="text-center">Docker Build Process Demonstration</h1>
             <button type="button" class="btn btn-primary" id="start-docker-build-demo">Start Docker Build Demo</button>
             <div id="docker-build-container" class="demo-container mt-4" style="display: none;">
-                <div class="demo-stage" id="docker-stage-dockerfile">Dockerfile</div>
-                <div class="demo-stage" id="docker-stage-cli">Docker CLI</div>
-                <div class="demo-stage" id="docker-stage-daemon">Docker Daemon</div>
-                <div class="demo-stage" id="docker-stage-parser">Parser</div>
-                <div class="demo-stage" id="docker-stage-layers">Layers Creation</div>
-                <div class="demo-stage" id="docker-stage-cgroup">Cgroup</div>
-                <div class="demo-stage" id="docker-stage-unions">Union FS</div>
-                <div class="demo-stage" id="docker-stage-image">Final Image</div>
+                <div class="docker-stage" id="docker-stage-dockerfile"><span>Dockerfile</span></div>
+                <div class="docker-stage" id="docker-stage-cli"><span>Docker CLI</span></div>
+                <div class="docker-stage" id="docker-stage-daemon"><span>Docker Daemon</span></div>
+                <div class="docker-stage" id="docker-stage-parser"><span>Parser</span></div>
+                <div class="docker-stage" id="docker-stage-layers"><span>Layers Creation</span></div>
+                <div class="docker-stage" id="docker-stage-cgroup"><span>Cgroup</span></div>
+                <div class="docker-stage" id="docker-stage-unions"><span>Union FS</span></div>
+                <div class="docker-stage" id="docker-stage-image"><span>Final Image</span></div>
             </div>
             <div id="docker-command-box" class="command-box" style="display: none;"></div>
         </div>
@@ -2441,7 +2308,7 @@ function startQuiz(category) {
 
     <script>
         document.getElementById('start-docker-build-demo').addEventListener('click', function() {
-            const dockerStages = [
+            const stages = [
                 { id: 'docker-stage-dockerfile', class: 'dockerfile', command: 'Write a Dockerfile with necessary instructions' },
                 { id: 'docker-stage-cli', class: 'cli', command: 'docker build -t your-image-name .' },
                 { id: 'docker-stage-daemon', class: 'daemon', command: 'Docker CLI sends context to Docker Daemon' },
@@ -2456,39 +2323,37 @@ function startQuiz(category) {
             document.getElementById('docker-build-container').style.display = 'flex';
             document.getElementById('docker-command-box').style.display = 'block';
 
-            function showNextDockerStage() {
+            function showNextStage() {
                 if (currentStage > 0) {
-                    const prevStage = dockerStages[currentStage - 1];
+                    const prevStage = stages[currentStage - 1];
                     document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
                 }
-                if (currentStage < dockerStages.length) {
-                    const nextStage = dockerStages[currentStage];
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
                     document.getElementById(nextStage.id).classList.add('active', nextStage.class);
                     document.getElementById('docker-command-box').innerText = nextStage.command;
                     currentStage++;
-                    setTimeout(showNextDockerStage, 3000); // 3 seconds delay for each stage
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
                 }
             }
 
-            showNextDockerStage();
+            showNextStage();
         });
 
     </script>
-    <!-- Kubernetes Deployment Process Demonstration Section -->
-    <title>Kubernetes Deployment Process Demonstration</title>
     <section class="section-padding" id="k8s-deploy-demo">
         <div class="container mt-5">
             <h1 class="text-center">Kubernetes Deployment Process Demonstration</h1>
             <button type="button" class="btn btn-primary" id="start-k8s-deploy-demo">Start Kubernetes Deploy Demo</button>
             <div id="k8s-deploy-container" class="demo-container mt-4" style="display: none;">
-                <div class="demo-stage" id="k8s-stage-write-manifest">Write Manifest</div>
-                <div class="demo-stage" id="k8s-stage-kubectl-apply">kubectl apply</div>
-                <div class="demo-stage" id="k8s-stage-api-server">API Server</div>
-                <div class="demo-stage" id="k8s-stage-etcd">etcd</div>
-                <div class="demo-stage" id="k8s-stage-scheduler">Scheduler</div>
-                <div class="demo-stage" id="k8s-stage-kubelet">Kubelet</div>
-                <div class="demo-stage" id="k8s-stage-container-runtime">Container Runtime</div>
-                <div class="demo-stage" id="k8s-stage-running">Running</div>
+                <div class="k8s-stage" id="k8s-stage-write-manifest">Write Manifest</div>
+                <div class="k8s-stage" id="k8s-stage-kubectl-apply">kubectl apply</div>
+                <div class="k8s-stage" id="k8s-stage-api-server">API Server</div>
+                <div class="k8s-stage" id="k8s-stage-etcd">etcd</div>
+                <div class="k8s-stage" id="k8s-stage-scheduler">Scheduler</div>
+                <div class="k8s-stage" id="k8s-stage-kubelet">Kubelet</div>
+                <div class="k8s-stage" id="k8s-stage-container-runtime">Container Runtime</div>
+                <div class="k8s-stage" id="k8s-stage-running">Running</div>
             </div>
             <div id="k8s-command-box" class="command-box" style="display: none;"></div>
         </div>
@@ -2500,36 +2365,36 @@ function startQuiz(category) {
     <script src="js/main.js"></script>
     <script>
         document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
-            const k8sStages = [
-                { id: 'k8s-stage-write-manifest', class: 'write-manifest', command: 'Write Kubernetes manifests (YAML files) for Deployment, Service, etc.' },
-                { id: 'k8s-stage-kubectl-apply', class: 'kubectl-apply', command: 'kubectl apply -f your-manifest.yaml' },
-                { id: 'k8s-stage-api-server', class: 'api-server', command: 'API Server receives the request and validates it' },
-                { id: 'k8s-stage-etcd', class: 'etcd', command: 'etcd stores the cluster state and configuration' },
-                { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'Scheduler determines on which node the pod should run' },
-                { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'Kubelet on the selected node receives the pod specification' },
-                { id: 'k8s-stage-container-runtime', class: 'container-runtime', command: 'Container runtime (e.g., Docker) pulls the image and starts the container' },
-                { id: 'k8s-stage-running', class: 'running', command: 'The pod is now running and accessible based on the service configuration' }
+            const stages = [
+                { id: 'k8s-stage-write-manifest', class: 'write-manifest', command: 'Write a Kubernetes manifest file' },
+                { id: 'k8s-stage-kubectl-apply', class: 'kubectl-apply', command: 'Apply the manifest using kubectl apply -f manifest.yml' },
+                { id: 'k8s-stage-api-server', class: 'api-server', command: 'The API Server processes the request' },
+                { id: 'k8s-stage-etcd', class: 'etcd', command: 'etcd stores the configuration data' },
+                { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'The Scheduler assigns the pod to a node' },
+                { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'Kubelet on the node starts the pod' },
+                { id: 'k8s-stage-container-runtime', class: 'container-runtime', command: 'Container runtime pulls the image and runs the container' },
+                { id: 'k8s-stage-running', class: 'running', command: 'The pod is now running on the node' }
             ];
             let currentStage = 0;
 
             document.getElementById('k8s-deploy-container').style.display = 'flex';
             document.getElementById('k8s-command-box').style.display = 'block';
 
-            function showNextK8sStage() {
+            function showNextStage() {
                 if (currentStage > 0) {
-                    const prevStage = k8sStages[currentStage - 1];
+                    const prevStage = stages[currentStage - 1];
                     document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
                 }
-                if (currentStage < k8sStages.length) {
-                    const nextStage = k8sStages[currentStage];
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
                     document.getElementById(nextStage.id).classList.add('active', nextStage.class);
                     document.getElementById('k8s-command-box').innerText = nextStage.command;
                     currentStage++;
-                    setTimeout(showNextK8sStage, 3000); // 3 seconds delay for each stage
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
                 }
             }
 
-            showNextK8sStage();
+            showNextStage();
         });
     </script>
 <!-- CONTACT SECTION -->
