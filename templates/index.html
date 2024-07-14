@@ -50,9 +50,17 @@
         }
 
         .ci-cd-stage.active {
-            background-color: #007bff;
-            color: #fff;
             transform: scale(1.1);
+        }
+
+        .ci-cd-stage.plan { background-color: #ffcc00; }     /* Yellow for Plan */
+        .ci-cd-stage.code { background-color: #ff6600; }     /* Orange for Code */
+        .ci-cd-stage.build { background-color: #ff3300; }    /* Red for Build */
+        .ci-cd-stage.test { background-color: #cc33ff; }     /* Purple for Test */
+        .ci-cd-stage.release { background-color: #3399ff; }  /* Blue for Release */
+        .ci-cd-stage.deploy { background-color: #33cc33; }   /* Green for Deploy */
+        .ci-cd-stage.operate { background-color: #00cc99; }  /* Teal for Operate */
+        .ci-cd-stage.monitor { background-color: #9933ff; }  /* Violet for Monitor */
         }
         .dashboard {
             margin-top: 50px;
@@ -2225,17 +2233,28 @@ function startQuiz(category) {
 
     <script>
         document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
-            const stages = ['stage-plan', 'stage-code', 'stage-build', 'stage-test', 'stage-release', 'stage-deploy', 'stage-operate', 'stage-monitor'];
+            const stages = [
+                { id: 'stage-plan', class: 'plan' },
+                { id: 'stage-code', class: 'code' },
+                { id: 'stage-build', class: 'build' },
+                { id: 'stage-test', class: 'test' },
+                { id: 'stage-release', class: 'release' },
+                { id: 'stage-deploy', class: 'deploy' },
+                { id: 'stage-operate', class: 'operate' },
+                { id: 'stage-monitor', class: 'monitor' }
+            ];
             let currentStage = 0;
 
             document.getElementById('ci-cd-container').style.display = 'flex';
 
             function showNextStage() {
                 if (currentStage > 0) {
-                    document.getElementById(stages[currentStage - 1]).classList.remove('active');
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
                 }
                 if (currentStage < stages.length) {
-                    document.getElementById(stages[currentStage]).classList.add('active');
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
                     currentStage++;
                     setTimeout(showNextStage, 2000); // 2 seconds delay for each stage
                 }
