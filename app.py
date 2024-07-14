@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, jsonify
+from flask_mail import Mail, Message
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
