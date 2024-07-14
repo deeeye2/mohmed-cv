@@ -26,6 +26,16 @@ class Visit(db.Model):
     location = db.Column(db.String(100))
     visit_time = db.Column(db.DateTime, default=datetime.utcnow)
 
+# Set up Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.office365.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.getenv('SENDER_EMAIL')
+app.config['MAIL_PASSWORD'] = os.getenv('EMAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('SENDER_EMAIL')
+
+mail = Mail(app)
+
 # Ensure the database tables are created within the application context
 with app.app_context():
     db.create_all()
@@ -106,6 +116,18 @@ def get_location(ip_address):
     except Exception as e:
         logging.error('Error fetching location: {}'.format(e))
         return "Unknown"
+
+def send_email_notification():
+    try:
+        msg = Message(
+            subject="New Visitor Notification",
+            body="A new user has visited your website.",
+            recipients=[os.getenv('RECEIVER_EMAIL')]
+        )
+        mail.send(msg)
+        logging.info('Visitor notification email sent successfully')
+    except Exception as e:
+        logging.error(f'Error sending notification email: {e}')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
