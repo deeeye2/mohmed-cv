@@ -108,15 +108,17 @@ def get_location(ip_address):
         logging.debug(f'Fetching location for IP address: {ip_address}')
         response = requests.get(f'http://ip-api.com/json/{ip_address}')
         data = response.json()
+        logging.debug(f'Response from IP API: {data}')
         if data['status'] == 'fail':
-            logging.error(f'Failed to fetch location for IP address: {ip_address}')
+            logging.error(f'Failed to fetch location for IP address: {ip_address}, Reason: {data["message"]}')
             return "Unknown"
-        location = f"{data['city']}, {data['country']}"
+        location = f"{data.get('city', 'Unknown')}, {data.get('country', 'Unknown')}"
         logging.debug(f'Location for IP address {ip_address}: {location}')
         return location
     except Exception as e:
-        logging.error('Error fetching location: {}'.format(e))
+        logging.error(f'Error fetching location: {e}')
         return "Unknown"
+
 
 def send_email_notification():
     try:
