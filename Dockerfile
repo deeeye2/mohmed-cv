@@ -8,13 +8,14 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install flask
-
-# Install any needed packages
-RUN pip install flask requests flask_sqlalchemy
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
+
+# Copy the .env file into the container at /app
+COPY .env /app/.env
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
