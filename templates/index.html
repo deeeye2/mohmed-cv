@@ -186,6 +186,16 @@
             white-space: pre-wrap;
             text-align: left;
         }
+        /* Specific styles for Blue-Green Deployment */
+        .bg-stage.blue { background-color: #00f; }
+        .bg-stage.green { background-color: #0f0; }
+        .bg-stage.switch { background-color: #ff6600; }
+
+        /* Specific styles for Rollback Deployment */
+        .rollback-stage.deploy { background-color: #3399ff; }
+        .rollback-stage.monitor { background-color: #9933ff; }
+        .rollback-stage.detect { background-color: #cc33ff; }
+        .rollback-stage.rollback { background-color: #ff3300; }
     </style>
 </head>
 
@@ -2451,6 +2461,93 @@ function startQuiz(category) {
         showNextDockerStage();
     });
 
+    <!-- Blue-Green Deployment Demonstration Section -->
+    <section class="section-padding" id="blue-green-deploy-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Blue-Green Deployment Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-blue-green-deploy-demo">Start Blue-Green Deploy Demo</button>
+            <div id="blue-green-deploy-container" class="demo-container mt-4" style="display: none;">
+                <div class="demo-stage bg-stage blue" id="bg-stage-blue">Blue Deployment</div>
+                <div class="demo-stage bg-stage green" id="bg-stage-green">Green Deployment</div>
+                <div class="demo-stage bg-stage switch" id="bg-stage-switch">Switch Traffic</div>
+            </div>
+            <div id="blue-green-command-box" class="command-box" style="display: none;"></div>
+        </div>
+    </section>
+
+    <!-- Rollback Deployment Demonstration Section -->
+    <section class="section-padding" id="rollback-deploy-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Rollback Deployment Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-rollback-deploy-demo">Start Rollback Deploy Demo</button>
+            <div id="rollback-deploy-container" class="demo-container mt-4" style="display: none;">
+                <div class="demo-stage rollback-stage deploy" id="rollback-stage-deploy">Deploy</div>
+                <div class="demo-stage rollback-stage monitor" id="rollback-stage-monitor">Monitor</div>
+                <div class="demo-stage rollback-stage detect" id="rollback-stage-detect">Detect Issue</div>
+                <div class="demo-stage rollback-stage rollback" id="rollback-stage-rollback">Rollback</div>
+            </div>
+            <div id="rollback-command-box" class="command-box" style="display: none;"></div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('start-blue-green-deploy-demo').addEventListener('click', function() {
+            const stages = [
+                { id: 'bg-stage-blue', class: 'blue', command: 'Deploy the new version of your application to the Blue environment' },
+                { id: 'bg-stage-green', class: 'green', command: 'Deploy the new version of your application to the Green environment' },
+                { id: 'bg-stage-switch', class: 'switch', command: 'Switch traffic from the Blue environment to the Green environment' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('blue-green-deploy-container').style.display = 'flex';
+            document.getElementById('blue-green-command-box').style.display = 'block';
+
+            function showNextStage() {
+                if (currentStage > 0) {
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('blue-green-command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextStage();
+        });
+
+        document.getElementById('start-rollback-deploy-demo').addEventListener('click', function() {
+            const stages = [
+                { id: 'rollback-stage-deploy', class: 'deploy', command: 'Deploy the new version of your application' },
+                { id: 'rollback-stage-monitor', class: 'monitor', command: 'Monitor the deployment and application performance' },
+                { id: 'rollback-stage-detect', class: 'detect', command: 'Detect any issues or failures in the new deployment' },
+                { id: 'rollback-stage-rollback', class: 'rollback', command: 'Rollback to the previous stable version if issues are detected' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('rollback-deploy-container').style.display = 'flex';
+            document.getElementById('rollback-command-box').style.display = 'block';
+
+            function showNextStage() {
+                if (currentStage > 0) {
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('rollback-command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextStage();
+        });
+
     // Kubernetes Demo Script
     document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
         const k8sStages = [
@@ -2485,6 +2582,7 @@ function startQuiz(category) {
         showNextK8sStage();
     });
 </script>
+    
 
 <!-- CONTACT SECTION -->
     <section class="contact section-padding pt-0" id="contact">
