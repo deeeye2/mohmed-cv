@@ -71,6 +71,15 @@
         .demo-stage.container-runtime { background-color: #00cc99; } /* Teal for Container Runtime */
         .demo-stage.running { background-color: #9933ff; }          /* Violet for Running */
 
+        .ci-cd-stage.plan { background-color: #ffcc00; }     /* Yellow for Plan */
+        .ci-cd-stage.code { background-color: #ff6600; }     /* Orange for Code */
+        .ci-cd-stage.build { background-color: #ff3300; }    /* Red for Build */
+        .ci-cd-stage.test { background-color: #cc33ff; }     /* Purple for Test */
+        .ci-cd-stage.release { background-color: #3399ff; }  /* Blue for Release */
+        .ci-cd-stage.deploy { background-color: #33cc33; }   /* Green for Deploy */
+        .ci-cd-stage.operate { background-color: #00cc99; }  /* Teal for Operate */
+        .ci-cd-stage.monitor { background-color: #9933ff; }  /* Violet for Monitor */
+
         .command-box {
             margin-top: 20px;
             padding: 10px;
@@ -2369,36 +2378,38 @@ function startQuiz(category) {
     <title>CI/CD Demonstration</title>
     <section class="section-padding" id="ci-cd-demo">
         <div class="container mt-5">
-            <h1 class="text-center">CI/CD Demonstration</h1>
+            <h1 class="text-center">CI/CD Process Demonstration</h1>
             <button type="button" class="btn btn-primary" id="start-ci-cd-demo">Start CI/CD Demo</button>
-            <div id="ci-cd-container" class="ci-cd-container mt-4" style="display: none;">
-                <div class="ci-cd-stage" id="stage-plan">Plan<br>(JIRA)</div>
-                <div class="ci-cd-stage" id="stage-code">Code<br>(GitHub)</div>
-                <div class="ci-cd-stage" id="stage-build">Build<br>(Jenkins)</div>
-                <div class="ci-cd-stage" id="stage-test">Test<br>(JUnit)</div>
-                <div class="ci-cd-stage" id="stage-release">Release<br>(Docker)</div>
-                <div class="ci-cd-stage" id="stage-deploy">Deploy<br>(Kubernetes)</div>
-                <div class="ci-cd-stage" id="stage-operate">Operate<br>(Prometheus)</div>
-                <div class="ci-cd-stage" id="stage-monitor">Monitor<br>(Grafana)</div>
+            <div id="ci-cd-container" class="demo-container mt-4" style="display: none;">
+                <div class="demo-stage" id="ci-cd-stage-plan">Plan<br>(JIRA)</div>
+                <div class="demo-stage" id="ci-cd-stage-code">Code<br>(GitHub)</div>
+                <div class="demo-stage" id="ci-cd-stage-build">Build<br>(Jenkins)</div>
+                <div class="demo-stage" id="ci-cd-stage-test">Test<br>(JUnit)</div>
+                <div class="demo-stage" id="ci-cd-stage-release">Release<br>(Docker)</div>
+                <div class="demo-stage" id="ci-cd-stage-deploy">Deploy<br>(Kubernetes)</div>
+                <div class="demo-stage" id="ci-cd-stage-operate">Operate<br>(Prometheus)</div>
+                <div class="demo-stage" id="ci-cd-stage-monitor">Monitor<br>(Grafana)</div>
             </div>
+            <div id="ci-cd-command-box" class="command-box" style="display: none;"></div>
         </div>
     </section>
 
     <script>
-        document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
+        ddocument.getElementById('start-ci-cd-demo').addEventListener('click', function() {
             const stages = [
-                { id: 'stage-plan', class: 'plan' },
-                { id: 'stage-code', class: 'code' },
-                { id: 'stage-build', class: 'build' },
-                { id: 'stage-test', class: 'test' },
-                { id: 'stage-release', class: 'release' },
-                { id: 'stage-deploy', class: 'deploy' },
-                { id: 'stage-operate', class: 'operate' },
-                { id: 'stage-monitor', class: 'monitor' }
+                { id: 'ci-cd-stage-plan', class: 'plan', command: 'Plan your project and tasks using tools like JIRA, Trello, Asana' },
+                { id: 'ci-cd-stage-code', class: 'code', command: 'Write your code and push to version control systems like GitHub, GitLab, Bitbucket' },
+                { id: 'ci-cd-stage-build', class: 'build', command: 'Automate builds using CI tools like Jenkins, Travis CI, CircleCI, GitHub Actions' },
+                { id: 'ci-cd-stage-test', class: 'test', command: 'Run tests using frameworks like JUnit, Selenium, pytest, Cypress, TestNG' },
+                { id: 'ci-cd-stage-release', class: 'release', command: 'Package and release your application using Docker, Nexus, Artifactory' },
+                { id: 'ci-cd-stage-deploy', class: 'deploy', command: 'Deploy your application using Kubernetes, AWS, Azure, GCP, Ansible, Terraform' },
+                { id: 'ci-cd-stage-operate', class: 'operate', command: 'Operate your application using monitoring tools like Prometheus, ELK Stack, New Relic' },
+                { id: 'ci-cd-stage-monitor', class: 'monitor', command: 'Monitor your application and infrastructure with Grafana, Datadog, Splunk' }
             ];
             let currentStage = 0;
 
             document.getElementById('ci-cd-container').style.display = 'flex';
+            document.getElementById('ci-cd-command-box').style.display = 'block';
 
             function showNextStage() {
                 if (currentStage > 0) {
@@ -2408,8 +2419,9 @@ function startQuiz(category) {
                 if (currentStage < stages.length) {
                     const nextStage = stages[currentStage];
                     document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('ci-cd-command-box').innerText = nextStage.command;
                     currentStage++;
-                    setTimeout(showNextStage, 2000); // 2 seconds delay for each stage
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
                 }
             }
 
