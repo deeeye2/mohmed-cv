@@ -69,8 +69,8 @@
         }
 
         .demo-stage {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -88,6 +88,12 @@
         .ci-cd-stage {
             border-radius: 50%;
             background-color: #ddd;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .ci-cd-stage.plan { background-color: #ffcc00; } /* Yellow for Plan */
         .ci-cd-stage.code { background-color: #ff6600; } /* Orange for Code */
@@ -102,7 +108,11 @@
         .docker-stage {
             background-color: #ddd;
             width: 200px;
-            height: 100px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .docker-stage.dockerfile { background-color: #ffcc00; } /* Yellow for Dockerfile */
         .docker-stage.cli { background-color: #ff6600; } /* Orange for CLI */
@@ -117,20 +127,21 @@
         .k8s-stage {
             background-color: #ddd;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            width: 0;
-            height: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 150px solid #ddd;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        .k8s-stage.manifest { border-bottom-color: #ffcc00; } /* Yellow for Write Manifest */
-        .k8s-stage.kubectl { border-bottom-color: #ff6600; } /* Orange for kubectl apply */
-        .k8s-stage.api { border-bottom-color: #ff3300; } /* Red for API Server */
-        .k8s-stage.etcd { border-bottom-color: #cc33ff; } /* Purple for etcd */
-        .k8s-stage.scheduler { border-bottom-color: #3399ff; } /* Blue for Scheduler */
-        .k8s-stage.kubelet { border-bottom-color: #33cc33; } /* Green for Kubelet */
-        .k8s-stage.runtime { border-bottom-color: #00cc99; } /* Teal for Container Runtime */
-        .k8s-stage.running { border-bottom-color: #9933ff; } /* Violet for Running */
+        .k8s-stage.manifest { background-color: #ffcc00; } /* Yellow for Write Manifest */
+        .k8s-stage.kubectl { background-color: #ff6600; } /* Orange for kubectl apply */
+        .k8s-stage.api { background-color: #ff3300; } /* Red for API Server */
+        .k8s-stage.etcd { background-color: #cc33ff; } /* Purple for etcd */
+        .k8s-stage.scheduler { background-color: #3399ff; } /* Blue for Scheduler */
+        .k8s-stage.kubelet { background-color: #33cc33; } /* Green for Kubelet */
+        .k8s-stage.runtime { background-color: #00cc99; } /* Teal for Container Runtime */
+        .k8s-stage.running { background-color: #9933ff; } /* Violet for Running */
 
         .command-box {
             margin-top: 20px;
@@ -2259,6 +2270,7 @@ function startQuiz(category) {
         submitButton.addEventListener('click', showResults);
         abortButton.addEventListener('click', abortQuiz);
     </script>
+    
     <!-- CI/CD Demonstration Section -->
 <title>CI/CD Process Demonstration</title>
 <section class="section-padding" id="ci-cd-demo">
