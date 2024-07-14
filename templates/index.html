@@ -2329,173 +2329,62 @@ function startQuiz(category) {
     </script>
     
     <!-- CI/CD Demonstration Section -->
-<title>CI/CD Process Demonstration</title>
-<section class="section-padding" id="ci-cd-demo">
-    <div class="container mt-5">
-        <h1 class="text-center">CI/CD Process Demonstration</h1>
-        <button type="button" class="btn btn-primary" id="start-ci-cd-demo">Start CI/CD Demo</button>
-        <div id="ci-cd-container" class="demo-container mt-4" style="display: none;">
-            <div class="ci-cd-stage" id="ci-cd-stage-plan">Plan<br>(JIRA)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-code">Code<br>(GitHub)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-build">Build<br>(Jenkins)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-test">Test<br>(JUnit)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-release">Release<br>(Docker)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-deploy">Deploy<br>(Kubernetes)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-operate">Operate<br>(Prometheus)</div>
-            <div class="ci-cd-stage" id="ci-cd-stage-monitor">Monitor<br>(Grafana)</div>
+    <section class="section-padding" id="ci-cd-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">CI/CD Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-ci-cd-demo">Start CI/CD Demo</button>
+            <div id="ci-cd-container" class="demo-container mt-4" style="display: none;">
+                <div class="demo-stage ci-cd-stage plan" id="ci-cd-stage-plan">Plan<br>(JIRA)</div>
+                <div class="demo-stage ci-cd-stage code" id="ci-cd-stage-code">Code<br>(GitHub)</div>
+                <div class="demo-stage ci-cd-stage build" id="ci-cd-stage-build">Build<br>(Jenkins)</div>
+                <div class="demo-stage ci-cd-stage test" id="ci-cd-stage-test">Test<br>(JUnit)</div>
+                <div class="demo-stage ci-cd-stage release" id="ci-cd-stage-release">Release<br>(Docker)</div>
+                <div class="demo-stage ci-cd-stage deploy" id="ci-cd-stage-deploy">Deploy<br>(Kubernetes)</div>
+                <div class="demo-stage ci-cd-stage operate" id="ci-cd-stage-operate">Operate<br>(Prometheus)</div>
+                <div class="demo-stage ci-cd-stage monitor" id="ci-cd-stage-monitor">Monitor<br>(Grafana)</div>
+            </div>
+            <div id="ci-cd-command-box" class="command-box" style="display: none;"></div>
         </div>
-        <div id="ci-cd-command-box" class="command-box" style="display: none;"></div>
-    </div>
-</section>
+    </section>
 
-<!-- Docker Build Process Demonstration Section -->
-<title>Docker Build Process Demonstration</title>
-<section class="section-padding" id="docker-build-demo">
-    <div class="container mt-5">
-        <h1 class="text-center">Docker Build Process Demonstration</h1>
-        <button type="button" class="btn btn-primary" id="start-docker-build-demo">Start Docker Build Demo</button>
-        <div id="docker-build-container" class="demo-container mt-4" style="display: none;">
-            <div class="docker-stage" id="docker-stage-dockerfile">Dockerfile</div>
-            <div class="docker-stage" id="docker-stage-cli">Docker CLI</div>
-            <div class="docker-stage" id="docker-stage-daemon">Docker Daemon</div>
-            <div class="docker-stage" id="docker-stage-parser">Parser</div>
-            <div class="docker-stage" id="docker-stage-layers">Layers Creation</div>
-            <div class="docker-stage" id="docker-stage-cgroup">Cgroup</div>
-            <div class="docker-stage" id="docker-stage-unions">Union FS</div>
-            <div class="docker-stage" id="docker-stage-image">Final Image</div>
+    <!-- Docker Build Process Demonstration Section -->
+    <section class="section-padding" id="docker-build-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Docker Build Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-docker-build-demo">Start Docker Build Demo</button>
+            <div id="docker-build-container" class="demo-container mt-4" style="display: none;">
+                <div class="docker-stage" id="docker-stage-dockerfile">Dockerfile</div>
+                <div class="docker-stage" id="docker-stage-cli">Docker CLI</div>
+                <div class="docker-stage" id="docker-stage-daemon">Docker Daemon</div>
+                <div class="docker-stage" id="docker-stage-parser">Parser</div>
+                <div class="docker-stage" id="docker-stage-layers">Layers Creation</div>
+                <div class="docker-stage" id="docker-stage-cgroup">Cgroup</div>
+                <div class="docker-stage" id="docker-stage-unions">Union FS</div>
+                <div class="docker-stage" id="docker-stage-image">Final Image</div>
+            </div>
+            <div id="docker-command-box" class="command-box" style="display: none;"></div>
         </div>
-        <div id="docker-command-box" class="command-box" style="display: none;"></div>
-    </div>
-</section>
+    </section>
 
-<!-- Kubernetes Deployment Process Demonstration Section -->
-<title>Kubernetes Deployment Process Demonstration</title>
-<section class="section-padding" id="k8s-deploy-demo">
-    <div class="container mt-5">
-        <h1 class="text-center">Kubernetes Deployment Process Demonstration</h1>
-        <button type="button" class="btn btn-primary" id="start-k8s-deploy-demo">Start Kubernetes Deploy Demo</button>
-        <div id="k8s-deploy-container" class="demo-container mt-4" style="display: none;">
-            <div class="k8s-stage manifest" id="k8s-stage-manifest"><span class="k8s-text">Write Manifest</span></div>
-            <div class="k8s-stage kubectl" id="k8s-stage-kubectl"><span class="k8s-text">kubectl apply</span></div>
-            <div class="k8s-stage api" id="k8s-stage-api"><span class="k8s-text">API Server</span></div>
-            <div class="k8s-stage etcd" id="k8s-stage-etcd"><span class="k8s-text">etcd</span></div>
-            <div class="k8s-stage scheduler" id="k8s-stage-scheduler"><span class="k8s-text">Scheduler</span></div>
-            <div class="k8s-stage kubelet" id="k8s-stage-kubelet"><span class="k8s-text">Kubelet</span></div>
-            <div class="k8s-stage runtime" id="k8s-stage-runtime"><span class="k8s-text">Container Runtime</span></div>
-            <div class="k8s-stage running" id="k8s-stage-running"><span class="k8s-text">Running</span></div>
+    <!-- Kubernetes Deployment Process Demonstration Section -->
+    <section class="section-padding" id="k8s-deploy-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Kubernetes Deployment Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-k8s-deploy-demo">Start Kubernetes Deploy Demo</button>
+            <div id="k8s-deploy-container" class="demo-container mt-4" style="display: none;">
+                <div class="k8s-stage manifest" id="k8s-stage-manifest"><span class="k8s-text">Write Manifest</span></div>
+                <div class="k8s-stage kubectl" id="k8s-stage-kubectl"><span class="k8s-text">kubectl apply</span></div>
+                <div class="k8s-stage api" id="k8s-stage-api"><span class="k8s-text">API Server</span></div>
+                <div class="k8s-stage etcd" id="k8s-stage-etcd"><span class="k8s-text">etcd</span></div>
+                <div class="k8s-stage scheduler" id="k8s-stage-scheduler"><span class="k8s-text">Scheduler</span></div>
+                <div class="k8s-stage kubelet" id="k8s-stage-kubelet"><span class="k8s-text">Kubelet</span></div>
+                <div class="k8s-stage runtime" id="k8s-stage-runtime"><span class="k8s-text">Container Runtime</span></div>
+                <div class="k8s-stage running" id="k8s-stage-running"><span class="k8s-text">Running</span></div>
+            </div>
+            <div id="k8s-command-box" class="command-box" style="display: none;"></div>
         </div>
-        <div id="k8s-command-box" class="command-box" style="display: none;"></div>
-    </div>
-</section>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
-<script>
-    // CI/CD Demo Script
-    document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
-        const ciCdStages = [
-            { id: 'ci-cd-stage-plan', class: 'plan', command: 'Plan your project and tasks using tools like JIRA, Trello, Asana' },
-            { id: 'ci-cd-stage-code', class: 'code', command: 'Write your code and push to version control systems like GitHub, GitLab, Bitbucket' },
-            { id: 'ci-cd-stage-build', class: 'build', command: 'Automate builds using CI tools like Jenkins, Travis CI, CircleCI, GitHub Actions' },
-            { id: 'ci-cd-stage-test', class: 'test', command: 'Run tests using frameworks like JUnit, Selenium, pytest, Cypress, TestNG' },
-            { id: 'ci-cd-stage-release', class: 'release', command: 'Package and release your application using Docker, Nexus, Artifactory' },
-            { id: 'ci-cd-stage-deploy', class: 'deploy', command: 'Deploy your application using Kubernetes, AWS, Azure, GCP, Ansible, Terraform' },
-            { id: 'ci-cd-stage-operate', class: 'operate', command: 'Operate your application using monitoring tools like Prometheus, ELK Stack, New Relic' },
-            { id: 'ci-cd-stage-monitor', class: 'monitor', command: 'Monitor your application and infrastructure with Grafana, Datadog, Splunk' }
-        ];
-        let currentStage = 0;
-
-        document.getElementById('ci-cd-container').style.display = 'flex';
-        document.getElementById('ci-cd-command-box').style.display = 'block';
-
-        function showNextCiCdStage() {
-            if (currentStage > 0) {
-                const prevStage = ciCdStages[currentStage - 1];
-                document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
-            }
-            if (currentStage < ciCdStages.length) {
-                const nextStage = ciCdStages[currentStage];
-                document.getElementById(nextStage.id).classList.add('active', nextStage.class);
-                document.getElementById('ci-cd-command-box').innerText = nextStage.command;
-                currentStage++;
-                setTimeout(showNextCiCdStage, 3000); // 3 seconds delay for each stage
-            }
-        }
-
-        showNextCiCdStage();
-    });
-
-    // Docker Demo Script
-    document.getElementById('start-docker-build-demo').addEventListener('click', function() {
-        const dockerStages = [
-            { id: 'docker-stage-dockerfile', class: 'dockerfile', command: 'Write a Dockerfile with necessary instructions' },
-            { id: 'docker-stage-cli', class: 'cli', command: 'docker build -t your-image-name .' },
-            { id: 'docker-stage-daemon', class: 'daemon', command: 'Docker CLI sends context to Docker Daemon' },
-            { id: 'docker-stage-parser', class: 'parser', command: 'Docker Daemon parses the Dockerfile' },
-            { id: 'docker-stage-layers', class: 'layers', command: 'Docker Daemon creates image layers for each instruction' },
-            { id: 'docker-stage-cgroup', class: 'cgroup', command: 'Docker uses cgroups to isolate resources for containers' },
-            { id: 'docker-stage-unions', class: 'unions', command: 'Docker uses Union FS to manage file system layers' },
-            { id: 'docker-stage-image', class: 'image', command: 'Docker Daemon assembles final image from layers' }
-        ];
-        let currentStage = 0;
-
-        document.getElementById('docker-build-container').style.display = 'flex';
-        document.getElementById('docker-command-box').style.display = 'block';
-
-        function showNextDockerStage() {
-            if (currentStage > 0) {
-                const prevStage = dockerStages[currentStage - 1];
-                document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
-            }
-            if (currentStage < dockerStages.length) {
-                const nextStage = dockerStages[currentStage];
-                document.getElementById(nextStage.id).classList.add('active', nextStage.class);
-                document.getElementById('docker-command-box').innerText = nextStage.command;
-                currentStage++;
-                setTimeout(showNextDockerStage, 3000); // 3 seconds delay for each stage
-            }
-        }
-
-        showNextDockerStage();
-    }); 
-
-    // Kubernetes Demo Script
-    document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
-        const k8sStages = [
-            { id: 'k8s-stage-manifest', class: 'manifest', command: 'Write Kubernetes manifests (YAML files) defining the desired state of your application' },
-            { id: 'k8s-stage-kubectl', class: 'kubectl', command: 'Run "kubectl apply -f <manifest>" to apply the configuration' },
-            { id: 'k8s-stage-api', class: 'api', command: 'The API server receives the configuration and validates it' },
-            { id: 'k8s-stage-etcd', class: 'etcd', command: 'The desired state is stored in etcd (the cluster store)' },
-            { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'The scheduler schedules the pods on appropriate nodes' },
-            { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'The Kubelet on each node receives the pod specification and starts the containers' },
-            { id: 'k8s-stage-runtime', class: 'runtime', command: 'The container runtime (e.g., Docker, containerd) pulls the image and runs the containers' },
-            { id: 'k8s-stage-running', class: 'running', command: 'The application is now running on the cluster' }
-        ];
-        let currentStage = 0;
-
-        document.getElementById('k8s-deploy-container').style.display = 'flex';
-        document.getElementById('k8s-command-box').style.display = 'block';
-
-        function showNextK8sStage() {
-            if (currentStage > 0) {
-                const prevStage = k8sStages[currentStage - 1];
-                document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
-            }
-            if (currentStage < k8sStages.length) {
-                const nextStage = k8sStages[currentStage];
-                document.getElementById(nextStage.id).classList.add('active', nextStage.class);
-                document.getElementById('k8s-command-box').innerText = nextStage.command;
-                currentStage++;
-                setTimeout(showNextK8sStage, 3000); // 3 seconds delay for each stage
-            }
-        }
-
-        showNextK8sStage();
-    });
-</script>
-    <!-- Blue-Green Deployment Demonstration Section -->
+    </section>
+ <!-- Blue-Green Deployment Demonstration Section -->
     <section class="section-padding" id="blue-green-deploy-demo">
         <div class="container mt-5">
             <h1 class="text-center">Blue-Green Deployment Process Demonstration</h1>
@@ -2524,7 +2413,114 @@ function startQuiz(category) {
         </div>
     </section>
 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
+        // CI/CD Demo Script
+        document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
+            const ciCdStages = [
+                { id: 'ci-cd-stage-plan', class: 'plan', command: 'Plan your project and tasks using tools like JIRA, Trello, Asana' },
+                { id: 'ci-cd-stage-code', class: 'code', command: 'Write your code and push to version control systems like GitHub, GitLab, Bitbucket' },
+                { id: 'ci-cd-stage-build', class: 'build', command: 'Automate builds using CI tools like Jenkins, Travis CI, CircleCI, GitHub Actions' },
+                { id: 'ci-cd-stage-test', class: 'test', command: 'Run tests using frameworks like JUnit, Selenium, pytest, Cypress, TestNG' },
+                { id: 'ci-cd-stage-release', class: 'release', command: 'Package and release your application using Docker, Nexus, Artifactory' },
+                { id: 'ci-cd-stage-deploy', class: 'deploy', command: 'Deploy your application using Kubernetes, AWS, Azure, GCP, Ansible, Terraform' },
+                { id: 'ci-cd-stage-operate', class: 'operate', command: 'Operate your application using monitoring tools like Prometheus, ELK Stack, New Relic' },
+                { id: 'ci-cd-stage-monitor', class: 'monitor', command: 'Monitor your application and infrastructure with Grafana, Datadog, Splunk' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('ci-cd-container').style.display = 'flex';
+            document.getElementById('ci-cd-command-box').style.display = 'block';
+
+            function showNextCiCdStage() {
+                if (currentStage > 0) {
+                    const prevStage = ciCdStages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < ciCdStages.length) {
+                    const nextStage = ciCdStages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('ci-cd-command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextCiCdStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextCiCdStage();
+        });
+
+        // Docker Demo Script
+        document.getElementById('start-docker-build-demo').addEventListener('click', function() {
+            const dockerStages = [
+                { id: 'docker-stage-dockerfile', class: 'dockerfile', command: 'Write a Dockerfile with necessary instructions' },
+                { id: 'docker-stage-cli', class: 'cli', command: 'docker build -t your-image-name .' },
+                { id: 'docker-stage-daemon', class: 'daemon', command: 'Docker CLI sends context to Docker Daemon' },
+                { id: 'docker-stage-parser', class: 'parser', command: 'Docker Daemon parses the Dockerfile' },
+                { id: 'docker-stage-layers', class: 'layers', command: 'Docker Daemon creates image layers for each instruction' },
+                { id: 'docker-stage-cgroup', class: 'cgroup', command: 'Docker uses cgroups to isolate resources for containers' },
+                { id: 'docker-stage-unions', class: 'unions', command: 'Docker uses Union FS to manage file system layers' },
+                { id: 'docker-stage-image', class: 'image', command: 'Docker Daemon assembles final image from layers' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('docker-build-container').style.display = 'flex';
+            document.getElementById('docker-command-box').style.display = 'block';
+
+            function showNextDockerStage() {
+                if (currentStage > 0) {
+                    const prevStage = dockerStages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < dockerStages.length) {
+                    const nextStage = dockerStages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('docker-command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextDockerStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextDockerStage();
+        });
+
+        // Kubernetes Demo Script
+        document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
+            const k8sStages = [
+                { id: 'k8s-stage-manifest', class: 'manifest', command: 'Write Kubernetes manifests (YAML files) defining the desired state of your application' },
+                { id: 'k8s-stage-kubectl', class: 'kubectl', command: 'Run "kubectl apply -f <manifest>" to apply the configuration' },
+                { id: 'k8s-stage-api', class: 'api', command: 'The API server receives the configuration and validates it' },
+                { id: 'k8s-stage-etcd', class: 'etcd', command: 'The desired state is stored in etcd (the cluster store)' },
+                { id: 'k8s-stage-scheduler', class: 'scheduler', command: 'The scheduler schedules the pods on appropriate nodes' },
+                { id: 'k8s-stage-kubelet', class: 'kubelet', command: 'The Kubelet on each node receives the pod specification and starts the containers' },
+                { id: 'k8s-stage-runtime', class: 'runtime', command: 'The container runtime (e.g., Docker, containerd) pulls the image and runs the containers' },
+                { id: 'k8s-stage-running', class: 'running', command: 'The application is now running on the cluster' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('k8s-deploy-container').style.display = 'flex';
+            document.getElementById('k8s-command-box').style.display = 'block';
+
+            function showNextK8sStage() {
+                if (currentStage > 0) {
+                    const prevStage = k8sStages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < k8sStages.length) {
+                    const nextStage = k8sStages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('k8s-command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextK8sStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextK8sStage();
+        });
+
+        // Blue-Green Deployment Script
         document.getElementById('start-blue-green-deploy-demo').addEventListener('click', function() {
             const stages = [
                 { id: 'bg-stage-blue', class: 'blue', command: 'Deploy the new version of your application to the Blue environment' },
@@ -2553,6 +2549,7 @@ function startQuiz(category) {
             showNextStage();
         });
 
+        // Rollback Deployment Script
         document.getElementById('start-rollback-deploy-demo').addEventListener('click', function() {
             const stages = [
                 { id: 'rollback-stage-deploy', class: 'deploy', command: 'Deploy the new version of your application' },
@@ -2581,6 +2578,7 @@ function startQuiz(category) {
 
             showNextStage();
         });
+    </script>
     
 
 <!-- CONTACT SECTION -->
