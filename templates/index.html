@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mohamed's Resume - Profile HTML Page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/png">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
+    
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-ben-resume-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #f0f0f0, #ffffff);
+        }
+        .ci-cd-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            flex-wrap: wrap;
+        }
+
+        .ci-cd-stage {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #ddd;
+            font-size: 1em;
+            text-align: center;
+            transition: background-color 0.5s, transform 0.5s;
+            margin: 10px;
+        }
+
+        .ci-cd-stage.active {
+            transform: scale(1.1);
+        }
+
+        .ci-cd-stage.plan { background-color: #ffcc00; }     /* Yellow for Plan */
+        .ci-cd-stage.code { background-color: #ff6600; }     /* Orange for Code */
+        .ci-cd-stage.build { background-color: #ff3300; }    /* Red for Build */
+        .ci-cd-stage.test { background-color: #cc33ff; }     /* Purple for Test */
+        .ci-cd-stage.release { background-color: #3399ff; }  /* Blue for Release */
+        .ci-cd-stage.deploy { background-color: #33cc33; }   /* Green for Deploy */
+        .ci-cd-stage.operate { background-color: #00cc99; }  /* Teal for Operate */
+        .ci-cd-stage.monitor { background-color: #9933ff; }  /* Violet for Monitor */
+        }
+        .dashboard {
+            margin-top: 50px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .category-btn {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+        .category-btn:hover {
+            transform: scale(1.05);
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .answers label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mohamed Resume</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Introduction</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link smoothScroll">About Me</a></li>
+        <li class="nav-item"><a href="#certification" class="nav-link smoothScroll">Certification</a></li>
+        <li class="nav-item"><a href="#devops-quiz" class="nav-link smoothScroll">DevOps Quiz</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Contact</a></li>
+    </ul>
+    <div class="mt-lg-0 mt-3 mb-4 mb-lg-0"> 
+        <a href="static/images/MohamedCV.pdf" class="custom-btn btn" download>Download CV</a> 
+    </div> 
+</div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero d-flex flex-column justify-content-center align-items-center" id="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-10 mx-auto">
+                    <img src="{{ url_for('static', filename='images/dev.png') }}" class="img-fluid" alt="Mohamed Resume">
+                </div>
+                <div class="col-lg-7 col-md-7 col-12 d-flex flex-column justify-content-center align-items-center">
+                    <div class="hero-text">
+                        <h1 class="hero-title">👋 Mohamed, a DevOps Engineer</h1>
+                        <a href="mailto:mohamed.sesay@outlook.com.au" class="email-link">mohamed.sesay@outlook.com.au</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about section-padding" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h3 class="mb-4">This is Mohamed's Resume</h3>
+                    <p>"Mohamed is a DevOps Engineer | Seeking Opportunities in Automation & Infrastructure Management."</p>
+                    <p>As an undergraduate, I embarked on a journey fueled by ambition, but financial constraints forced me to pause my university education...</p>
+                    <ul class="profile-list list-unstyled mt-4 mb-5 mb-lg-0">
+                        <li><strong>Full Name :</strong> Mohamed Sesay</li>
+                        <li><strong>Date of Birth:</strong> 22 June 1988</li>
+                        <li><strong>Website :</strong> dee-empire.com</li>
+                        <li><strong>Email :</strong> mohamed.sesay@outlook.com.au</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-6 col-12 mx-auto">
+                    <img src="{{ url_for('static', filename='images/devops.jpg') }}" class="about-image img-fluid" alt="Mohamed's Resume">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATION SECTION -->
+    <section class="certification section-padding" id="certification">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h3 class="mb-4">Certification</h3>
+                    <p>How I Earned My DevOps Engineer Certification from Edureka!</p>
+                    <p>I am excited to share my journey towards earning my DevOps Engineer certification from Edureka...</p>
+                    <h4>Training and Learning</h4>
+                    <p>My journey involved 140 hours of intensive learning that covered a comprehensive curriculum...</p>
+                    <h4>Tools and Technologies Learned</h4>
+                    <ul>
+                        <li>Version Control Systems: Git and GitHub for source code management and collaboration.</li>
+                        <li>Continuous Integration and Continuous Deployment (CI/CD): Jenkins for automating the integration and deployment processes.</li>
+                        <li>Containerization: Docker for containerizing applications to ensure consistency across various environments.</li>
+                        <li>Configuration Management: Ansible and Puppet for automating the management of infrastructure.</li>
+                        <li>Orchestration: Kubernetes for automating the deployment, scaling, and operations of application containers.</li>
+                        <li>Cloud Platforms: AWS for cloud computing solutions, including EC2, S3, and IAM.</li>
+                        <li>Monitoring and Logging: Prometheus and Grafana for monitoring system performance and visualizing data.</li>
+                        <li>Scripting and Automation: Python and Shell scripting for automating repetitive tasks.</li>
+                    </ul>
+                    <h4>Hands-on Projects</h4>
+                    <ul>
+                        <li><strong>Project 1: Automated Deployment Pipeline</strong>
+                            <ul>
+                                <li>Created a CI/CD pipeline using Jenkins and GitHub.</li>
+                                <li>Implemented automated testing and deployment scripts.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 2: Containerized Application Deployment</strong>
+                            <ul>
+                                <li>Developed Docker containers for a multi-tier application.</li>
+                                <li>Deployed and managed the containers using Kubernetes.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 3: Infrastructure as Code (IaC)</strong>
+                            <ul>
+                                <li>Used Ansible to automate the setup and configuration of a web server.</li>
+                                <li>Implemented IaC practices to ensure reproducibility and consistency.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Project 4: Cloud Infrastructure Setup</strong>
+                            <ul>
+                                <li>Set up and managed cloud infrastructure using AWS services.</li>
+                                <li>Configured security groups, load balancers, and auto-scaling.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Certification Details</h4>
+                    <ul>
+                        <li>Certification Issuer: Edureka</li>
+                        <li>Certified As: DevOps Engineer</li>
+                        <li>Grade: A</li>
+                        <li>Date of Completion: 22nd June 2024</li>
+                        <li>Certificate ID: 5E2X36C4Q</li>
+                    </ul>
+                    <p>This certification marks the culmination of my efforts and the support provided by Edureka's comprehensive and well-structured training program. The experience has significantly enhanced my skills and prepared me to take on challenging roles in the field of DevOps. I am proud of this achievement and look forward to applying my knowledge in real-world scenarios to drive continuous improvement and innovation.</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/imcf.jpg') }}" class="certification-image img-fluid" alt="Certification Image">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h4 class="mb-4">Code Institute's 5 Day Coding Challenge</h4>
+                    <ul>
+                        <li>Certification Issuer: Code Institute</li>
+                        <li>Course: 5 Day Coding Challenge</li>
+                        <li>Date of Completion: 13th April 2024</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/coding_certificate.jpg') }}" class="certification-image img-fluid" alt="Code Institute 5 Day Coding Challenge Certificate">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <h4 class="mb-4">DevOps Project 1 - CI/CD with Git Jenkins Ansible Kubernetes</h4>
+                    <ul>
+                        <li>Certification Issuer: Udemy</li>
+                        <li>Course: DevOps Project 1 - CI/CD with Git Jenkins Ansible Kubernetes</li>
+                        <li>Date of Completion: 17th May 2024</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <img src="{{ url_for('static', filename='images/udemy_certificate.jpg') }}" class="certification-image img-fluid" alt="Udemy DevOps Project Certificate">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEVOPS QUIZ SECTION -->
+    <section class="section-padding" id="devops-quiz">
+        <div class="container mt-5">
+            <div class="dashboard">
+                <h1 class="dashboard-title">DevOps Quiz</h1>
+                <div id="category-container" class="category-container">
+                    <button type="button" class="category-btn" onclick="startQuiz('linux')">Linux</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('docker')">Docker</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('jenkins')">Jenkins</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('ansible')">Ansible</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('terraform')">Terraform</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('kubernetes')">Kubernetes</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('grafana')">Grafana</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('prometheus')">Prometheus</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('git')">Git</button>
+                    <button type="button" class="category-btn" onclick="startQuiz('github')">GitHub</button>
+                </div>
+                <div id="quiz-container" class="quiz-container" style="display:none;"></div>
+                <button type="button" id="prev-question" class="btn btn-secondary mt-3" style="display:none;">Previous Question</button>
+                <button type="button" id="next-question" class="btn btn-secondary mt-3" style="display:none;">Next Question</button>
+                <button type="button" id="submit-quiz" class="btn btn-primary mt-3" style="display:none;">Submit Quiz</button>
+                <button type="button" id="abort-quiz" class="btn btn-danger mt-3" style="display:none;">Abort Quiz</button>
+                <div id="results" class="mt-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/log-visit', { method: 'POST' });
+        });
+
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit-quiz');
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        const abortButton = document.getElementById('abort-quiz');
+        const categoryContainer = document.getElementById('category-container');
+        let currentQuestionIndex = 0;
+        let currentCategory = '';
+        const userAnswers = {};
+
+
+        const questions = {
+            linux: [
+                { 
+                    question: "1. What command is used to display disk usage?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "du", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "2. How do you check the available disk space?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "df", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which command is used to list files in a directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. How do you change the current directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "5. What command is used to display the current directory path?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "6. What command is used to create a new directory?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cd", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "7. How do you display the contents of a file?", 
+                    answers: { 
+                        a: "ls", 
+                        b: "cat", 
+                        c: "pwd", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "8. What command is used to move or rename a file?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "9. Which command is used to copy files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "10. What command is used to remove files?", 
+                    answers: { 
+                        a: "mv", 
+                        b: "cp", 
+                        c: "rm", 
+                        d: "mkdir" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "11. How do you display the first few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "12. Which command is used to display the last few lines of a file?", 
+                    answers: { 
+                        a: "head", 
+                        b: "tail", 
+                        c: "cat", 
+                        d: "less" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "13. What command is used to search for a specific pattern in a file?", 
+                    answers: { 
+                        a: "grep", 
+                        b: "find", 
+                        c: "awk", 
+                        d: "sed" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "14. How do you change file permissions?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "15. Which command is used to change file ownership?", 
+                    answers: { 
+                        a: "chmod", 
+                        b: "chown", 
+                        c: "chgrp", 
+                        d: "ls -l" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "16. What command is used to display running processes?", 
+                    answers: { 
+                        a: "ps", 
+                        b: "top", 
+                        c: "htop", 
+                        d: "jobs" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "17. How do you display system information?", 
+                    answers: { 
+                        a: "uname -a", 
+                        b: "uname -r", 
+                        c: "uname -m", 
+                        d: "uname -s" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which command is used to display the last login information?", 
+                    answers: { 
+                        a: "last", 
+                        b: "who", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "19. How do you display the current date and time?", 
+                    answers: { 
+                        a: "date", 
+                        b: "time", 
+                        c: "cal", 
+                        d: "clock" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "20. What command is used to display logged-in users?", 
+                    answers: { 
+                        a: "who", 
+                        b: "whoami", 
+                        c: "w", 
+                        d: "id" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            docker: [
+                { 
+                    question: "1. Which command is used to build a Docker image?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "2. Which command is used to run a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker create", 
+                        d: "docker image" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which command is used to list Docker containers?", 
+                    answers: { 
+                        a: "docker ps", 
+                        b: "docker images", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. Which command is used to stop a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker remove" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "5. How do you remove a Docker container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "6. Which command is used to list Docker images?", 
+                    answers: { 
+                        a: "docker images", 
+                        b: "docker ps", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "7. Which command is used to pull an image from Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "8. How do you push an image to Docker Hub?", 
+                    answers: { 
+                        a: "docker pull", 
+                        b: "docker push", 
+                        c: "docker run", 
+                        d: "docker build" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "9. Which command is used to view the logs of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker logs", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "10. What is the command to get the details of a running container?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker ps", 
+                        d: "docker inspect" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "11. Which command is used to remove all stopped containers?", 
+                    answers: { 
+                        a: "docker build", 
+                        b: "docker run", 
+                        c: "docker prune", 
+                        d: "docker rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "12. How do you start a stopped container?", 
+                    answers: { 
+                        a: "docker start", 
+                        b: "docker run", 
+                        c: "docker stop", 
+                        d: "docker kill" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "13. Which command is used to attach to a running container?", 
+                    answers: { 
+                        a: "docker attach", 
+                        b: "docker exec", 
+                        c: "docker run", 
+                        d: "docker start" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "14. How do you list all networks in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "15. Which command is used to create a new network in Docker?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "16. How do you inspect a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "17. Which command is used to remove a Docker network?", 
+                    answers: { 
+                        a: "docker network ls", 
+                        b: "docker network create", 
+                        c: "docker network inspect", 
+                        d: "docker network rm" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "18. What is the command to stop all running containers?", 
+                    answers: { 
+                        a: "docker stop $(docker ps -q)", 
+                        b: "docker rm $(docker ps -q)", 
+                        c: "docker kill $(docker ps -q)", 
+                        d: "docker pause $(docker ps -q)" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "19. How do you create a new image from a container’s changes?", 
+                    answers: { 
+                        a: "docker create", 
+                        b: "docker commit", 
+                        c: "docker build", 
+                        d: "docker run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "20. Which command is used to rename a Docker container?", 
+                    answers: { 
+                        a: "docker rename", 
+                        b: "docker move", 
+                        c: "docker cp", 
+                        d: "docker commit" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            jenkins: [
+                { 
+                    question: "1. Which plugin is used to integrate Jenkins with GitHub?", 
+                    answers: { 
+                        a: "Git Plugin", 
+                        b: "GitHub Plugin", 
+                        c: "SVN Plugin", 
+                        d: "Mercurial Plugin" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "2. Which command is used to start Jenkins from the command line?", 
+                    answers: { 
+                        a: "jenkins start", 
+                        b: "java -jar jenkins.war", 
+                        c: "start jenkins", 
+                        d: "run jenkins" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. What is the default port for Jenkins?", 
+                    answers: { 
+                        a: "80", 
+                        b: "443", 
+                        c: "8080", 
+                        d: "8443" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "4. Which language is Jenkins primarily written in?", 
+                    answers: { 
+                        a: "Python", 
+                        b: "Ruby", 
+                        c: "Java", 
+                        d: "C#" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "5. Which Jenkins plugin is used for visualizing the pipeline?", 
+                    answers: { 
+                        a: "Blue Ocean", 
+                        b: "Green Field", 
+                        c: "Yellow Stream", 
+                        d: "Red Flow" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which feature allows Jenkins to distribute the workload of building across multiple machines?", 
+                    answers: { 
+                        a: "Build Pipelines", 
+                        b: "Job Scheduling", 
+                        c: "Master/Slave Architecture", 
+                        d: "Cloud Agents" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "19. What is the function of the 'Poll SCM' option in Jenkins?", 
+                    answers: { 
+                        a: "To poll the network for new servers", 
+                        b: "To check for changes in the source code repository", 
+                        c: "To poll the internet for updates", 
+                        d: "To check for updates in Jenkins plugins" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "20. How do you install a new plugin in Jenkins?", 
+                    answers: { 
+                        a: "From the 'Manage Jenkins' section", 
+                        b: "Using the Jenkins CLI", 
+                        c: "By editing the Jenkins file", 
+                        d: "By restarting Jenkins" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            ansible: [
+                { 
+                    question: "1. Which file is used to define Ansible playbooks?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "playbook.yaml", 
+                        d: "ansible-playbook" 
+                    }, 
+                    correctAnswer: "c" 
+                },
+                { 
+                    question: "2. Which command is used to run an Ansible playbook?", 
+                    answers: { 
+                        a: "ansible", 
+                        b: "ansible-playbook", 
+                        c: "ansible-run", 
+                        d: "ansible-execute" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "3. Which file is used to configure Ansible settings?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "playbook.yaml", 
+                        d: "ansible.ini" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "4. Which module is used to copy files in Ansible?", 
+                    answers: { 
+                        a: "copy", 
+                        b: "file", 
+                        c: "fetch", 
+                        d: "synchronize" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "5. Which command is used to test the connectivity of the inventory hosts in Ansible?", 
+                    answers: { 
+                        a: "ansible-connect", 
+                        b: "ansible-ping", 
+                        c: "ansible-test", 
+                        d: "ansible" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "6. Which keyword is used to define a task in an Ansible playbook?", 
+                    answers: { 
+                        a: "task", 
+                        b: "tasks", 
+                        c: "command", 
+                        d: "run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "7. Which command is used to display the configuration settings in Ansible?", 
+                    answers: { 
+                        a: "ansible-config", 
+                        b: "ansible-settings", 
+                        c: "ansible-show", 
+                        d: "ansible-info" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "8. Which module is used to install packages in Ansible?", 
+                    answers: { 
+                        a: "install", 
+                        b: "package", 
+                        c: "yum", 
+                        d: "apt" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "9. Which command is used to list the inventory hosts in Ansible?", 
+                    answers: { 
+                        a: "ansible-inventory", 
+                        b: "ansible-hosts", 
+                        c: "ansible-list", 
+                        d: "ansible-show" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "10. Which keyword is used to define a play in an Ansible playbook?", 
+                    answers: { 
+                        a: "play", 
+                        b: "plays", 
+                        c: "name", 
+                        d: "hosts" 
+                    }, 
+                    correctAnswer: "d" 
+                },
+                { 
+                    question: "11. Which file is used to define the inventory in Ansible?", 
+                    answers: { 
+                        a: "ansible.cfg", 
+                        b: "inventory", 
+                        c: "hosts.yaml", 
+                        d: "playbook.yaml" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "12. Which module is used to manage services in Ansible?", 
+                    answers: { 
+                        a: "command", 
+                        b: "service", 
+                        c: "systemd", 
+                        d: "init" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "13. Which module is used to execute shell commands in Ansible?", 
+                    answers: { 
+                        a: "command", 
+                        b: "shell", 
+                        c: "script", 
+                        d: "run" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "14. Which Ansible ad-hoc command is used to gather facts about the remote hosts?", 
+                    answers: { 
+                        a: "ansible all -m gather_facts", 
+                        b: "ansible all -m setup", 
+                        c: "ansible all -m facts", 
+                        d: "ansible all -m get_facts" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "15. Which module is used to create a user in Ansible?", 
+                    answers: { 
+                        a: "user", 
+                        b: "add_user", 
+                        c: "create_user", 
+                        d: "manage_user" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "16. Which keyword is used to define variables in an Ansible playbook?", 
+                    answers: { 
+                        a: "vars", 
+                        b: "variables", 
+                        c: "params", 
+                        d: "parameters" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "17. Which Ansible module is used to manage files and directories?", 
+                    answers: { 
+                        a: "file", 
+                        b: "copy", 
+                        c: "fetch", 
+                        d: "synchronize" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "18. Which keyword is used to specify the remote user in an Ansible playbook?", 
+                    answers: { 
+                        a: "user", 
+                        b: "remote_user", 
+                        c: "login_user", 
+                        d: "ssh_user" 
+                    }, 
+                    correctAnswer: "b" 
+                },
+                { 
+                    question: "19. Which module is used to reboot a server in Ansible?", 
+                    answers: { 
+                        a: "reboot", 
+                        b: "restart", 
+                        c: "power", 
+                        d: "shutdown" 
+                    }, 
+                    correctAnswer: "a" 
+                },
+                { 
+                    question: "20. Which Ansible command is used to check the syntax of a playbook?", 
+                    answers: { 
+                        a: "ansible-playbook --syntax-check", 
+                        b: "ansible-playbook --check-syntax", 
+                        c: "ansible-playbook --validate", 
+                        d: "ansible-playbook --check" 
+                    }, 
+                    correctAnswer: "a" 
+                }
+            ],
+            terraform: [
+                {
+                    question: "1. Which file contains the provider configuration in Terraform?",
+                    answers: {
+                        a: "main.tf",
+                        b: "variables.tf",
+                        c: "provider.tf",
+                        d: "terraform.tfvars"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "2. Which command is used to initialize a Terraform configuration?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform validate"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "3. How do you preview the changes that Terraform will make to your infrastructure?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "4. Which file is used to define input variables in Terraform?",
+                    answers: {
+                        a: "main.tf",
+                        b: "variables.tf",
+                        c: "provider.tf",
+                        d: "terraform.tfvars"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "5. How do you apply the changes required to reach the desired state of the configuration in Terraform?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "6. Which command is used to remove the resources managed by Terraform?",
+                    answers: {
+                        a: "terraform plan",
+                        b: "terraform apply",
+                        c: "terraform init",
+                        d: "terraform destroy"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "7. What is the default state file name in Terraform?",
+                    answers: {
+                        a: "terraform.tfstate",
+                        b: "main.tfstate",
+                        c: "state.tf",
+                        d: "terraform.state"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "8. How do you validate the syntax and configuration of your Terraform files?",
+                    answers: {
+                        a: "terraform apply",
+                        b: "terraform plan",
+                        c: "terraform init",
+                        d: "terraform validate"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "9. Which keyword is used to define a resource in Terraform?",
+                    answers: {
+                        a: "resource",
+                        b: "provider",
+                        c: "variable",
+                        d: "output"
+                    },
+                    correctAnswer: "a"
+                },
+                {
+                    question: "10. How do you output values from your Terraform configuration?",
+                    answers: {
+                        a: "resource",
+                        b: "provider",
+                        c: "variable",
+                        d: "output"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "11. Which Terraform command can be used to inspect the current state of the infrastructure?",
+                    answers: {
+                        a: "terraform show",
+                        b: "terraform inspect",
+                        c: "terraform output",
+                        d: "terraform view"
+                },
+            correctAnswer: "a"
+        },
+        {
+            question: "12. What is the file extension for a Terraform configuration file?",
+            answers: {
+                a: ".tf",
+                b: ".tfvars",
+                c: ".terraform",
+                d: ".config"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "13. Which command is used to format Terraform configuration files to a canonical format?",
+            answers: {
+                a: "terraform apply",
+                b: "terraform fmt",
+                c: "terraform plan",
+                d: "terraform validate"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "14. How do you upgrade the modules and provider versions in Terraform?",
+            answers: {
+                a: "terraform apply",
+                b: "terraform plan",
+                c: "terraform init -upgrade",
+                d: "terraform validate"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "15. Which file is used to override default variable values in Terraform?",
+            answers: {
+                a: "main.tf",
+                b: "variables.tf",
+                c: "provider.tf",
+                d: "terraform.tfvars"
+            },
+            correctAnswer: "d"
+        },
+        {
+            question: "16. What is a backend in Terraform?",
+            answers: {
+                a: "A way to configure providers",
+                b: "A method to manage state storage",
+                c: "A type of resource",
+                d: "A way to define input variables"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "17. How do you import existing infrastructure into Terraform state?",
+            answers: {
+                a: "terraform import",
+                b: "terraform apply",
+                c: "terraform plan",
+                d: "terraform init"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "18. Which command is used to remove a specific resource from Terraform state?",
+            answers: {
+                a: "terraform remove",
+                b: "terraform rm",
+                c: "terraform state rm",
+                d: "terraform delete"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "19. How do you taint a resource in Terraform?",
+            answers: {
+                a: "terraform taint",
+                b: "terraform mark",
+                c: "terraform destroy",
+                d: "terraform remove"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "20. Which keyword is used to define a module in Terraform?",
+            answers: {
+                a: "resource",
+                b: "provider",
+                c: "module",
+                d: "variable"
+            },
+            correctAnswer: "c"
+        }
+    ],
+    kubernetes: [
+        {
+            question: "1. What is the command to create a new Kubernetes cluster using Minikube?",
+            answers: {
+                a: "kubectl create cluster",
+                b: "minikube start",
+                c: "kubectl init",
+                d: "kubeadm start"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "2. Which command is used to deploy a Kubernetes application defined in a YAML file?",
+            answers: {
+                a: "kubectl apply -f <file>",
+                b: "kubectl create -f <file>",
+                c: "kubectl start -f <file>",
+                d: "kubectl run -f <file>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "3. How do you get the list of all pods running in a Kubernetes cluster?",
+            answers: {
+                a: "kubectl get all",
+                b: "kubectl get services",
+                c: "kubectl get pods",
+                d: "kubectl get deployments"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "4. Which file defines the desired state of a Kubernetes cluster?",
+            answers: {
+                a: "deployment.yaml",
+                b: "state.yaml",
+                c: "kubeconfig.yaml",
+                d: "config.yaml"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "5. How do you describe a Kubernetes resource, such as a pod?",
+            answers: {
+                a: "kubectl get <resource>",
+                b: "kubectl describe <resource>",
+                c: "kubectl show <resource>",
+                d: "kubectl list <resource>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "6. What is the purpose of a Kubernetes Service?",
+            answers: {
+                a: "To manage storage",
+                b: "To define network policies",
+                c: "To expose a set of pods as a network service",
+                d: "To manage secrets and configurations"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "7. Which command is used to scale a deployment in Kubernetes?",
+            answers: {
+                a: "kubectl scale deployment <deployment-name> --replicas=<number>",
+                b: "kubectl set replicas <deployment-name> <number>",
+                c: "kubectl scale <deployment-name> <number>",
+                d: "kubectl replicas <deployment-name> <number>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "8. How do you delete a pod in Kubernetes?",
+            answers: {
+                a: "kubectl remove pod <pod-name>",
+                b: "kubectl delete pod <pod-name>",
+                c: "kubectl destroy pod <pod-name>",
+                d: "kubectl stop pod <pod-name>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "9. What is the purpose of a Kubernetes Ingress?",
+            answers: {
+                a: "To provide storage for applications",
+                b: "To provide a mapping between services and external traffic",
+                c: "To manage pods and nodes",
+                d: "To manage configuration settings"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "10. Which Kubernetes object is used to manage a group of identical pods?",
+            answers: {
+                a: "Service",
+                b: "ConfigMap",
+                c: "Deployment",
+                d: "Secret"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "11. How do you check the status of a node in a Kubernetes cluster?",
+            answers: {
+                a: "kubectl get nodes",
+                b: "kubectl node status",
+                c: "kubectl describe nodes",
+                d: "kubectl get node status"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "12. Which command is used to view the logs of a specific pod?",
+            answers: {
+                a: "kubectl get logs <pod-name>",
+                b: "kubectl show logs <pod-name>",
+                c: "kubectl pod logs <pod-name>",
+                d: "kubectl logs <pod-name>"
+            },
+            correctAnswer: "d"
+        },
+        {
+            question: "13. What is a Namespace in Kubernetes?",
+            answers: {
+                a: "A way to organize and manage resources within a cluster",
+                b: "A type of pod",
+                c: "A configuration file",
+                d: "A network policy"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "14. Which Kubernetes object is used to store and manage sensitive information such as passwords and tokens?",
+            answers: {
+                a: "ConfigMap",
+                b: "Secret",
+                c: "Volume",
+                d: "Service"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "15. How do you create a new namespace in Kubernetes?",
+            answers: {
+                a: "kubectl create namespace <namespace-name>",
+                b: "kubectl apply namespace <namespace-name>",
+                c: "kubectl new namespace <namespace-name>",
+                d: "kubectl init namespace <namespace-name>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "16. What is the purpose of a ConfigMap in Kubernetes?",
+            answers: {
+                a: "To store configuration data in key-value pairs",
+                b: "To manage sensitive information",
+                c: "To define network policies",
+                d: "To manage storage"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "17. How do you expose a deployment as a service in Kubernetes?",
+            answers: {
+                a: "kubectl expose deployment <deployment-name> --port=<port>",
+                b: "kubectl create service <deployment-name> --port=<port>",
+                c: "kubectl set service <deployment-name> --port=<port>",
+                d: "kubectl expose pod <deployment-name> --port=<port>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "18. Which command is used to view the events of a Kubernetes cluster?",
+            answers: {
+                a: "kubectl get events",
+                b: "kubectl show events",
+                c: "kubectl describe events",
+                d: "kubectl list events"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "19. What is the role of a Kubernetes Controller?",
+            answers: {
+                a: "To manage storage",
+                b: "To manage the state of resources by making changes to the cluster",
+                c: "To manage secrets and configurations",
+                d: "To define network policies"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "20. How do you delete a namespace in Kubernetes?",
+            answers: {
+                a: "kubectl remove namespace <namespace-name>",
+                b: "kubectl delete namespace <namespace-name>",
+                c: "kubectl destroy namespace <namespace-name>",
+                d: "kubectl stop namespace <namespace-name>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "21. Which command is used to view all resources in a specific namespace?",
+            answers: {
+                a: "kubectl get all --namespace=<namespace-name>",
+                b: "kubectl get resources --namespace=<namespace-name>",
+                c: "kubectl get all --ns=<namespace-name>",
+                d: "kubectl list all --namespace=<namespace-name>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "22. What is a StatefulSet in Kubernetes?",
+            answers: {
+                a: "A controller for managing stateless applications",
+                b: "A controller for managing stateful applications",
+                c: "A network policy",
+                d: "A storage management object"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "23. How do you perform a rolling update in Kubernetes?",
+            answers: {
+                a: "By updating the image in the deployment and applying the changes",
+                b: "By creating a new deployment",
+                c: "By restarting the pods manually",
+                d: "By deleting and recreating the pods"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "24. Which Kubernetes object is used to define a specific configuration for a pod that requires persistent storage?",
+            answers: {
+                a: "Volume",
+                b: "PersistentVolume",
+                c: "PersistentVolumeClaim",
+                d: "StorageClass"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "25. How do you display the current configuration of a resource in Kubernetes?",
+            answers: {
+                a: "kubectl get <resource> -o yaml",
+                b: "kubectl describe <resource> -o yaml",
+                c: "kubectl show <resource> -o yaml",
+                d: "kubectl view <resource> -o yaml"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "26. What is the purpose of a Kubernetes DaemonSet?",
+            answers: {
+                a: "To ensure that all nodes run a copy of a pod",
+                b: "To manage stateful applications",
+                c: "To define network policies",
+                d: "To manage secrets and configurations"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "27. Which command is used to scale a StatefulSet in Kubernetes?",
+            answers: {
+                a: "kubectl scale statefulset <statefulset-name> --replicas=<number>",
+                b: "kubectl set replicas statefulset <statefulset-name> <number>",
+                c: "kubectl scale <statefulset-name> <number>",
+                d: "kubectl replicas <statefulset-name> <number>"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "28. How do you upgrade a Kubernetes cluster created with kubeadm?",
+            answers: {
+                a: "kubeadm upgrade",
+                b: "kubeadm update",
+                c: "kubeadm refresh",
+                d: "kubeadm renew"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "29. What is the default namespace in Kubernetes?",
+            answers: {
+                a: "kube-system",
+                b: "default",
+                c: "kube-public",
+                d: "kube-node"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "30. Which Kubernetes object is used to manage the deployment of applications in a reproducible way?",
+            answers: {
+                a: "ConfigMap",
+                b: "DaemonSet",
+                c: "Deployment",
+                d: "Job"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "31. How do you view the resource usage of a pod in Kubernetes?",
+            answers: {
+                a: "kubectl top pod <pod-name>",
+                b: "kubectl get pod <pod-name> --resources",
+                c: "kubectl describe pod <pod-name> --resources",
+                d: "kubectl view pod <pod-name> --resources"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "32. What is the role of kube-proxy in a Kubernetes cluster?",
+            answers: {
+                a: "To manage network policies",
+                b: "To manage the API server",
+                c: "To manage pod-to-pod communication",
+                d: "To manage secret storage"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "33. Which command is used to create a new deployment in Kubernetes?",
+            answers: {
+                a: "kubectl apply deployment <deployment-name>",
+                b: "kubectl create deployment <deployment-name>",
+                c: "kubectl set deployment <deployment-name>",
+                d: "kubectl deploy <deployment-name>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "34. How do you delete a service in Kubernetes?",
+            answers: {
+                a: "kubectl remove service <service-name>",
+                b: "kubectl delete service <service-name>",
+                c: "kubectl destroy service <service-name>",
+                d: "kubectl stop service <service-name>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "35. What is the purpose of a Kubernetes Job?",
+            answers: {
+                a: "To manage storage",
+                b: "To define network policies",
+                c: "To run a set of pods to completion",
+                d: "To manage secrets and configurations"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "36. How do you get detailed information about a pod in Kubernetes?",
+            answers: {
+                a: "kubectl get pod <pod-name> -o yaml",
+                b: "kubectl describe pod <pod-name>",
+                c: "kubectl show pod <pod-name>",
+                d: "kubectl view pod <pod-name>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "37. What is a ReplicaSet in Kubernetes?",
+            answers: {
+                a: "A way to manage stateful applications",
+                b: "A way to expose pods as a network service",
+                c: "A way to ensure that a specified number of pod replicas are running at any given time",
+                d: "A way to store sensitive information"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "38. Which command is used to apply a configuration change to a resource in Kubernetes?",
+            answers: {
+                a: "kubectl set <resource> <config>",
+                b: "kubectl apply -f <file>",
+                c: "kubectl update <resource> <config>",
+                d: "kubectl change <resource> <config>"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "39. How do you force delete a pod in Kubernetes?",
+            answers: {
+                a: "kubectl delete pod <pod-name> --force",
+                b: "kubectl delete pod <pod-name> --now",
+                c: "kubectl delete pod <pod-name> --grace-period=0 --force",
+                d: "kubectl delete pod <pod-name> --immediate"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "40. What is the purpose of a Kubernetes CronJob?",
+            answers: {
+                a: "To manage storage",
+                b: "To define network policies",
+                c: "To run jobs on a scheduled basis",
+                d: "To manage secrets and configurations"
+            },
+            correctAnswer: "c"
+        }
+    ],
+    grafana: [
+        {
+            question: "1. What is Grafana primarily used for?",
+            answers: {
+                a: "Code deployment",
+                b: "Configuration management",
+                c: "Monitoring and visualization",
+                d: "Container orchestration"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "2. Which data source is NOT supported by Grafana by default?",
+            answers: {
+                a: "Prometheus",
+                b: "MySQL",
+                c: "PostgreSQL",
+                d: "Docker"
+            },
+            correctAnswer: "d"
+        },
+        {
+            question: "3. What is a Grafana dashboard?",
+            answers: {
+                a: "A collection of monitoring tools",
+                b: "A type of data source",
+                c: "A set of panels organized and arranged into a single view",
+                d: "A user management tool"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "4. How can you share a Grafana dashboard with others?",
+            answers: {
+                a: "Exporting as a PDF",
+                b: "Sharing a direct link",
+                c: "Using email notifications",
+                d: "Uploading to GitHub"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "5. What is the purpose of Grafana alerts?",
+            answers: {
+                a: "To notify users of system updates",
+                b: "To alert when specific conditions are met",
+                c: "To manage user permissions",
+                d: "To backup dashboards"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "6. Which language is primarily used to write custom panels and plugins in Grafana?",
+            answers: {
+                a: "Python",
+                b: "Ruby",
+                c: "JavaScript",
+                d: "C#"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "7. How can you add a new data source in Grafana?",
+            answers: {
+                a: "By writing a script",
+                b: "Through the Grafana UI",
+                c: "By modifying the configuration file",
+                d: "Using the Grafana CLI"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "8. What is the purpose of Grafana's variable feature?",
+            answers: {
+                a: "To store user credentials",
+                b: "To allow dynamic dashboard content based on the selected variable",
+                c: "To configure data source settings",
+                d: "To manage alerting rules"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "9. How do you install a Grafana plugin?",
+            answers: {
+                a: "By downloading and placing it in the plugins folder",
+                b: "Using the Grafana CLI or Grafana UI",
+                c: "By modifying the configuration file",
+                d: "Using a third-party tool"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "10. Which Grafana feature allows you to organize and manage multiple dashboards?",
+            answers: {
+                a: "Teams",
+                b: "Folders",
+                c: "Variables",
+                d: "Alerts"
+            },
+            correctAnswer: "b"
+        }
+    ],
+   prometheus: [
+        {
+            question: "1. What is Prometheus primarily used for?",
+            answers: {
+                a: "Configuration management",
+                b: "Monitoring and alerting",
+                c: "Container orchestration",
+                d: "Continuous integration"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "2. Which language is Prometheus written in?",
+            answers: {
+                a: "Java",
+                b: "Python",
+                c: "Go",
+                d: "Ruby"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "3. What is a Prometheus 'metric'?",
+            answers: {
+                a: "A type of alert",
+                b: "A time-stamped value that can be queried",
+                c: "A configuration file",
+                d: "A type of container"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "4. How does Prometheus collect data from applications?",
+            answers: {
+                a: "Through API calls",
+                b: "Using a pull-based mechanism",
+                c: "By pushing logs",
+                d: "Using SSH"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "5. What is a 'scrape' in Prometheus?",
+            answers: {
+                a: "A method to visualize data",
+                b: "A configuration setting",
+                c: "The process of collecting data from targets",
+                d: "A type of alert"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "6. What is a 'PromQL'?",
+            answers: {
+                a: "A query language for Prometheus",
+                b: "A configuration file format",
+                c: "A type of metric",
+                d: "A dashboard tool"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "7. How do you define a target in Prometheus?",
+            answers: {
+                a: "By creating a dashboard",
+                b: "By using the 'targets' configuration in the prometheus.yml file",
+                c: "By writing a script",
+                d: "By setting up alerts"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "8. What is an 'exporter' in Prometheus?",
+            answers: {
+                a: "A tool to push data to Prometheus",
+                b: "A service that exposes metrics for Prometheus to scrape",
+                c: "A query language",
+                d: "A dashboard plugin"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "9. How do you create an alert in Prometheus?",
+            answers: {
+                a: "By configuring the alerting rules in the prometheus.yml file",
+                b: "By writing a script",
+                c: "By creating a dashboard",
+                d: "By using the PromQL"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "10. Which tool is commonly used alongside Prometheus for visualizing metrics?",
+            answers: {
+                a: "Grafana",
+                b: "Kibana",
+                c: "Splunk",
+                d: "Nagios"
+            },
+            correctAnswer: "a"
+        }
+    ],
+    git: [
+        {
+            question: "1. What is the command to initialize a new Git repository?",
+            answers: {
+                a: "git init",
+                b: "git start",
+                c: "git create",
+                d: "git new"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "2. How do you check the status of your Git repository?",
+            answers: {
+                a: "git check",
+                b: "git status",
+                c: "git info",
+                d: "git log"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "3. What command is used to stage changes for commit?",
+            answers: {
+                a: "git add",
+                b: "git stage",
+                c: "git commit",
+                d: "git push"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "4. How do you commit changes in Git?",
+            answers: {
+                a: "git commit",
+                b: "git push",
+                c: "git save",
+                d: "git add"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "5. What command is used to push commits to a remote repository?",
+            answers: {
+                a: "git upload",
+                b: "git push",
+                c: "git send",
+                d: "git transfer"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "6. How do you clone a Git repository?",
+            answers: {
+                a: "git copy",
+                b: "git fork",
+                c: "git clone",
+                d: "git replicate"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "7. What is the command to create a new branch in Git?",
+            answers: {
+                a: "git branch new_branch",
+                b: "git create new_branch",
+                c: "git checkout -b new_branch",
+                d: "git branch create new_branch"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "8. How do you switch to another branch in Git?",
+            answers: {
+                a: "git change branch_name",
+                b: "git checkout branch_name",
+                c: "git switch branch_name",
+                d: "git move branch_name"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "9. What is the command to merge a branch into the current branch?",
+            answers: {
+                a: "git combine branch_name",
+                b: "git join branch_name",
+                c: "git merge branch_name",
+                d: "git integrate branch_name"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "10. How do you see the commit history in Git?",
+            answers: {
+                a: "git history",
+                b: "git log",
+                c: "git commits",
+                d: "git reflog"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "11. What command is used to fetch changes from a remote repository?",
+            answers: {
+                a: "git fetch",
+                b: "git pull",
+                c: "git update",
+                d: "git download"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "12. How do you pull changes from a remote repository?",
+            answers: {
+                a: "git fetch",
+                b: "git pull",
+                c: "git update",
+                d: "git download"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "13. What command is used to remove a file from the staging area?",
+            answers: {
+                a: "git remove",
+                b: "git delete",
+                c: "git rm",
+                d: "git unstage"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "14. How do you create a new tag in Git?",
+            answers: {
+                a: "git new tag_name",
+                b: "git create tag_name",
+                c: "git add tag_name",
+                d: "git tag tag_name"
+            },
+            correctAnswer: "d"
+        },
+        {
+            question: "15. What is the command to delete a branch in Git?",
+            answers: {
+                a: "git branch -d branch_name",
+                b: "git remove branch_name",
+                c: "git delete branch_name",
+                d: "git branch --delete branch_name"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "16. How do you discard changes in the working directory?",
+            answers: {
+                a: "git reset",
+                b: "git discard",
+                c: "git checkout",
+                d: "git clean"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "17. What command is used to rename a branch in Git?",
+            answers: {
+                a: "git branch -m old_name new_name",
+                b: "git rename branch old_name new_name",
+                c: "git branch rename old_name new_name",
+                d: "git branch move old_name new_name"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "18. How do you stash changes in Git?",
+            answers: {
+                a: "git save",
+                b: "git stash",
+                c: "git store",
+                d: "git put"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "19. What is the command to apply stashed changes?",
+            answers: {
+                a: "git stash apply",
+                b: "git stash pop",
+                c: "git stash push",
+                d: "git stash merge"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "20. How do you list all stashes in Git?",
+            answers: {
+                a: "git stash list",
+                b: "git stash show",
+                c: "git stash log",
+                d: "git stash history"
+            },
+            correctAnswer: "a"
+        }
+    ],
+    github: [
+        {
+            question: "1. What is the command to clone a repository from GitHub?",
+            answers: {
+                a: "git clone",
+                b: "git pull",
+                c: "git fetch",
+                d: "git copy"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "2. How do you create a new repository on GitHub?",
+            answers: {
+                a: "Using the command line",
+                b: "Through GitHub's web interface",
+                c: "By pushing local changes",
+                d: "By forking an existing repository"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "3. What is a fork in GitHub?",
+            answers: {
+                a: "A copy of a repository",
+                b: "A new branch",
+                c: "A pull request",
+                d: "A merge conflict"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "4. How do you submit changes to a repository on GitHub?",
+            answers: {
+                a: "Creating an issue",
+                b: "Creating a pull request",
+                c: "Merging a branch",
+                d: "Committing to the main branch"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "5. What is the use of GitHub Actions?",
+            answers: {
+                a: "To automate workflows",
+                b: "To create issues",
+                c: "To review pull requests",
+                d: "To fork repositories"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "6. How do you create a new branch in a GitHub repository?",
+            answers: {
+                a: "Through GitHub's web interface",
+                b: "Using the command line",
+                c: "Both a and b",
+                d: "By creating a pull request"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "7. What is a pull request in GitHub?",
+            answers: {
+                a: "A request to clone a repository",
+                b: "A request to merge changes",
+                c: "A request to delete a branch",
+                d: "A request to fork a repository"
+            },
+            correctAnswer: "b"
+        },
+        {
+            question: "8. How do you resolve merge conflicts in GitHub?",
+            answers: {
+                a: "By creating a new branch",
+                b: "By forking the repository",
+                c: "By manually editing conflicting files",
+                d: "By closing the pull request"
+            },
+            correctAnswer: "c"
+        },
+        {
+            question: "9. What is GitHub Pages?",
+            answers: {
+                a: "A feature to host static websites",
+                b: "A feature to manage issues",
+                c: "A feature to create pull requests",
+                d: "A feature to fork repositories"
+            },
+            correctAnswer: "a"
+        },
+        {
+            question: "10. How do you create an issue in a GitHub repository?",
+            answers: {
+                a: "By creating a pull request",
+                b: "By cloning the repository",
+                c: "Through GitHub's web interface",
+                d: "By merging a branch"
+            },
+            correctAnswer: "c"
+        }
+    ],
+    // Other categories go here...
+};
+
+
+function startQuiz(category) {
+            currentCategory = category;
+            currentQuestionIndex = 0;
+            userAnswers[currentCategory] = {};
+            categoryContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'block';
+            nextButton.style.display = 'block';
+            abortButton.style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestion = questions[currentCategory][currentQuestionIndex];
+            const answers = [];
+            for (const letter in currentQuestion.answers) {
+                const isChecked = userAnswers[currentCategory][currentQuestionIndex] === letter ? 'checked' : '';
+                answers.push(
+                    `<label>
+                        <input type="radio" name="question${currentQuestionIndex}" value="${letter}" ${isChecked}>
+                        ${letter} :
+                        ${currentQuestion.answers[letter]}
+                    </label><br>`
+                );
+            }
+            quizContainer.innerHTML = `<div class="question">${currentQuestionIndex + 1}. ${currentQuestion.question}</div>
+                                       <div class="answers">${answers.join('')}</div>`;
+        }
+
+        function showResults() {
+            saveAnswer();
+            let numCorrect = 0;
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+                const userAnswer = userAnswers[currentCategory][questionNumber];
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                }
+            });
+            resultsContainer.innerHTML = `You scored ${numCorrect} out of ${questions[currentCategory].length}.`;
+            setTimeout(() => {
+                resultsContainer.innerHTML = ''; // Clear results after navigating back to the main menu
+                resetQuizState();
+            }, 3000); // Show the results for 3 seconds before resetting
+        }
+
+        function nextQuestion() {
+            saveAnswer();
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions[currentCategory].length) {
+                currentQuestionIndex--;
+                submitButton.style.display = 'block';
+                nextButton.style.display = 'none';
+            } else {
+                showQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            saveAnswer();
+            currentQuestionIndex--;
+            if (currentQuestionIndex < 0) {
+                currentQuestionIndex = 0;
+            } else {
+                showQuestion();
+            }
+        }
+
+        function abortQuiz() {
+            saveAnswer();
+            let numCorrect = 0;
+            questions[currentCategory].forEach((currentQuestion, questionNumber) => {
+                const userAnswer = userAnswers[currentCategory][questionNumber];
+                if (userAnswer === currentQuestion.correctAnswer) {
+                    numCorrect++;
+                }
+            });
+            resultsContainer.innerHTML = `You aborted the quiz. You got ${numCorrect} out of ${questions[currentCategory].length}. Hope you come back soon!`;
+            setTimeout(() => {
+                resultsContainer.innerHTML = ''; // Clear results after navigating back to the main menu
+                resetQuizState();
+            }, 3000); // Show the results for 3 seconds before resetting
+        }
+
+        function saveAnswer() {
+            const answerContainer = quizContainer.querySelector('.answers');
+            const selector = `input[name=question${currentQuestionIndex}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+            userAnswers[currentCategory][currentQuestionIndex] = userAnswer;
+        }
+
+        function resetQuizState() {
+            categoryContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            submitButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            abortButton.style.display = 'none';
+        }
+
+        prevButton.addEventListener('click', prevQuestion);
+        nextButton.addEventListener('click', nextQuestion);
+        submitButton.addEventListener('click', showResults);
+        abortButton.addEventListener('click', abortQuiz);
+    </script>
+    <!-- CI/CD DEMONSTRATION SECTION -->
+    <title>CI/CD Demonstration</title>
+    <section class="section-padding" id="ci-cd-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">CI/CD Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-ci-cd-demo">Start CI/CD Demo</button>
+            <div id="ci-cd-container" class="ci-cd-container mt-4" style="display: none;">
+                <div class="ci-cd-stage" id="stage-plan">Plan<br>(JIRA)</div>
+                <div class="ci-cd-stage" id="stage-code">Code<br>(GitHub)</div>
+                <div class="ci-cd-stage" id="stage-build">Build<br>(Jenkins)</div>
+                <div class="ci-cd-stage" id="stage-test">Test<br>(JUnit)</div>
+                <div class="ci-cd-stage" id="stage-release">Release<br>(Docker)</div>
+                <div class="ci-cd-stage" id="stage-deploy">Deploy<br>(Kubernetes)</div>
+                <div class="ci-cd-stage" id="stage-operate">Operate<br>(Prometheus)</div>
+                <div class="ci-cd-stage" id="stage-monitor">Monitor<br>(Grafana)</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('start-ci-cd-demo').addEventListener('click', function() {
+            const stages = [
+                { id: 'stage-plan', class: 'plan' },
+                { id: 'stage-code', class: 'code' },
+                { id: 'stage-build', class: 'build' },
+                { id: 'stage-test', class: 'test' },
+                { id: 'stage-release', class: 'release' },
+                { id: 'stage-deploy', class: 'deploy' },
+                { id: 'stage-operate', class: 'operate' },
+                { id: 'stage-monitor', class: 'monitor' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('ci-cd-container').style.display = 'flex';
+
+            function showNextStage() {
+                if (currentStage > 0) {
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    currentStage++;
+                    setTimeout(showNextStage, 2000); // 2 seconds delay for each stage
+                }
+            }
+
+            showNextStage();
+        });
+    </script>
+    
+<!-- CONTACT SECTION -->
+    <section class="contact section-padding pt-0" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <form action="/send-email" method="post" class="contact-form webform" role="form">
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
+                            <label for="cf-name" class="webform-label">Full Name</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
+                            <label for="cf-email" class="webform-label">Your Email</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
+                            <label for="cf-message" class="webform-label">Message</label>
+                        </div>
+                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
+                    </form>
+                </div>
+                <div class="mx-auto col-lg-4 col-md-6 col-12">
+                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
+                    <p class="mb-1">+4915901773752</p>
+                    <p>
+                        <a href="mailto:mohamed.sesay@outlook.com.au">
+                            mohamed.sesay@outlook.com.au
+                        <i class="fas fa-arrow-right custom-icon"></i>
+                        </a>
+                    </p>
+                    <a href="https://wa.me/491783547905" class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
+                    </a>
+                    <ul class="social-links mt-2">
+                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
+                    </ul>
+                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

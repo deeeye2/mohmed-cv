@@ -1,14 +1,20 @@
-# Use the official Nginx image from the Docker Hub
-FROM nginx:latest
+# Use the official Python image from the Docker Hub
+FROM python:3.8-slim
 
-# Set the working directory to /usr/share/nginx/html
-WORKDIR /usr/share/nginx/html
+# Set the working directory to /app
+WORKDIR /app
 
-# Copy the current directory contents into the container at /usr/share/nginx/html
-COPY . .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Expose port 80 to the outside world
-EXPOSE 80
+# Install any needed packages specified in requirements.txt
+RUN pip install flask
 
-# Start Nginx when the container has provisioned.
-CMD ["nginx", "-g", "daemon off;"]
+# Install any needed packages
+RUN pip install flask requests flask_sqlalchemy
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
