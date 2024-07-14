@@ -24,6 +24,54 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(120deg, #f0f0f0, #ffffff);
         }
+        .k8s-deploy-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            flex-wrap: wrap;
+        }
+
+        .k8s-deploy-stage {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #ddd;
+            font-size: 1em;
+            text-align: center;
+            transition: background-color 0.5s, transform 0.5s;
+            margin: 10px;
+        }
+
+        .k8s-deploy-stage.active {
+            transform: scale(1.1);
+        }
+
+        .k8s-deploy-stage.write-manifest { background-color: #ffcc00; }   /* Yellow for Write Manifest */
+        .k8s-deploy-stage.kubectl-apply { background-color: #ff6600; }    /* Orange for kubectl apply */
+        .k8s-deploy-stage.api-server { background-color: #ff3300; }       /* Red for API Server */
+        .k8s-deploy-stage.etcd { background-color: #cc33ff; }             /* Purple for etcd */
+        .k8s-deploy-stage.scheduler { background-color: #3399ff; }        /* Blue for Scheduler */
+        .k8s-deploy-stage.kubelet { background-color: #33cc33; }          /* Green for Kubelet */
+        .k8s-deploy-stage.container-runtime { background-color: #00cc99; } /* Teal for Container Runtime */
+        .k8s-deploy-stage.running { background-color: #9933ff; }          /* Violet for Running */
+
+        .command-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+            font-family: monospace;
+            white-space: pre-wrap;
+            text-align: left;
+        }
         .docker-build-container {
             display: flex;
             justify-content: space-around;
@@ -2346,6 +2394,60 @@ function startQuiz(category) {
             let currentStage = 0;
 
             document.getElementById('docker-build-container').style.display = 'flex';
+            document.getElementById('command-box').style.display = 'block';
+
+            function showNextStage() {
+                if (currentStage > 0) {
+                    const prevStage = stages[currentStage - 1];
+                    document.getElementById(prevStage.id).classList.remove('active', prevStage.class);
+                }
+                if (currentStage < stages.length) {
+                    const nextStage = stages[currentStage];
+                    document.getElementById(nextStage.id).classList.add('active', nextStage.class);
+                    document.getElementById('command-box').innerText = nextStage.command;
+                    currentStage++;
+                    setTimeout(showNextStage, 3000); // 3 seconds delay for each stage
+                }
+            }
+
+            showNextStage();
+        });
+    </script>
+    !-- Kubernetes Deployment Process Demonstration Section -->
+    <title>Kubernetes Deployment Process Demonstration</title>
+    <section class="section-padding" id="k8s-deploy-demo">
+        <div class="container mt-5">
+            <h1 class="text-center">Kubernetes Deployment Process Demonstration</h1>
+            <button type="button" class="btn btn-primary" id="start-k8s-deploy-demo">Start Kubernetes Deploy Demo</button>
+            <div id="k8s-deploy-container" class="k8s-deploy-container mt-4" style="display: none;">
+                <div class="k8s-deploy-stage" id="stage-write-manifest">Write Manifest</div>
+                <div class="k8s-deploy-stage" id="stage-kubectl-apply">kubectl apply</div>
+                <div class="k8s-deploy-stage" id="stage-api-server">API Server</div>
+                <div class="k8s-deploy-stage" id="stage-etcd">etcd</div>
+                <div class="k8s-deploy-stage" id="stage-scheduler">Scheduler</div>
+                <div class="k8s-deploy-stage" id="stage-kubelet">Kubelet</div>
+                <div class="k8s-deploy-stage" id="stage-container-runtime">Container Runtime</div>
+                <div class="k8s-deploy-stage" id="stage-running">Running</div>
+            </div>
+            <div id="command-box" class="command-box" style="display: none;"></div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('start-k8s-deploy-demo').addEventListener('click', function() {
+            const stages = [
+                { id: 'stage-write-manifest', class: 'write-manifest', command: 'Write Kubernetes manifests (YAML files) for Deployment, Service, etc.' },
+                { id: 'stage-kubectl-apply', class: 'kubectl-apply', command: 'kubectl apply -f your-manifest.yaml' },
+                { id: 'stage-api-server', class: 'api-server', command: 'API Server receives the request and validates it' },
+                { id: 'stage-etcd', class: 'etcd', command: 'etcd stores the cluster state and configuration' },
+                { id: 'stage-scheduler', class: 'scheduler', command: 'Scheduler determines on which node the pod should run' },
+                { id: 'stage-kubelet', class: 'kubelet', command: 'Kubelet on the selected node receives the pod specification' },
+                { id: 'stage-container-runtime', class: 'container-runtime', command: 'Container runtime (e.g., Docker) pulls the image and starts the container' },
+                { id: 'stage-running', class: 'running', command: 'The pod is now running and accessible based on the service configuration' }
+            ];
+            let currentStage = 0;
+
+            document.getElementById('k8s-deploy-container').style.display = 'flex';
             document.getElementById('command-box').style.display = 'block';
 
             function showNextStage() {
