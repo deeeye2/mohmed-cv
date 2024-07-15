@@ -20,111 +20,106 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #f0f0f0, #ffffff);
-        }
-        .navbar {
-            width: 100%;
-            background-color: #007BFF;
-            padding: 15px;
-        }
-        .navbar-brand {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .navbar-nav .nav-link {
-            color: white;
-            margin: 0 15px;
-        }
-        .container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            padding: 20px;
-            width: 80%;
-            max-width: 1000px;
-            text-align: center;
-            overflow-y: auto;
-            max-height: 90vh;
-            margin-top: 20px;
-        }
-        .center-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .form-fields {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        label, select, input {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        select[multiple] {
-            height: auto;
-        }
-        .btn {
-            background-color: #007BFF;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 5px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .hidden {
-            display: none;
-        }
-        .preview {
-            margin-top: 20px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            text-align: left;
-            width: 100%;
-        }
-        .dashboard-title {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .category-btn {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 1.2em;
-            transition: transform 0.2s;
-        }
-        .category-btn:hover {
-            transform: scale(1.05);
-        }
+       body {
+        font-family: Arial, sans-serif;
+        background: gray;
+    }
+    .navbar {
+        width: 100%;
+        background-color: #007BFF;
+        padding: 15px;
+    }
+    .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .navbar-nav .nav-link {
+        color: white;
+        margin: 0 15px;
+    }
+    .container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        padding: 20px;
+        width: 80%;
+        max-width: 1000px;
+        text-align: center;
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top: 20px;
+        margin: 0 auto; /* Center the container */
+    }
+    h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-fields {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    label, select, input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    select[multiple] {
+        height: auto;
+    }
+    .btn {
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+    .hidden {
+        display: none;
+    }
+    .preview {
+        margin-top: 20px;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        text-align: left;
+        width: 100%;
+    }
+    .dashboard-title {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    .category-btn {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 1.2em;
+        transition: transform 0.2s;
+    }
+    .category-btn:hover {
+        transform: scale(1.05);
+    }
     </style>
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
@@ -373,31 +368,31 @@ const dockerfileFields = {
 };
 
 const ansibleFields = {
-    package: [
-        { name: "name", label: "Package Name", required: true },
-        { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
-    ],
-    service: [
-        { name: "name", label: "Service Name", required: true },
-        { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
-        { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
-    ],
-    file: [
-        { name: "path", label: "Path", required: true },
-        { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
-    ],
-    copy: [
-        { name: "src", label: "Source", required: true },
-        { name: "dest", label: "Destination", required: true },
-    ],
-    command: [
-        { name: "cmd", label: "Command", required: true },
-    ],
-    user: [
-        { name: "name", label: "Username", required: true },
-        { name: "state", label: "State", required: true, options: ["present", "absent"] },
-    ],
-};
+        package: [
+            { name: "name", label: "Package Name", required: true },
+            { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
+        ],
+        service: [
+            { name: "name", label: "Service Name", required: true },
+            { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
+            { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
+        ],
+        file: [
+            { name: "path", label: "Path", required: true },
+            { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
+        ],
+        copy: [
+            { name: "src", label: "Source", required: true },
+            { name: "dest", label: "Destination", required: true },
+        ],
+        command: [
+            { name: "cmd", label: "Command", required: true },
+        ],
+        user: [
+            { name: "name", label: "Username", required: true },
+            { name: "state", label: "State", required: true, options: ["present", "absent"] },
+        ],
+    };
 
 const terraformFields = {
     aws_instance: [
@@ -896,7 +891,7 @@ function goToAnsibleDetails() {
             tasks: tasks
         };
 
-        previewContent.textContent = YAML.stringify(playbook);
+        previewContent.textContent = YAML.stringify(playbook, null, 2);
         document.getElementById("ansibleDetailsStep").classList.add("hidden");
         document.getElementById("ansiblePreviewStep").classList.remove("hidden");
     }
