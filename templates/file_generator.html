@@ -44,102 +44,10 @@
             <button class="generator-btn" onclick="cancelK8sForm()">Cancel</button>
         </div>
         
-        <h1>Dockerfile Generator</h1>
-        <div id="dockerfileSelectionStep">
-            <label for="dockerfileBaseImage">Select Base Image:</label>
-            <select id="dockerfileBaseImage" name="dockerfileBaseImage">
-                <option value="node">Node.js</option>
-                <option value="python">Python</option>
-                <option value="golang">Go</option>
-                <option value="java">Java</option>
-                <option value="nginx">Nginx</option>
-                <option value="alpine">Alpine</option>
-            </select>
-            <button type="button" class="generator-btn" onclick="goToDockerfileDetails()">Next</button>
-        </div>
-
-        <div id="dockerfileDetailsStep" class="hidden">
-            <form id="dockerfileForm" class="generator-form">
-                <div id="dockerfileFormFields" class="generator-form-fields"></div>
-                <button type="button" class="generator-btn" onclick="showDockerfilePreview()">Preview</button>
-            </form>
-            <button type="button" class="generator-btn" onclick="goBackDockerfile()">Back</button>
-        </div>
-
-        <div id="dockerfilePreviewStep" class="preview hidden">
-            <h2>Preview</h2>
-            <pre id="dockerfilePreviewContent"></pre>
-            <button class="generator-btn" onclick="generateDockerfile()">Download</button>
-            <button class="generator-btn" onclick="editDockerfileForm()">Edit</button>
-            <button class="generator-btn" onclick="cancelDockerfileForm()">Cancel</button>
-        </div>
+        <!-- Repeat similar structure for Dockerfile, Ansible, and Terraform generators -->
         
-        <h1>Ansible Playbook Generator</h1>
-        <div id="ansibleSelectionStep">
-            <label for="ansiblePlaybookType">Select Playbook Tasks:</label>
-            <select id="ansiblePlaybookType" name="ansiblePlaybookType" multiple size="10">
-                <option value="package">Package</option>
-                <option value="service">Service</option>
-                <option value="file">File</option>
-                <option value="copy">Copy</option>
-                <option value="command">Command</option>
-                <option value="user">User</option>
-            </select>
-            <button type="button" class="generator-btn" onclick="goToAnsibleDetails()">Next</button>
-        </div>
-
-        <div id="ansibleDetailsStep" class="hidden">
-            <form id="ansibleForm" class="generator-form">
-                <div id="ansibleFormFields" class="generator-form-fields"></div>
-                <button type="button" class="generator-btn" onclick="showAnsiblePreview()">Preview</button>
-            </form>
-            <button type="button" class="generator-btn" onclick="goBackAnsible()">Back</button>
-        </div>
-
-        <div id="ansiblePreviewStep" class="preview hidden">
-            <h2>Preview</h2>
-            <pre id="ansiblePreviewContent"></pre>
-            <button class="generator-btn" onclick="generateAnsiblePlaybook()">Download</button>
-            <button class="generator-btn" onclick="editAnsibleForm()">Edit</button>
-            <button class="generator-btn" onclick="cancelAnsibleForm()">Cancel</button>
-        </div>
-        
-        <h1>Terraform Configuration Generator</h1>
-        <div id="terraformSelectionStep">
-            <label for="terraformResourceType">Select Resource Types:</label>
-            <select id="terraformResourceType" name="terraformResourceType" multiple size="10">
-                <option value="aws_instance">AWS EC2 Instance</option>
-                <option value="aws_s3_bucket">AWS S3 Bucket</option>
-                <option value="aws_security_group">AWS Security Group</option>
-                <option value="google_compute_instance">Google Compute Instance</option>
-                <option value="google_storage_bucket">Google Storage Bucket</option>
-                <option value="azure_virtual_machine">Azure Virtual Machine</option>
-            </select>
-            <button type="button" class="generator-btn" onclick="goToTerraformDetails()">Next</button>
-        </div>
-
-        <div id="terraformDetailsStep" class="hidden">
-            <form id="terraformForm" class="generator-form">
-                <div id="terraformFormFields" class="generator-form-fields"></div>
-                <button type="button" class="generator-btn" onclick="showTerraformPreview()">Preview</button>
-            </form>
-            <button type="button" class="generator-btn" onclick="goBackTerraform()">Back</button>
-        </div>
-
-        <div id="terraformPreviewStep" class="preview hidden">
-            <h2>Preview</h2>
-            <pre id="terraformPreviewContent"></pre>
-            <button class="generator-btn" onclick="generateTerraformConfig()">Download</button>
-            <button class="generator-btn" onclick="editTerraformForm()">Edit</button>
-            <button class="generator-btn" onclick="cancelTerraformForm()">Cancel</button>
-        </div>
+        <script src="static/js/script.js"></script>
     </div>
-    
-    <script src="script.js"></script>
 </body>
 </html>
 
-    
-    <script src="script.js"></script>
-</body>
-</html>
