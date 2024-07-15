@@ -5,35 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manifest Generators</title>
     <style>
-        /* Existing styles */
         body {
+            body {
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
-
-        /* Scoped generator styles */
         .generator-container {
-            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 800px;
-            margin: 20px;
         }
-
         .generator-container h1 {
-            margin-top: 0;
+            margin-top: 20px;
             color: #333;
-            text-align: center;
         }
-
         .generator-container .generator-btn {
             background-color: #007bff;
             border: none;
@@ -47,41 +33,36 @@
             cursor: pointer;
             border-radius: 8px;
         }
-
         .generator-container .generator-btn:hover {
             background-color: #0056b3;
         }
-
         .generator-container .generator-form {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            max-width: 600px;
             margin-top: 20px;
         }
-
         .generator-container .generator-form label {
             width: 100%;
             margin-top: 10px;
         }
-
         .generator-container .generator-form input,
         .generator-container .generator-form select {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
         }
-
         .generator-container .preview {
             text-align: left;
             width: 100%;
+            max-width: 600px;
         }
-
-        .generator-section {
+        .hidden {
             display: none;
         }
-
-        .generator-section.active {
+        .active {
             display: block;
         }
     </style>
@@ -89,10 +70,7 @@
 <body>
     <div class="generator-container">
         <h1>Manifest Generator</h1>
-        
-        <!-- Kubernetes Section -->
-        <div id="k8sSelectionStep" class="generator-section active">
-            <h2>Kubernetes Manifest Generator</h2>
+        <div id="k8sSelectionStep">
             <label for="k8sManifestType">Select Kubernetes Manifest Types:</label>
             <select id="k8sManifestType" name="k8sManifestType" multiple size="10">
                 <option value="Deployment">Deployment</option>
@@ -111,8 +89,7 @@
             <button type="button" class="generator-btn" onclick="goToK8sDetails()">Next</button>
         </div>
 
-        <div id="k8sDetailsStep" class="generator-section">
-            <h2>Kubernetes Manifest Details</h2>
+        <div id="k8sDetailsStep" class="hidden">
             <form id="k8sManifestForm" class="generator-form">
                 <div id="k8sFormFields" class="generator-form-fields"></div>
                 <button type="button" class="generator-btn" onclick="showK8sPreview()">Preview</button>
@@ -120,7 +97,7 @@
             <button type="button" class="generator-btn" onclick="goBackK8s()">Back</button>
         </div>
 
-        <div id="k8sPreviewStep" class="generator-section">
+        <div id="k8sPreviewStep" class="preview hidden">
             <h2>Preview</h2>
             <pre id="k8sPreviewContent"></pre>
             <button class="generator-btn" onclick="generateK8sManifest()">Download</button>
@@ -128,9 +105,8 @@
             <button class="generator-btn" onclick="cancelK8sForm()">Cancel</button>
         </div>
         
-        <!-- Dockerfile Section -->
-        <div id="dockerfileSelectionStep" class="generator-section">
-            <h2>Dockerfile Generator</h2>
+        <h1>Dockerfile Generator</h1>
+        <div id="dockerfileSelectionStep">
             <label for="dockerfileBaseImage">Select Base Image:</label>
             <select id="dockerfileBaseImage" name="dockerfileBaseImage">
                 <option value="node">Node.js</option>
@@ -143,8 +119,7 @@
             <button type="button" class="generator-btn" onclick="goToDockerfileDetails()">Next</button>
         </div>
 
-        <div id="dockerfileDetailsStep" class="generator-section">
-            <h2>Dockerfile Details</h2>
+        <div id="dockerfileDetailsStep" class="hidden">
             <form id="dockerfileForm" class="generator-form">
                 <div id="dockerfileFormFields" class="generator-form-fields"></div>
                 <button type="button" class="generator-btn" onclick="showDockerfilePreview()">Preview</button>
@@ -152,7 +127,7 @@
             <button type="button" class="generator-btn" onclick="goBackDockerfile()">Back</button>
         </div>
 
-        <div id="dockerfilePreviewStep" class="generator-section">
+        <div id="dockerfilePreviewStep" class="preview hidden">
             <h2>Preview</h2>
             <pre id="dockerfilePreviewContent"></pre>
             <button class="generator-btn" onclick="generateDockerfile()">Download</button>
@@ -160,9 +135,8 @@
             <button class="generator-btn" onclick="cancelDockerfileForm()">Cancel</button>
         </div>
         
-        <!-- Ansible Section -->
-        <div id="ansibleSelectionStep" class="generator-section">
-            <h2>Ansible Playbook Generator</h2>
+        <h1>Ansible Playbook Generator</h1>
+        <div id="ansibleSelectionStep">
             <label for="ansiblePlaybookType">Select Playbook Tasks:</label>
             <select id="ansiblePlaybookType" name="ansiblePlaybookType" multiple size="10">
                 <option value="package">Package</option>
@@ -175,8 +149,7 @@
             <button type="button" class="generator-btn" onclick="goToAnsibleDetails()">Next</button>
         </div>
 
-        <div id="ansibleDetailsStep" class="generator-section">
-            <h2>Ansible Playbook Details</h2>
+        <div id="ansibleDetailsStep" class="hidden">
             <form id="ansibleForm" class="generator-form">
                 <div id="ansibleFormFields" class="generator-form-fields"></div>
                 <button type="button" class="generator-btn" onclick="showAnsiblePreview()">Preview</button>
@@ -184,7 +157,7 @@
             <button type="button" class="generator-btn" onclick="goBackAnsible()">Back</button>
         </div>
 
-        <div id="ansiblePreviewStep" class="generator-section">
+        <div id="ansiblePreviewStep" class="preview hidden">
             <h2>Preview</h2>
             <pre id="ansiblePreviewContent"></pre>
             <button class="generator-btn" onclick="generateAnsiblePlaybook()">Download</button>
@@ -192,9 +165,8 @@
             <button class="generator-btn" onclick="cancelAnsibleForm()">Cancel</button>
         </div>
         
-        <!-- Terraform Section -->
-        <div id="terraformSelectionStep" class="generator-section">
-            <h2>Terraform Configuration Generator</h2>
+        <h1>Terraform Configuration Generator</h1>
+        <div id="terraformSelectionStep">
             <label for="terraformResourceType">Select Resource Types:</label>
             <select id="terraformResourceType" name="terraformResourceType" multiple size="10">
                 <option value="aws_instance">AWS EC2 Instance</option>
@@ -207,8 +179,7 @@
             <button type="button" class="generator-btn" onclick="goToTerraformDetails()">Next</button>
         </div>
 
-        <div id="terraformDetailsStep" class="generator-section">
-            <h2>Terraform Configuration Details</h2>
+        <div id="terraformDetailsStep" class="hidden">
             <form id="terraformForm" class="generator-form">
                 <div id="terraformFormFields" class="generator-form-fields"></div>
                 <button type="button" class="generator-btn" onclick="showTerraformPreview()">Preview</button>
@@ -216,7 +187,7 @@
             <button type="button" class="generator-btn" onclick="goBackTerraform()">Back</button>
         </div>
 
-        <div id="terraformPreviewStep" class="generator-section">
+        <div id="terraformPreviewStep" class="preview hidden">
             <h2>Preview</h2>
             <pre id="terraformPreviewContent"></pre>
             <button class="generator-btn" onclick="generateTerraformConfig()">Download</button>
@@ -225,766 +196,766 @@
         </div>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const k8sFields = {
-                Deployment: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "image", label: "Container Image", required: true },
-                    { name: "replicas", label: "Replicas", required: true },
-                    { name: "volume", label: "Volume", required: false },
-                ],
-                Service: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "type", label: "Service Type", required: true, options: ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"] },
-                    { name: "port", label: "Port", required: true },
-                ],
-                ConfigMap: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "data", label: "Data", required: true },
-                ],
-                Secret: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "data", label: "Data", required: true },
-                ],
-                PersistentVolume: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "capacity", label: "Capacity", required: true, options: ["1Gi", "5Gi", "10Gi", "50Gi", "100Gi"] },
-                    { name: "accessModes", label: "Access Modes", required: true, options: ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"] },
-                    { name: "storageClass", label: "Storage Class", required: true, options: ["standard", "fast", "slow"] },
-                ],
-                PersistentVolumeClaim: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "storageClass", label: "Storage Class", required: true, options: ["standard", "fast", "slow"] },
-                    { name: "accessModes", label: "Access Modes", required: true, options: ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"] },
-                    { name: "resources", label: "Resources", required: true, options: ["1Gi", "5Gi", "10Gi", "50Gi", "100Gi"] },
-                ],
-                Ingress: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "host", label: "Host", required: true },
-                    { name: "serviceName", label: "Service Name", required: true },
-                    { name: "servicePort", label: "Service Port", required: true },
-                ],
-                Role: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "rules", label: "Rules", required: true },
-                ],
-                RoleBinding: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "roleName", label: "Role Name", required: true },
-                    { name: "subjects", label: "Subjects", required: true },
-                ],
-                ClusterRole: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "rules", label: "Rules", required: true },
-                ],
-                ClusterRoleBinding: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "roleName", label: "Role Name", required: true },
-                    { name: "subjects", label: "Subjects", required: true },
-                ],
-                NetworkPolicy: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "podSelector", label: "Pod Selector", required: true },
-                    { name: "policyTypes", label: "Policy Types", required: true, options: ["Ingress", "Egress"] },
-                ],
-            };
+        const k8sFields = {
+            Deployment: [
+                { name: "name", label: "Name", required: true },
+                { name: "image", label: "Container Image", required: true },
+                { name: "replicas", label: "Replicas", required: true },
+                { name: "volume", label: "Volume", required: false },
+            ],
+            Service: [
+                { name: "name", label: "Name", required: true },
+                { name: "type", label: "Service Type", required: true, options: ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"] },
+                { name: "port", label: "Port", required: true },
+            ],
+            ConfigMap: [
+                { name: "name", label: "Name", required: true },
+                { name: "data", label: "Data", required: true },
+            ],
+            Secret: [
+                { name: "name", label: "Name", required: true },
+                { name: "data", label: "Data", required: true },
+            ],
+            PersistentVolume: [
+                { name: "name", label: "Name", required: true },
+                { name: "capacity", label: "Capacity", required: true, options: ["1Gi", "5Gi", "10Gi", "50Gi", "100Gi"] },
+                { name: "accessModes", label: "Access Modes", required: true, options: ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"] },
+                { name: "storageClass", label: "Storage Class", required: true, options: ["standard", "fast", "slow"] },
+            ],
+            PersistentVolumeClaim: [
+                { name: "name", label: "Name", required: true },
+                { name: "storageClass", label: "Storage Class", required: true, options: ["standard", "fast", "slow"] },
+                { name: "accessModes", label: "Access Modes", required: true, options: ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"] },
+                { name: "resources", label: "Resources", required: true, options: ["1Gi", "5Gi", "10Gi", "50Gi", "100Gi"] },
+            ],
+            Ingress: [
+                { name: "name", label: "Name", required: true },
+                { name: "host", label: "Host", required: true },
+                { name: "serviceName", label: "Service Name", required: true },
+                { name: "servicePort", label: "Service Port", required: true },
+            ],
+            Role: [
+                { name: "name", label: "Name", required: true },
+                { name: "rules", label: "Rules", required: true },
+            ],
+            RoleBinding: [
+                { name: "name", label: "Name", required: true },
+                { name: "roleName", label: "Role Name", required: true },
+                { name: "subjects", label: "Subjects", required: true },
+            ],
+            ClusterRole: [
+                { name: "name", label: "Name", required: true },
+                { name: "rules", label: "Rules", required: true },
+            ],
+            ClusterRoleBinding: [
+                { name: "name", label: "Name", required: true },
+                { name: "roleName", label: "Role Name", required: true },
+                { name: "subjects", label: "Subjects", required: true },
+            ],
+            NetworkPolicy: [
+                { name: "name", label: "Name", required: true },
+                { name: "podSelector", label: "Pod Selector", required: true },
+                { name: "policyTypes", label: "Policy Types", required: true, options: ["Ingress", "Egress"] },
+            ],
+        };
 
-            const dockerfileFields = {
-                node: [
-                    { name: "version", label: "Node.js Version", required: true, options: ["14", "16", "18"] },
-                    { name: "appDirectory", label: "Application Directory", required: true },
-                    { name: "startCommand", label: "Start Command", required: true },
-                ],
-                python: [
-                    { name: "version", label: "Python Version", required: true, options: ["3.8", "3.9", "3.10"] },
-                    { name: "appDirectory", label: "Application Directory", required: true },
-                    { name: "startCommand", label: "Start Command", required: true },
-                ],
-                golang: [
-                    { name: "version", label: "Go Version", required: true, options: ["1.16", "1.17", "1.18"] },
-                    { name: "appDirectory", label: "Application Directory", required: true },
-                    { name: "startCommand", label: "Start Command", required: true },
-                ],
-                java: [
-                    { name: "version", label: "Java Version", required: true, options: ["8", "11", "16"] },
-                    { name: "appDirectory", label: "Application Directory", required: true },
-                    { name: "startCommand", label: "Start Command", required: true },
-                ],
-                nginx: [
-                    { name: "configFile", label: "Nginx Config File", required: true },
-                    { name: "documentRoot", label: "Document Root", required: true },
-                ],
-                alpine: [
-                    { name: "commands", label: "Commands to Run", required: true },
-                ]
-            };
+        const dockerfileFields = {
+            node: [
+                { name: "version", label: "Node.js Version", required: true, options: ["14", "16", "18"] },
+                { name: "appDirectory", label: "Application Directory", required: true },
+                { name: "startCommand", label: "Start Command", required: true },
+            ],
+            python: [
+                { name: "version", label: "Python Version", required: true, options: ["3.8", "3.9", "3.10"] },
+                { name: "appDirectory", label: "Application Directory", required: true },
+                { name: "startCommand", label: "Start Command", required: true },
+            ],
+            golang: [
+                { name: "version", label: "Go Version", required: true, options: ["1.16", "1.17", "1.18"] },
+                { name: "appDirectory", label: "Application Directory", required: true },
+                { name: "startCommand", label: "Start Command", required: true },
+            ],
+            java: [
+                { name: "version", label: "Java Version", required: true, options: ["8", "11", "16"] },
+                { name: "appDirectory", label: "Application Directory", required: true },
+                { name: "startCommand", label: "Start Command", required: true },
+            ],
+            nginx: [
+                { name: "configFile", label: "Nginx Config File", required: true },
+                { name: "documentRoot", label: "Document Root", required: true },
+            ],
+            alpine: [
+                { name: "commands", label: "Commands to Run", required: true },
+            ]
+        };
 
-            const ansibleFields = {
-                package: [
-                    { name: "name", label: "Package Name", required: true },
-                    { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
-                ],
-                service: [
-                    { name: "name", label: "Service Name", required: true },
-                    { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
-                    { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
-                ],
-                file: [
-                    { name: "path", label: "Path", required: true },
-                    { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
-                ],
-                copy: [
-                    { name: "src", label: "Source", required: true },
-                    { name: "dest", label: "Destination", required: true },
-                ],
-                command: [
-                    { name: "cmd", label: "Command", required: true },
-                ],
-                user: [
-                    { name: "name", label: "Username", required: true },
-                    { name: "state", label: "State", required: true, options: ["present", "absent"] },
-                ],
-            };
+        const ansibleFields = {
+            package: [
+                { name: "name", label: "Package Name", required: true },
+                { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
+            ],
+            service: [
+                { name: "name", label: "Service Name", required: true },
+                { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
+                { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
+            ],
+            file: [
+                { name: "path", label: "Path", required: true },
+                { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
+            ],
+            copy: [
+                { name: "src", label: "Source", required: true },
+                { name: "dest", label: "Destination", required: true },
+            ],
+            command: [
+                { name: "cmd", label: "Command", required: true },
+            ],
+            user: [
+                { name: "name", label: "Username", required: true },
+                { name: "state", label: "State", required: true, options: ["present", "absent"] },
+            ],
+        };
 
-            const terraformFields = {
-                aws_instance: [
-                    { name: "ami", label: "AMI", required: true },
-                    { name: "instance_type", label: "Instance Type", required: true, options: ["t2.micro", "t2.small", "t2.medium"] },
-                    { name: "key_name", label: "Key Name", required: false },
-                    { name: "vpc_security_group_ids", label: "VPC Security Group IDs (comma-separated)", required: false },
-                    { name: "subnet_id", label: "Subnet ID", required: false },
-                    { name: "associate_public_ip_address", label: "Associate Public IP Address", required: false, options: ["true", "false"] },
-                    { name: "tags", label: "Tags (JSON format)", required: false },
-                    { name: "ebs_block_device", label: "EBS Block Device (JSON format)", required: false }
-                ],
-                aws_s3_bucket: [
-                    { name: "bucket", label: "Bucket Name", required: true },
-                    { name: "acl", label: "ACL", required: true, options: ["private", "public-read", "public-read-write", "authenticated-read"] },
-                    { name: "force_destroy", label: "Force Destroy", required: false, options: ["true", "false"] }
-                ],
-                aws_security_group: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "description", label: "Description", required: true },
-                    { name: "vpc_id", label: "VPC ID", required: true },
-                    { name: "ingress", label: "Ingress Rules (JSON format)", required: false },
-                    { name: "egress", label: "Egress Rules (JSON format)", required: false }
-                ],
-                google_compute_instance: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "machine_type", label: "Machine Type", required: true, options: ["f1-micro", "g1-small", "n1-standard-1"] },
-                    { name: "zone", label: "Zone", required: true },
-                    { name: "tags", label: "Tags (JSON format)", required: false }
-                ],
-                google_storage_bucket: [
-                    { name: "name", label: "Bucket Name", required: true },
-                    { name: "location", label: "Location", required: true, options: ["US", "EU", "ASIA"] },
-                    { name: "storage_class", label: "Storage Class", required: false, options: ["STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE"] }
-                ],
-                azure_virtual_machine: [
-                    { name: "name", label: "Name", required: true },
-                    { name: "resource_group_name", label: "Resource Group Name", required: true },
-                    { name: "vm_size", label: "VM Size", required: true, options: ["Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2"] },
-                    { name: "os_disk", label: "OS Disk (JSON format)", required: true },
-                    { name: "network_interface_ids", label: "Network Interface IDs (JSON format)", required: true }
-                ],
-            };
+        const terraformFields = {
+            aws_instance: [
+                { name: "ami", label: "AMI", required: true },
+                { name: "instance_type", label: "Instance Type", required: true, options: ["t2.micro", "t2.small", "t2.medium"] },
+                { name: "key_name", label: "Key Name", required: false },
+                { name: "vpc_security_group_ids", label: "VPC Security Group IDs (comma-separated)", required: false },
+                { name: "subnet_id", label: "Subnet ID", required: false },
+                { name: "associate_public_ip_address", label: "Associate Public IP Address", required: false, options: ["true", "false"] },
+                { name: "tags", label: "Tags (JSON format)", required: false },
+                { name: "ebs_block_device", label: "EBS Block Device (JSON format)", required: false }
+            ],
+            aws_s3_bucket: [
+                { name: "bucket", label: "Bucket Name", required: true },
+                { name: "acl", label: "ACL", required: true, options: ["private", "public-read", "public-read-write", "authenticated-read"] },
+                { name: "force_destroy", label: "Force Destroy", required: false, options: ["true", "false"] }
+            ],
+            aws_security_group: [
+                { name: "name", label: "Name", required: true },
+                { name: "description", label: "Description", required: true },
+                { name: "vpc_id", label: "VPC ID", required: true },
+                { name: "ingress", label: "Ingress Rules (JSON format)", required: false },
+                { name: "egress", label: "Egress Rules (JSON format)", required: false }
+            ],
+            google_compute_instance: [
+                { name: "name", label: "Name", required: true },
+                { name: "machine_type", label: "Machine Type", required: true, options: ["f1-micro", "g1-small", "n1-standard-1"] },
+                { name: "zone", label: "Zone", required: true },
+                { name: "tags", label: "Tags (JSON format)", required: false }
+            ],
+            google_storage_bucket: [
+                { name: "name", label: "Bucket Name", required: true },
+                { name: "location", label: "Location", required: true, options: ["US", "EU", "ASIA"] },
+                { name: "storage_class", label: "Storage Class", required: false, options: ["STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE"] }
+            ],
+            azure_virtual_machine: [
+                { name: "name", label: "Name", required: true },
+                { name: "resource_group_name", label: "Resource Group Name", required: true },
+                { name: "vm_size", label: "VM Size", required: true, options: ["Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2"] },
+                { name: "os_disk", label: "OS Disk (JSON format)", required: true },
+                { name: "network_interface_ids", label: "Network Interface IDs (JSON format)", required: true }
+            ],
+        };
 
-            function goToK8sDetails() {
-                const manifestTypeSelect = document.getElementById("k8sManifestType");
-                const selectedOptions = Array.from(manifestTypeSelect.selectedOptions).map(option => option.value);
+        function goToK8sDetails() {
+            const manifestTypeSelect = document.getElementById("k8sManifestType");
+            const selectedOptions = Array.from(manifestTypeSelect.selectedOptions).map(option => option.value);
 
-                if (selectedOptions.length === 0) {
-                    alert('Please select at least one manifest type.');
-                    return;
-                }
-
-                const formFieldsDiv = document.getElementById("k8sFormFields");
-                formFieldsDiv.innerHTML = "";
-
-                selectedOptions.forEach(type => {
-                    if (k8sFields[type]) {
-                        const fieldSet = document.createElement('fieldset');
-                        const legend = document.createElement('legend');
-                        legend.textContent = type;
-                        fieldSet.appendChild(legend);
-
-                        k8sFields[type].forEach(field => {
-                            const fieldHtml = field.options
-                                ? `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                        ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
-                                    </select>
-                                    <br>
-                                `
-                                : `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                    <br>
-                                `;
-                            fieldSet.innerHTML += fieldHtml;
-                        });
-
-                        formFieldsDiv.appendChild(fieldSet);
-                    }
-                });
-
-                document.getElementById("k8sSelectionStep").classList.remove("active");
-                document.getElementById("k8sDetailsStep").classList.add("active");
+            if (selectedOptions.length === 0) {
+                alert('Please select at least one manifest type.');
+                return;
             }
 
-            function goBackK8s() {
-                document.getElementById("k8sSelectionStep").classList.add("active");
-                document.getElementById("k8sDetailsStep").classList.remove("active");
-            }
+            const formFieldsDiv = document.getElementById("k8sFormFields");
+            formFieldsDiv.innerHTML = "";
 
-            function showK8sPreview() {
-                const form = document.getElementById("k8sManifestForm");
-                const formData = new FormData(form);
-                const previewContent = document.getElementById("k8sPreviewContent");
-                const manifestTypeSelect = document.getElementById("k8sManifestType");
-                const selectedOptions = Array.from(manifestTypeSelect.selectedOptions).map(option => option.value);
+            selectedOptions.forEach(type => {
+                if (k8sFields[type]) {
+                    const fieldSet = document.createElement('fieldset');
+                    const legend = document.createElement('legend');
+                    legend.textContent = type;
+                    fieldSet.appendChild(legend);
 
-                const manifests = [];
-
-                selectedOptions.forEach(type => {
-                    let manifest = {};
-
-                    if (type === 'Deployment') {
-                        manifest = {
-                            apiVersion: 'apps/v1',
-                            kind: 'Deployment',
-                            metadata: {
-                                name: formData.get(`name-Deployment`),
-                            },
-                            spec: {
-                                replicas: parseInt(formData.get(`replicas-Deployment`)),
-                                selector: {
-                                    matchLabels: {
-                                        app: formData.get(`name-Deployment`)
-                                    }
-                                },
-                                template: {
-                                    metadata: {
-                                        labels: {
-                                            app: formData.get(`name-Deployment`)
-                                        }
-                                    },
-                                    spec: {
-                                        containers: [{
-                                            name: formData.get(`name-Deployment`),
-                                            image: formData.get(`image-Deployment`)
-                                        }]
-                                    }
-                                }
-                            }
-                        };
-                        if (formData.get(`volume-Deployment`)) {
-                            manifest.spec.template.spec.volumes = [{
-                                name: formData.get(`volume-Deployment`)
-                            }];
-                        }
-                    } else if (type === 'Service') {
-                        manifest = {
-                            apiVersion: 'v1',
-                            kind: 'Service',
-                            metadata: {
-                                name: formData.get(`name-Service`)
-                            },
-                            spec: {
-                                type: formData.get(`type-Service`),
-                                ports: [{
-                                    port: parseInt(formData.get(`port-Service`))
-                                }],
-                                selector: {
-                                    app: formData.get(`name-Service`)
-                                }
-                            }
-                        };
-                    } else if (type === 'ConfigMap') {
-                        manifest = {
-                            apiVersion: 'v1',
-                            kind: 'ConfigMap',
-                            metadata: {
-                                name: formData.get(`name-ConfigMap`)
-                            },
-                            data: {
-                                [formData.get(`name-ConfigMap`)]: formData.get(`data-ConfigMap`)
-                            }
-                        };
-                    } else if (type === 'Secret') {
-                        manifest = {
-                            apiVersion: 'v1',
-                            kind: 'Secret',
-                            metadata: {
-                                name: formData.get(`name-Secret`)
-                            },
-                            data: {
-                                [formData.get(`name-Secret`)]: formData.get(`data-Secret`)
-                            }
-                        };
-                    } else if (type === 'PersistentVolume') {
-                        manifest = {
-                            apiVersion: 'v1',
-                            kind: 'PersistentVolume',
-                            metadata: {
-                                name: formData.get(`name-PersistentVolume`)
-                            },
-                            spec: {
-                                capacity: {
-                                    storage: formData.get(`capacity-PersistentVolume`)
-                                },
-                                accessModes: [formData.get(`accessModes-PersistentVolume`)],
-                                storageClassName: formData.get(`storageClass-PersistentVolume`)
-                            }
-                        };
-                    } else if (type === 'PersistentVolumeClaim') {
-                        manifest = {
-                            apiVersion: 'v1',
-                            kind: 'PersistentVolumeClaim',
-                            metadata: {
-                                name: formData.get(`name-PersistentVolumeClaim`)
-                            },
-                            spec: {
-                                storageClassName: formData.get(`storageClass-PersistentVolumeClaim`),
-                                accessModes: [formData.get(`accessModes-PersistentVolumeClaim`)],
-                                resources: {
-                                    requests: {
-                                        storage: formData.get(`resources-PersistentVolumeClaim`)
-                                    }
-                                }
-                            }
-                        };
-                    } else if (type === 'Ingress') {
-                        manifest = {
-                            apiVersion: 'networking.k8s.io/v1',
-                            kind: 'Ingress',
-                            metadata: {
-                                name: formData.get(`name-Ingress`)
-                            },
-                            spec: {
-                                rules: [{
-                                    host: formData.get(`host-Ingress`),
-                                    http: {
-                                        paths: [{
-                                            path: '/',
-                                            pathType: 'Prefix',
-                                            backend: {
-                                                service: {
-                                                    name: formData.get(`serviceName-Ingress`),
-                                                    port: {
-                                                        number: parseInt(formData.get(`servicePort-Ingress`))
-                                                    }
-                                                }
-                                            }
-                                        }]
-                                    }
-                                }]
-                            }
-                        };
-                    } else if (type === 'Role') {
-                        manifest = {
-                            apiVersion: 'rbac.authorization.k8s.io/v1',
-                            kind: 'Role',
-                            metadata: {
-                                name: formData.get(`name-Role`)
-                            },
-                            rules: JSON.parse(formData.get(`rules-Role`))
-                        };
-                    } else if (type === 'RoleBinding') {
-                        manifest = {
-                            apiVersion: 'rbac.authorization.k8s.io/v1',
-                            kind: 'RoleBinding',
-                            metadata: {
-                                name: formData.get(`name-RoleBinding`)
-                            },
-                            roleRef: {
-                                apiGroup: 'rbac.authorization.k8s.io',
-                                kind: 'Role',
-                                name: formData.get(`roleName-RoleBinding`)
-                            },
-                            subjects: JSON.parse(formData.get(`subjects-RoleBinding`))
-                        };
-                    } else if (type === 'ClusterRole') {
-                        manifest = {
-                            apiVersion: 'rbac.authorization.k8s.io/v1',
-                            kind: 'ClusterRole',
-                            metadata: {
-                                name: formData.get(`name-ClusterRole`)
-                            },
-                            rules: JSON.parse(formData.get(`rules-ClusterRole`))
-                        };
-                    } else if (type === 'ClusterRoleBinding') {
-                        manifest = {
-                            apiVersion: 'rbac.authorization.k8s.io/v1',
-                            kind: 'ClusterRoleBinding',
-                            metadata: {
-                                name: formData.get(`name-ClusterRoleBinding`)
-                            },
-                            roleRef: {
-                                apiGroup: 'rbac.authorization.k8s.io',
-                                kind: 'ClusterRole',
-                                name: formData.get(`roleName-ClusterRoleBinding`)
-                            },
-                            subjects: JSON.parse(formData.get(`subjects-ClusterRoleBinding`))
-                        };
-                    } else if (type === 'NetworkPolicy') {
-                        manifest = {
-                            apiVersion: 'networking.k8s.io/v1',
-                            kind: 'NetworkPolicy',
-                            metadata: {
-                                name: formData.get(`name-NetworkPolicy`)
-                            },
-                            spec: {
-                                podSelector: JSON.parse(formData.get(`podSelector-NetworkPolicy`)),
-                                policyTypes: [formData.get(`policyTypes-NetworkPolicy`)]
-                            }
-                        };
-                    }
-
-                    manifests.push(manifest);
-                });
-
-                previewContent.textContent = manifests.map(manifest => JSON.stringify(manifest, null, 2)).join('\n---\n');
-                document.getElementById("k8sDetailsStep").classList.remove("active");
-                document.getElementById("k8sPreviewStep").classList.add("active");
-            }
-
-            function generateK8sManifest() {
-                const previewContent = document.getElementById("k8sPreviewContent").textContent;
-                const blob = new Blob([previewContent], { type: 'application/yaml' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'manifest.yaml';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            }
-
-            function editK8sForm() {
-                document.getElementById("k8sPreviewStep").classList.remove("active");
-                document.getElementById("k8sDetailsStep").classList.add("active");
-            }
-
-            function cancelK8sForm() {
-                document.getElementById("k8sManifestForm").reset();
-                document.getElementById("k8sFormFields").innerHTML = "";
-                document.getElementById("k8sSelectionStep").classList.add("active");
-                document.getElementById("k8sDetailsStep").classList.remove("active");
-                document.getElementById("k8sPreviewStep").classList.remove("active");
-            }
-
-            function goToDockerfileDetails() {
-                const baseImage = document.getElementById("dockerfileBaseImage").value;
-
-                if (!baseImage) {
-                    alert('Please select a base image.');
-                    return;
-                }
-
-                const formFieldsDiv = document.getElementById("dockerfileFormFields");
-                formFieldsDiv.innerHTML = "";
-
-                if (dockerfileFields[baseImage]) {
-                    dockerfileFields[baseImage].forEach(field => {
+                    k8sFields[type].forEach(field => {
                         const fieldHtml = field.options
                             ? `
-                                <label for="${field.name}-${baseImage}">${field.label}${field.required ? '*' : ''}:</label>
-                                <select id="${field.name}-${baseImage}" name="${field.name}-${baseImage}" ${field.required ? 'required' : ''}>
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
                                     ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
                                 </select>
                                 <br>
                             `
                             : `
-                                <label for="${field.name}-${baseImage}">${field.label}${field.required ? '*' : ''}:</label>
-                                <input type="text" id="${field.name}-${baseImage}" name="${field.name}-${baseImage}" ${field.required ? 'required' : ''}>
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
                                 <br>
                             `;
-                        formFieldsDiv.innerHTML += fieldHtml;
+                        fieldSet.innerHTML += fieldHtml;
                     });
+
+                    formFieldsDiv.appendChild(fieldSet);
                 }
+            });
 
-                document.getElementById("dockerfileSelectionStep").classList.remove("active");
-                document.getElementById("dockerfileDetailsStep").classList.add("active");
-            }
+            document.getElementById("k8sSelectionStep").classList.add("hidden");
+            document.getElementById("k8sDetailsStep").classList.remove("hidden");
+        }
 
-            function goBackDockerfile() {
-                document.getElementById("dockerfileSelectionStep").classList.add("active");
-                document.getElementById("dockerfileDetailsStep").classList.remove("active");
-            }
+        function goBackK8s() {
+            document.getElementById("k8sSelectionStep").classList.remove("hidden");
+            document.getElementById("k8sDetailsStep").classList.add("hidden");
+        }
 
-            function showDockerfilePreview() {
-                const form = document.getElementById("dockerfileForm");
-                const formData = new FormData(form);
-                const previewContent = document.getElementById("dockerfilePreviewContent");
-                const baseImage = document.getElementById("dockerfileBaseImage").value;
+        function showK8sPreview() {
+            const form = document.getElementById("k8sManifestForm");
+            const formData = new FormData(form);
+            const previewContent = document.getElementById("k8sPreviewContent");
+            const manifestTypeSelect = document.getElementById("k8sManifestType");
+            const selectedOptions = Array.from(manifestTypeSelect.selectedOptions).map(option => option.value);
 
-                let dockerfile = `FROM ${baseImage}:${formData.get(`version-${baseImage}`)}\n`;
+            const manifests = [];
 
-                if (baseImage === "node" || baseImage === "python" || baseImage === "golang" || baseImage === "java") {
-                    dockerfile += `
-    WORKDIR /usr/src/app
-    COPY . .
-    RUN npm install
-    CMD ["${formData.get(`startCommand-${baseImage}`)}"]
-                    `;
-                } else if (baseImage === "nginx") {
-                    dockerfile += `
-    COPY ${formData.get(`configFile-${baseImage}`)} /etc/nginx/nginx.conf
-    COPY ${formData.get(`documentRoot-${baseImage}`)} /usr/share/nginx/html
-                    `;
-                } else if (baseImage === "alpine") {
-                    dockerfile += `
-    RUN ${formData.get(`commands-${baseImage}`)}
-                    `;
-                }
+            selectedOptions.forEach(type => {
+                let manifest = {};
 
-                previewContent.textContent = dockerfile.trim();
-                document.getElementById("dockerfileDetailsStep").classList.remove("active");
-                document.getElementById("dockerfilePreviewStep").classList.add("active");
-            }
-
-            function generateDockerfile() {
-                const previewContent = document.getElementById("dockerfilePreviewContent").textContent;
-                const blob = new Blob([previewContent], { type: 'text/plain' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'Dockerfile';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            }
-
-            function editDockerfileForm() {
-                document.getElementById("dockerfilePreviewStep").classList.remove("active");
-                document.getElementById("dockerfileDetailsStep").classList.add("active");
-            }
-
-            function cancelDockerfileForm() {
-                document.getElementById("dockerfileForm").reset();
-                document.getElementById("dockerfileFormFields").innerHTML = "";
-                document.getElementById("dockerfileSelectionStep").classList.add("active");
-                document.getElementById("dockerfileDetailsStep").classList.remove("active");
-                document.getElementById("dockerfilePreviewStep").classList.remove("active");
-            }
-
-            function goToAnsibleDetails() {
-                const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
-                const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
-
-                if (selectedOptions.length === 0) {
-                    alert('Please select at least one playbook task.');
-                    return;
-                }
-
-                const formFieldsDiv = document.getElementById("ansibleFormFields");
-                formFieldsDiv.innerHTML = "";
-
-                selectedOptions.forEach(type => {
-                    if (ansibleFields[type]) {
-                        const fieldSet = document.createElement('fieldset');
-                        const legend = document.createElement('legend');
-                        legend.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-                        fieldSet.appendChild(legend);
-
-                        ansibleFields[type].forEach(field => {
-                            const fieldHtml = field.options
-                                ? `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                        ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
-                                    </select>
-                                    <br>
-                                `
-                                : `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                    <br>
-                                `;
-                            fieldSet.innerHTML += fieldHtml;
-                        });
-
-                        formFieldsDiv.appendChild(fieldSet);
+                if (type === 'Deployment') {
+                    manifest = {
+                        apiVersion: 'apps/v1',
+                        kind: 'Deployment',
+                        metadata: {
+                            name: formData.get(`name-Deployment`),
+                        },
+                        spec: {
+                            replicas: parseInt(formData.get(`replicas-Deployment`)),
+                            selector: {
+                                matchLabels: {
+                                    app: formData.get(`name-Deployment`)
+                                }
+                            },
+                            template: {
+                                metadata: {
+                                    labels: {
+                                        app: formData.get(`name-Deployment`)
+                                    }
+                                },
+                                spec: {
+                                    containers: [{
+                                        name: formData.get(`name-Deployment`),
+                                        image: formData.get(`image-Deployment`)
+                                    }]
+                                }
+                            }
+                        }
+                    };
+                    if (formData.get(`volume-Deployment`)) {
+                        manifest.spec.template.spec.volumes = [{
+                            name: formData.get(`volume-Deployment`)
+                        }];
                     }
+                } else if (type === 'Service') {
+                    manifest = {
+                        apiVersion: 'v1',
+                        kind: 'Service',
+                        metadata: {
+                            name: formData.get(`name-Service`)
+                        },
+                        spec: {
+                            type: formData.get(`type-Service`),
+                            ports: [{
+                                port: parseInt(formData.get(`port-Service`))
+                            }],
+                            selector: {
+                                app: formData.get(`name-Service`)
+                            }
+                        }
+                    };
+                } else if (type === 'ConfigMap') {
+                    manifest = {
+                        apiVersion: 'v1',
+                        kind: 'ConfigMap',
+                        metadata: {
+                            name: formData.get(`name-ConfigMap`)
+                        },
+                        data: {
+                            [formData.get(`name-ConfigMap`)]: formData.get(`data-ConfigMap`)
+                        }
+                    };
+                } else if (type === 'Secret') {
+                    manifest = {
+                        apiVersion: 'v1',
+                        kind: 'Secret',
+                        metadata: {
+                            name: formData.get(`name-Secret`)
+                        },
+                        data: {
+                            [formData.get(`name-Secret`)]: formData.get(`data-Secret`)
+                        }
+                    };
+                } else if (type === 'PersistentVolume') {
+                    manifest = {
+                        apiVersion: 'v1',
+                        kind: 'PersistentVolume',
+                        metadata: {
+                            name: formData.get(`name-PersistentVolume`)
+                        },
+                        spec: {
+                            capacity: {
+                                storage: formData.get(`capacity-PersistentVolume`)
+                            },
+                            accessModes: [formData.get(`accessModes-PersistentVolume`)],
+                            storageClassName: formData.get(`storageClass-PersistentVolume`)
+                        }
+                    };
+                } else if (type === 'PersistentVolumeClaim') {
+                    manifest = {
+                        apiVersion: 'v1',
+                        kind: 'PersistentVolumeClaim',
+                        metadata: {
+                            name: formData.get(`name-PersistentVolumeClaim`)
+                        },
+                        spec: {
+                            storageClassName: formData.get(`storageClass-PersistentVolumeClaim`),
+                            accessModes: [formData.get(`accessModes-PersistentVolumeClaim`)],
+                            resources: {
+                                requests: {
+                                    storage: formData.get(`resources-PersistentVolumeClaim`)
+                                }
+                            }
+                        }
+                    };
+                } else if (type === 'Ingress') {
+                    manifest = {
+                        apiVersion: 'networking.k8s.io/v1',
+                        kind: 'Ingress',
+                        metadata: {
+                            name: formData.get(`name-Ingress`)
+                        },
+                        spec: {
+                            rules: [{
+                                host: formData.get(`host-Ingress`),
+                                http: {
+                                    paths: [{
+                                        path: '/',
+                                        pathType: 'Prefix',
+                                        backend: {
+                                            service: {
+                                                name: formData.get(`serviceName-Ingress`),
+                                                port: {
+                                                    number: parseInt(formData.get(`servicePort-Ingress`))
+                                                }
+                                            }
+                                        }
+                                    }]
+                                }
+                            }]
+                        }
+                    };
+                } else if (type === 'Role') {
+                    manifest = {
+                        apiVersion: 'rbac.authorization.k8s.io/v1',
+                        kind: 'Role',
+                        metadata: {
+                            name: formData.get(`name-Role`)
+                        },
+                        rules: JSON.parse(formData.get(`rules-Role`))
+                    };
+                } else if (type === 'RoleBinding') {
+                    manifest = {
+                        apiVersion: 'rbac.authorization.k8s.io/v1',
+                        kind: 'RoleBinding',
+                        metadata: {
+                            name: formData.get(`name-RoleBinding`)
+                        },
+                        roleRef: {
+                            apiGroup: 'rbac.authorization.k8s.io',
+                            kind: 'Role',
+                            name: formData.get(`roleName-RoleBinding`)
+                        },
+                        subjects: JSON.parse(formData.get(`subjects-RoleBinding`))
+                    };
+                } else if (type === 'ClusterRole') {
+                    manifest = {
+                        apiVersion: 'rbac.authorization.k8s.io/v1',
+                        kind: 'ClusterRole',
+                        metadata: {
+                            name: formData.get(`name-ClusterRole`)
+                        },
+                        rules: JSON.parse(formData.get(`rules-ClusterRole`))
+                    };
+                } else if (type === 'ClusterRoleBinding') {
+                    manifest = {
+                        apiVersion: 'rbac.authorization.k8s.io/v1',
+                        kind: 'ClusterRoleBinding',
+                        metadata: {
+                            name: formData.get(`name-ClusterRoleBinding`)
+                        },
+                        roleRef: {
+                            apiGroup: 'rbac.authorization.k8s.io',
+                            kind: 'ClusterRole',
+                            name: formData.get(`roleName-ClusterRoleBinding`)
+                        },
+                        subjects: JSON.parse(formData.get(`subjects-ClusterRoleBinding`))
+                    };
+                } else if (type === 'NetworkPolicy') {
+                    manifest = {
+                        apiVersion: 'networking.k8s.io/v1',
+                        kind: 'NetworkPolicy',
+                        metadata: {
+                            name: formData.get(`name-NetworkPolicy`)
+                        },
+                        spec: {
+                            podSelector: JSON.parse(formData.get(`podSelector-NetworkPolicy`)),
+                            policyTypes: [formData.get(`policyTypes-NetworkPolicy`)]
+                        }
+                    };
+                }
+
+                manifests.push(manifest);
+            });
+
+            previewContent.textContent = manifests.map(manifest => JSON.stringify(manifest, null, 2)).join('\n---\n');
+            document.getElementById("k8sDetailsStep").classList.add("hidden");
+            document.getElementById("k8sPreviewStep").classList.remove("hidden");
+        }
+
+        function generateK8sManifest() {
+            const previewContent = document.getElementById("k8sPreviewContent").textContent;
+            const blob = new Blob([previewContent], { type: 'application/yaml' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'manifest.yaml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function editK8sForm() {
+            document.getElementById("k8sPreviewStep").classList.add("hidden");
+            document.getElementById("k8sDetailsStep").classList.remove("hidden");
+        }
+
+        function cancelK8sForm() {
+            document.getElementById("k8sManifestForm").reset();
+            document.getElementById("k8sFormFields").innerHTML = "";
+            document.getElementById("k8sSelectionStep").classList.remove("hidden");
+            document.getElementById("k8sDetailsStep").classList.add("hidden");
+            document.getElementById("k8sPreviewStep").classList.add("hidden");
+        }
+
+        function goToDockerfileDetails() {
+            const baseImage = document.getElementById("dockerfileBaseImage").value;
+
+            if (!baseImage) {
+                alert('Please select a base image.');
+                return;
+            }
+
+            const formFieldsDiv = document.getElementById("dockerfileFormFields");
+            formFieldsDiv.innerHTML = "";
+
+            if (dockerfileFields[baseImage]) {
+                dockerfileFields[baseImage].forEach(field => {
+                    const fieldHtml = field.options
+                        ? `
+                            <label for="${field.name}-${baseImage}">${field.label}${field.required ? '*' : ''}:</label>
+                            <select id="${field.name}-${baseImage}" name="${field.name}-${baseImage}" ${field.required ? 'required' : ''}>
+                                ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                            </select>
+                            <br>
+                        `
+                        : `
+                            <label for="${field.name}-${baseImage}">${field.label}${field.required ? '*' : ''}:</label>
+                            <input type="text" id="${field.name}-${baseImage}" name="${field.name}-${baseImage}" ${field.required ? 'required' : ''}>
+                            <br>
+                        `;
+                    formFieldsDiv.innerHTML += fieldHtml;
                 });
-
-                document.getElementById("ansibleSelectionStep").classList.remove("active");
-                document.getElementById("ansibleDetailsStep").classList.add("active");
             }
 
-            function goBackAnsible() {
-                document.getElementById("ansibleSelectionStep").classList.add("active");
-                document.getElementById("ansibleDetailsStep").classList.remove("active");
+            document.getElementById("dockerfileSelectionStep").classList.add("hidden");
+            document.getElementById("dockerfileDetailsStep").classList.remove("hidden");
+        }
+
+        function goBackDockerfile() {
+            document.getElementById("dockerfileSelectionStep").classList.remove("hidden");
+            document.getElementById("dockerfileDetailsStep").classList.add("hidden");
+        }
+
+        function showDockerfilePreview() {
+            const form = document.getElementById("dockerfileForm");
+            const formData = new FormData(form);
+            const previewContent = document.getElementById("dockerfilePreviewContent");
+            const baseImage = document.getElementById("dockerfileBaseImage").value;
+
+            let dockerfile = `FROM ${baseImage}:${formData.get(`version-${baseImage}`)}\n`;
+
+            if (baseImage === "node" || baseImage === "python" || baseImage === "golang" || baseImage === "java") {
+                dockerfile += `
+WORKDIR /usr/src/app
+COPY . .
+RUN npm install
+CMD ["${formData.get(`startCommand-${baseImage}`)}"]
+                `;
+            } else if (baseImage === "nginx") {
+                dockerfile += `
+COPY ${formData.get(`configFile-${baseImage}`)} /etc/nginx/nginx.conf
+COPY ${formData.get(`documentRoot-${baseImage}`)} /usr/share/nginx/html
+                `;
+            } else if (baseImage === "alpine") {
+                dockerfile += `
+RUN ${formData.get(`commands-${baseImage}`)}
+                `;
             }
 
-            function showAnsiblePreview() {
-                const form = document.getElementById("ansibleForm");
-                const formData = new FormData(form);
-                const previewContent = document.getElementById("ansiblePreviewContent");
-                const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
-                const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
+            previewContent.textContent = dockerfile.trim();
+            document.getElementById("dockerfileDetailsStep").classList.add("hidden");
+            document.getElementById("dockerfilePreviewStep").classList.remove("hidden");
+        }
 
-                const tasks = selectedOptions.map(type => {
-                    let task = { [type]: {} };
+        function generateDockerfile() {
+            const previewContent = document.getElementById("dockerfilePreviewContent").textContent;
+            const blob = new Blob([previewContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'Dockerfile';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function editDockerfileForm() {
+            document.getElementById("dockerfilePreviewStep").classList.add("hidden");
+            document.getElementById("dockerfileDetailsStep").classList.remove("hidden");
+        }
+
+        function cancelDockerfileForm() {
+            document.getElementById("dockerfileForm").reset();
+            document.getElementById("dockerfileFormFields").innerHTML = "";
+            document.getElementById("dockerfileSelectionStep").classList.remove("hidden");
+            document.getElementById("dockerfileDetailsStep").classList.add("hidden");
+            document.getElementById("dockerfilePreviewStep").classList.add("hidden");
+        }
+
+        function goToAnsibleDetails() {
+            const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
+            const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
+
+            if (selectedOptions.length === 0) {
+                alert('Please select at least one playbook task.');
+                return;
+            }
+
+            const formFieldsDiv = document.getElementById("ansibleFormFields");
+            formFieldsDiv.innerHTML = "";
+
+            selectedOptions.forEach(type => {
+                if (ansibleFields[type]) {
+                    const fieldSet = document.createElement('fieldset');
+                    const legend = document.createElement('legend');
+                    legend.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                    fieldSet.appendChild(legend);
 
                     ansibleFields[type].forEach(field => {
-                        task[type][field.name] = formData.get(`${field.name}-${type}`);
+                        const fieldHtml = field.options
+                            ? `
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                                    ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                                </select>
+                                <br>
+                            `
+                            : `
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                                <br>
+                            `;
+                        fieldSet.innerHTML += fieldHtml;
                     });
 
-                    return task;
-                });
-
-                const playbook = {
-                    hosts: "all",
-                    tasks: tasks
-                };
-
-                previewContent.textContent = JSON.stringify(playbook, null, 2);
-                document.getElementById("ansibleDetailsStep").classList.remove("active");
-                document.getElementById("ansiblePreviewStep").classList.add("active");
-            }
-
-            function generateAnsiblePlaybook() {
-                const previewContent = document.getElementById("ansiblePreviewContent").textContent;
-                const blob = new Blob([previewContent], { type: 'application/yaml' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'playbook.yml';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            }
-
-            function editAnsibleForm() {
-                document.getElementById("ansiblePreviewStep").classList.remove("active");
-                document.getElementById("ansibleDetailsStep").classList.add("active");
-            }
-
-            function cancelAnsibleForm() {
-                document.getElementById("ansibleForm").reset();
-                document.getElementById("ansibleFormFields").innerHTML = "";
-                document.getElementById("ansibleSelectionStep").classList.add("active");
-                document.getElementById("ansibleDetailsStep").classList.remove("active");
-                document.getElementById("ansiblePreviewStep").classList.remove("active");
-            }
-
-            function goToTerraformDetails() {
-                const resourceTypeSelect = document.getElementById("terraformResourceType");
-                const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
-
-                if (selectedOptions.length === 0) {
-                    alert('Please select at least one resource type.');
-                    return;
+                    formFieldsDiv.appendChild(fieldSet);
                 }
+            });
 
-                const formFieldsDiv = document.getElementById("terraformFormFields");
-                formFieldsDiv.innerHTML = "";
+            document.getElementById("ansibleSelectionStep").classList.add("hidden");
+            document.getElementById("ansibleDetailsStep").classList.remove("hidden");
+        }
 
-                selectedOptions.forEach(type => {
-                    if (terraformFields[type]) {
-                        const fieldSet = document.createElement('fieldset');
-                        const legend = document.createElement('legend');
-                        legend.textContent = type.replace(/_/g, ' ').toUpperCase();
-                        fieldSet.appendChild(legend);
+        function goBackAnsible() {
+            document.getElementById("ansibleSelectionStep").classList.remove("hidden");
+            document.getElementById("ansibleDetailsStep").classList.add("hidden");
+        }
 
-                        terraformFields[type].forEach(field => {
-                            const fieldHtml = field.options
-                                ? `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                        ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
-                                    </select>
-                                    <br>
-                                `
-                                : `
-                                    <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                                    <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                                    <br>
-                                `;
-                            fieldSet.innerHTML += fieldHtml;
-                        });
+        function showAnsiblePreview() {
+            const form = document.getElementById("ansibleForm");
+            const formData = new FormData(form);
+            const previewContent = document.getElementById("ansiblePreviewContent");
+            const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
+            const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
 
-                        formFieldsDiv.appendChild(fieldSet);
-                    }
+            const tasks = selectedOptions.map(type => {
+                let task = { [type]: {} };
+
+                ansibleFields[type].forEach(field => {
+                    task[type][field.name] = formData.get(`${field.name}-${type}`);
                 });
 
-                document.getElementById("terraformSelectionStep").classList.remove("active");
-                document.getElementById("terraformDetailsStep").classList.add("active");
+                return task;
+            });
+
+            const playbook = {
+                hosts: "all",
+                tasks: tasks
+            };
+
+            previewContent.textContent = jsyaml.dump(playbook);
+            document.getElementById("ansibleDetailsStep").classList.add("hidden");
+            document.getElementById("ansiblePreviewStep").classList.remove("hidden");
+        }
+
+        function generateAnsiblePlaybook() {
+            const previewContent = document.getElementById("ansiblePreviewContent").textContent;
+            const blob = new Blob([previewContent], { type: 'application/yaml' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'playbook.yml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function editAnsibleForm() {
+            document.getElementById("ansiblePreviewStep").classList.add("hidden");
+            document.getElementById("ansibleDetailsStep").classList.remove("hidden");
+        }
+
+        function cancelAnsibleForm() {
+            document.getElementById("ansibleForm").reset();
+            document.getElementById("ansibleFormFields").innerHTML = "";
+            document.getElementById("ansibleSelectionStep").classList.remove("hidden");
+            document.getElementById("ansibleDetailsStep").classList.add("hidden");
+            document.getElementById("ansiblePreviewStep").classList.add("hidden");
+        }
+
+        function goToTerraformDetails() {
+            const resourceTypeSelect = document.getElementById("terraformResourceType");
+            const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
+
+            if (selectedOptions.length === 0) {
+                alert('Please select at least one resource type.');
+                return;
             }
 
-            function goBackTerraform() {
-                document.getElementById("terraformSelectionStep").classList.add("active");
-                document.getElementById("terraformDetailsStep").classList.remove("active");
-            }
+            const formFieldsDiv = document.getElementById("terraformFormFields");
+            formFieldsDiv.innerHTML = "";
 
-            function showTerraformPreview() {
-                const form = document.getElementById("terraformForm");
-                const formData = new FormData(form);
-                const previewContent = document.getElementById("terraformPreviewContent");
-                const resourceTypeSelect = document.getElementById("terraformResourceType");
-                const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
-
-                const resources = selectedOptions.map(type => {
-                    let resource = { [type]: {} };
+            selectedOptions.forEach(type => {
+                if (terraformFields[type]) {
+                    const fieldSet = document.createElement('fieldset');
+                    const legend = document.createElement('legend');
+                    legend.textContent = type.replace(/_/g, ' ').toUpperCase();
+                    fieldSet.appendChild(legend);
 
                     terraformFields[type].forEach(field => {
-                        resource[type][field.name] = formData.get(`${field.name}-${type}`);
+                        const fieldHtml = field.options
+                            ? `
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                                    ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                                </select>
+                                <br>
+                            `
+                            : `
+                                <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                                <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                                <br>
+                            `;
+                        fieldSet.innerHTML += fieldHtml;
                     });
 
-                    return resource;
+                    formFieldsDiv.appendChild(fieldSet);
+                }
+            });
+
+            document.getElementById("terraformSelectionStep").classList.add("hidden");
+            document.getElementById("terraformDetailsStep").classList.remove("hidden");
+        }
+
+        function goBackTerraform() {
+            document.getElementById("terraformSelectionStep").classList.remove("hidden");
+            document.getElementById("terraformDetailsStep").classList.add("hidden");
+        }
+
+        function showTerraformPreview() {
+            const form = document.getElementById("terraformForm");
+            const formData = new FormData(form);
+            const previewContent = document.getElementById("terraformPreviewContent");
+            const resourceTypeSelect = document.getElementById("terraformResourceType");
+            const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
+
+            const resources = selectedOptions.map(type => {
+                let resource = { [type]: {} };
+
+                terraformFields[type].forEach(field => {
+                    resource[type][field.name] = formData.get(`${field.name}-${type}`);
                 });
 
-                const terraformConfig = resources.map(resource => {
-                    const type = Object.keys(resource)[0];
-                    const config = resource[type];
-                    return `
+                return resource;
+            });
+
+            const terraformConfig = resources.map(resource => {
+                const type = Object.keys(resource)[0];
+                const config = resource[type];
+                return `
 resource "${type}" "${config.name || config.bucket || config.name}" {
     ${Object.keys(config).map(key => `${key} = "${config[key]}"`).join('\n    ')}
 }
-                    `;
-                }).join('\n');
+                `;
+            }).join('\n');
 
-                previewContent.textContent = terraformConfig.trim();
-                document.getElementById("terraformDetailsStep").classList.remove("active");
-                document.getElementById("terraformPreviewStep").classList.add("active");
-            }
+            previewContent.textContent = terraformConfig.trim();
+            document.getElementById("terraformDetailsStep").classList.add("hidden");
+            document.getElementById("terraformPreviewStep").classList.remove("hidden");
+        }
 
-            function generateTerraformConfig() {
-                const previewContent = document.getElementById("terraformPreviewContent").textContent;
-                const blob = new Blob([previewContent], { type: 'text/plain' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'main.tf';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            }
+        function generateTerraformConfig() {
+            const previewContent = document.getElementById("terraformPreviewContent").textContent;
+            const blob = new Blob([previewContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'main.tf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
 
-            function editTerraformForm() {
-                document.getElementById("terraformPreviewStep").classList.remove("active");
-                document.getElementById("terraformDetailsStep").classList.add("active");
-            }
+        function editTerraformForm() {
+            document.getElementById("terraformPreviewStep").classList.add("hidden");
+            document.getElementById("terraformDetailsStep").classList.remove("hidden");
+        }
 
-            function cancelTerraformForm() {
-                document.getElementById("terraformForm").reset();
-                document.getElementById("terraformFormFields").innerHTML = "";
-                document.getElementById("terraformSelectionStep").classList.add("active");
-                document.getElementById("terraformDetailsStep").classList.remove("active");
-                document.getElementById("terraformPreviewStep").classList.remove("active");
-            }
-        });
+        function cancelTerraformForm() {
+            document.getElementById("terraformForm").reset();
+            document.getElementById("terraformFormFields").innerHTML = "";
+            document.getElementById("terraformSelectionStep").classList.remove("hidden");
+            document.getElementById("terraformDetailsStep").classList.add("hidden");
+            document.getElementById("terraformPreviewStep").classList.add("hidden");
+        }
     </script>
 </body>
 </html>
+
 
 
 
