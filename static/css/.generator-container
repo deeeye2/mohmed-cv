@@ -1,112 +1,24 @@
+/* Existing styles */
 body {
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
 }
 
-.dashboard-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.dashboard {
-    background: linear-gradient(145deg, #e6e6e6, #ffffff);
-    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    transform: perspective(1000px) rotateY(0deg);
-    transition: transform 0.5s;
-}
-
-.dashboard:hover {
-    transform: perspective(1000px) rotateY(10deg);
-}
-
-.dashboard-title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.category-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-.category-btn {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-.category-btn:hover {
-    background-color: #0056b3;
-}
-
-.quiz-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-.btn {
-    width: 200px;
-}
-
-/* Generator CSS */
-
+/* Scoped generator styles */
 .generator-container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    padding: 20px;
-    width: 500px;
-    text-align: center;
-    overflow-y: auto; /* Added for better scrolling */
-    max-height: 90vh; /* Limit height to viewport */
-}
-
-.generator-container h1 {
-    margin-bottom: 20px;
-}
-
-.generator-form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
-.generator-form-fields {
-    width: 100%;
-    margin-bottom: 20px;
+.generator-container h1 {
+    margin-top: 20px;
+    color: #333;
 }
 
-.generator-form label, .generator-form select, .generator-form input {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.generator-form select[multiple] {
-    height: auto;
-}
-
-.generator-btn {
-    background-color: #007BFF;
+.generator-container .generator-btn {
+    background-color: #007bff;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -114,19 +26,42 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 5px 2px;
+    margin: 10px 2px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
+}
+
+.generator-container .generator-btn:hover {
+    background-color: #0056b3;
+}
+
+.generator-container .generator-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.generator-container .generator-form label {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.generator-container .generator-form input,
+.generator-container .generator-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.generator-container .preview {
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
 }
 
 .hidden {
     display: none;
-}
-
-.preview {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
