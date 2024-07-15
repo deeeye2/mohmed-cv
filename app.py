@@ -124,7 +124,7 @@ def file_generator():
     return render_template('file_generator.html')
 
 @app.route('/main-page')
-def file_generator():
+def main_page():
     return render_template('index.html')
 
 
