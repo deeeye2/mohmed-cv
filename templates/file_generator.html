@@ -141,7 +141,7 @@
     
     <div class="center-content">
         <div class="container generator-body">
-            <button class="button" onclick="window.location.href='index.html'">Return to Main Page</button>
+            <a href="/main-page" class="category-btn">Return to Main Page</a>
         
 
 
@@ -368,7 +368,7 @@ const dockerfileFields = {
     ]
 };
 
-const ansibleFields = {
+onst ansibleFields = {
         package: [
             { name: "name", label: "Package Name", required: true },
             { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
@@ -892,7 +892,7 @@ function goToAnsibleDetails() {
             tasks: tasks
         };
 
-        previewContent.textContent = YAML.stringify(playbook, null, 2);
+        previewContent.textContent = jsyaml.dump(playbook, 4, 2);
         document.getElementById("ansibleDetailsStep").classList.add("hidden");
         document.getElementById("ansiblePreviewStep").classList.remove("hidden");
     }
@@ -922,7 +922,7 @@ function goToAnsibleDetails() {
         document.getElementById("ansibleDetailsStep").classList.add("hidden");
         document.getElementById("ansiblePreviewStep").classList.add("hidden");
     }
-
+        
 function goToTerraformDetails() {
     const resourceTypeSelect = document.getElementById("terraformResourceType");
     const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
