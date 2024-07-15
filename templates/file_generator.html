@@ -6,79 +6,112 @@
     <title>Manifest Generators</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    padding: 20px;
-    width: 500px;
-    text-align: center;
-    overflow-y: auto; /* Added for better scrolling */
-    max-height: 90vh; /* Limit height to viewport */
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.form-fields {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-label, select, input {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-select[multiple] {
-    height: auto;
-}
-
-.btn {
-    background-color: #007BFF;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.hidden {
-    display: none;
-}
-
-.preview {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #f0f0f0, #ffffff);
+        }
+        .navbar {
+            background-color: #007BFF;
+        }
+        .navbar-brand {
+            color: white !important;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 20px;
+            width: 500px;
+            text-align: center;
+            overflow-y: auto; /* Added for better scrolling */
+            max-height: 90vh; /* Limit height to viewport */
+            margin-top: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-fields {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        label, select, input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        select[multiple] {
+            height: auto;
+        }
+        .btn {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .preview {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .dashboard-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .category-btn {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+        .category-btn:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
-<body>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mohamed DevOps</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Manifest Generators</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Contact</a></li>
+                </ul>
+                <div class="mt-lg-0 mt-3 mb-4 mb-lg-0"> 
+                    <a href="static/images/MohamedCV.pdf" class="custom-btn btn" download>Download CV</a> 
+                </div> 
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
+        <button class="btn" onclick="window.location.href='index.html'">Return to Main Page</button>
+
         <h1>Kubernetes Manifest Generator</h1>
         <div id="k8sSelectionStep">
             <label for="k8sManifestType">Select Kubernetes Manifest Types:</label>
@@ -114,7 +147,7 @@ select[multiple] {
             <button class="btn" onclick="editK8sForm()">Edit</button>
             <button class="btn" onclick="cancelK8sForm()">Cancel</button>
         </div>
-        
+
         <h1>Dockerfile Generator</h1>
         <div id="dockerfileSelectionStep">
             <label for="dockerfileBaseImage">Select Base Image:</label>
@@ -144,7 +177,7 @@ select[multiple] {
             <button class="btn" onclick="editDockerfileForm()">Edit</button>
             <button class="btn" onclick="cancelDockerfileForm()">Cancel</button>
         </div>
-        
+
         <h1>Ansible Playbook Generator</h1>
         <div id="ansibleSelectionStep">
             <label for="ansiblePlaybookType">Select Playbook Tasks:</label>
@@ -174,7 +207,7 @@ select[multiple] {
             <button class="btn" onclick="editAnsibleForm()">Edit</button>
             <button class="btn" onclick="cancelAnsibleForm()">Cancel</button>
         </div>
-        
+
         <h1>Terraform Configuration Generator</h1>
         <div id="terraformSelectionStep">
             <label for="terraformResourceType">Select Resource Types:</label>
@@ -206,7 +239,6 @@ select[multiple] {
         </div>
     </div>
 
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <script>
         const k8sFields = {
@@ -964,6 +996,52 @@ function cancelTerraformForm() {
     document.getElementById("terraformPreviewStep").classList.add("hidden");
 }
     </script>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact section-padding pt-0" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <form action="/send-email" method="post" class="contact-form webform" role="form">
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
+                            <label for="cf-name" class="webform-label">Full Name</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
+                            <label for="cf-email" class="webform-label">Your Email</label>
+                        </div>
+                        <div class="form-group d-flex flex-column-reverse">
+                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
+                            <label for="cf-message" class="webform-label">Message</label>
+                        </div>
+                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
+                    </form>
+                </div>
+                <div class="mx-auto col-lg-4 col-md-6 col-12">
+                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
+                    <p class="mb-1">+4915901773752</p>
+                    <p>
+                        <a href="mailto:mohamed.sesay@outlook.com.au">
+                            mohamed.sesay@outlook.com.au
+                        <i class="fas fa-arrow-right custom-icon"></i>
+                        </a>
+                    </p>
+                    <a href="https://wa.me/491783547905" class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
+                    </a>
+                    <ul class="social-links mt-2">
+                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
+                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
+                    </ul>
+                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
 
