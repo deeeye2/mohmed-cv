@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    
     <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/png">
@@ -21,9 +20,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
     
     <style>
-        body {
+        .contact-body {
             font-family: Arial, sans-serif;
             background: linear-gradient(120deg, #f0f0f0, #ffffff);
+        }
+        .generator-body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .navbar {
             width: 100%;
@@ -131,14 +139,22 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-           <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Devops File Generatore</a></li>
-    </ul>
-   
-</div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Introduction</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link smoothScroll">About</a></li>
+                    <li class="nav-item"><a href="#certification" class="nav-link smoothScroll">Certification</a></li>
+                    <li class="nav-item"><a href="#devops-quiz" class="nav-link smoothScroll">DevOps Quiz</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Contact</a></li>
+                </ul>
+                <div class="mt-lg-0 mt-3 mb-4 mb-lg-0"> 
+                    <a href="static/images/MohamedCV.pdf" class="custom-btn btn" download>Download CV</a> 
+                </div> 
+            </div>
         </div>
     </nav>
+
+    <div class="container generator-body">
         <button class="btn" onclick="window.location.href='index.html'">Return to Main Page</button>
 
         <h1>Kubernetes Manifest Generator</h1>
@@ -1026,8 +1042,8 @@ resource "${type}" "${config.name || config.bucket || config.name}" {
         }
     </script>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact section-padding pt-0" id="contact">
+   <!-- CONTACT SECTION -->
+    <section class="contact section-padding pt-0 contact-body" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
