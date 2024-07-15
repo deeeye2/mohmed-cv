@@ -148,6 +148,7 @@
         <div class="container generator-body">
             <button class="btn" onclick="window.location.href='index.html'">Return to Main Page</button>
 
+
             <h1>Kubernetes Manifest Generator</h1>
             <div id="k8sSelectionStep">
                 <label for="k8sManifestType">Select Kubernetes Manifest Types:</label>
@@ -825,106 +826,106 @@ function cancelDockerfileForm() {
 }
 
 function goToAnsibleDetails() {
-    const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
-    const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
+        const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
+        const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
 
-    if (selectedOptions.length === 0) {
-        alert('Please select at least one playbook task.');
-        return;
-    }
-
-    const formFieldsDiv = document.getElementById("ansibleFormFields");
-    formFieldsDiv.innerHTML = "";
-
-    selectedOptions.forEach(type => {
-        if (ansibleFields[type]) {
-            const fieldSet = document.createElement('fieldset');
-            const legend = document.createElement('legend');
-            legend.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-            fieldSet.appendChild(legend);
-
-            ansibleFields[type].forEach(field => {
-                const fieldHtml = field.options
-                    ? `
-                        <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                        <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                            ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
-                        </select>
-                        <br>
-                    `
-                    : `
-                        <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
-                        <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
-                        <br>
-                    `;
-                fieldSet.innerHTML += fieldHtml;
-            });
-
-            formFieldsDiv.appendChild(fieldSet);
+        if (selectedOptions.length === 0) {
+            alert('Please select at least one playbook task.');
+            return;
         }
-    });
 
-    document.getElementById("ansibleSelectionStep").classList.add("hidden");
-    document.getElementById("ansibleDetailsStep").classList.remove("hidden");
-}
+        const formFieldsDiv = document.getElementById("ansibleFormFields");
+        formFieldsDiv.innerHTML = "";
 
-function goBackAnsible() {
-    document.getElementById("ansibleSelectionStep").classList.remove("hidden");
-    document.getElementById("ansibleDetailsStep").classList.add("hidden");
-}
+        selectedOptions.forEach(type => {
+            if (ansibleFields[type]) {
+                const fieldSet = document.createElement('fieldset');
+                const legend = document.createElement('legend');
+                legend.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                fieldSet.appendChild(legend);
 
-function showAnsiblePreview() {
-    const form = document.getElementById("ansibleForm");
-    const formData = new FormData(form);
-    const previewContent = document.getElementById("ansiblePreviewContent");
-    const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
-    const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
+                ansibleFields[type].forEach(field => {
+                    const fieldHtml = field.options
+                        ? `
+                            <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                            <select id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                                ${field.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                            </select>
+                            <br>
+                        `
+                        : `
+                            <label for="${field.name}-${type}">${field.label}${field.required ? '*' : ''}:</label>
+                            <input type="text" id="${field.name}-${type}" name="${field.name}-${type}" ${field.required ? 'required' : ''}>
+                            <br>
+                        `;
+                    fieldSet.innerHTML += fieldHtml;
+                });
 
-    const tasks = selectedOptions.map(type => {
-        let task = { [type]: {} };
-
-        ansibleFields[type].forEach(field => {
-            task[type][field.name] = formData.get(`${field.name}-${type}`);
+                formFieldsDiv.appendChild(fieldSet);
+            }
         });
 
-        return task;
-    });
+        document.getElementById("ansibleSelectionStep").classList.add("hidden");
+        document.getElementById("ansibleDetailsStep").classList.remove("hidden");
+    }
 
-    const playbook = {
-        hosts: "all",
-        tasks: tasks
-    };
+    function goBackAnsible() {
+        document.getElementById("ansibleSelectionStep").classList.remove("hidden");
+        document.getElementById("ansibleDetailsStep").classList.add("hidden");
+    }
 
-    previewContent.textContent = YAML.stringify(playbook);
-    document.getElementById("ansibleDetailsStep").classList.add("hidden");
-    document.getElementById("ansiblePreviewStep").classList.remove("hidden");
-}
+    function showAnsiblePreview() {
+        const form = document.getElementById("ansibleForm");
+        const formData = new FormData(form);
+        const previewContent = document.getElementById("ansiblePreviewContent");
+        const playbookTypeSelect = document.getElementById("ansiblePlaybookType");
+        const selectedOptions = Array.from(playbookTypeSelect.selectedOptions).map(option => option.value);
 
-function generateAnsiblePlaybook() {
-    const previewContent = document.getElementById("ansiblePreviewContent").textContent;
-    const blob = new Blob([previewContent], { type: 'application/yaml' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = 'playbook.yml';
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
+        const tasks = selectedOptions.map(type => {
+            let task = { [type]: {} };
 
-function editAnsibleForm() {
-    document.getElementById("ansiblePreviewStep").classList.add("hidden");
-    document.getElementById("ansibleDetailsStep").classList.remove("hidden");
-}
+            ansibleFields[type].forEach(field => {
+                task[type][field.name] = formData.get(`${field.name}-${type}`);
+            });
 
-function cancelAnsibleForm() {
-    document.getElementById("ansibleForm").reset();
-    document.getElementById("ansibleFormFields").innerHTML = "";
-    document.getElementById("ansibleSelectionStep").classList.remove("hidden");
-    document.getElementById("ansibleDetailsStep").classList.add("hidden");
-    document.getElementById("ansiblePreviewStep").classList.add("hidden");
-}
+            return task;
+        });
+
+        const playbook = {
+            hosts: "all",
+            tasks: tasks
+        };
+
+        previewContent.textContent = YAML.stringify(playbook);
+        document.getElementById("ansibleDetailsStep").classList.add("hidden");
+        document.getElementById("ansiblePreviewStep").classList.remove("hidden");
+    }
+
+    function generateAnsiblePlaybook() {
+        const previewContent = document.getElementById("ansiblePreviewContent").textContent;
+        const blob = new Blob([previewContent], { type: 'application/yaml' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'playbook.yml';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+
+    function editAnsibleForm() {
+        document.getElementById("ansiblePreviewStep").classList.add("hidden");
+        document.getElementById("ansibleDetailsStep").classList.remove("hidden");
+    }
+
+    function cancelAnsibleForm() {
+        document.getElementById("ansibleForm").reset();
+        document.getElementById("ansibleFormFields").innerHTML = "";
+        document.getElementById("ansibleSelectionStep").classList.remove("hidden");
+        document.getElementById("ansibleDetailsStep").classList.add("hidden");
+        document.getElementById("ansiblePreviewStep").classList.add("hidden");
+    }
 
 function goToTerraformDetails() {
     const resourceTypeSelect = document.getElementById("terraformResourceType");
