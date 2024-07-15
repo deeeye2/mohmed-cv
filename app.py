@@ -109,7 +109,7 @@ def get_location(ip_address):
         response = requests.get(f'http://ip-api.com/json/{ip_address}')
         data = response.json()
         logging.debug(f'Response from IP API: {data}')
-        if data['status'] == 'fail':
+        if (data['status'] == 'fail'):
             logging.error(f'Failed to fetch location for IP address: {ip_address}, Reason: {data["message"]}')
             return "Unknown"
         location = f"{data.get('city', 'Unknown')}, {data.get('country', 'Unknown')}"
@@ -119,20 +119,12 @@ def get_location(ip_address):
         logging.error(f'Error fetching location: {e}')
         return "Unknown"
 
-
-def send_email_notification():
-    try:
-        msg = Message(
-            subject="New Visitor Notification",
-            body="A new user has visited your website.",
-            recipients=[os.getenv('RECEIVER_EMAIL')]
-        )
-        mail.send(msg)
-        logging.info('Visitor notification email sent successfully')
-    except Exception as e:
-        logging.error(f'Error sending notification email: {e}')
+@app.route('/file-generator')
+def file_generator():
+    return render_template('file_generator.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
