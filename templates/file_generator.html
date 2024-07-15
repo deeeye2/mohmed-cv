@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifest Generators</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kubernetes Manifest Generator</h1>
+        <div id="k8sSelectionStep">
+            <label for="k8sManifestType">Select Kubernetes Manifest Types:</label>
+            <select id="k8sManifestType" name="k8sManifestType" multiple size="10">
+                <option value="Deployment">Deployment</option>
+                <option value="Service">Service</option>
+                <option value="ConfigMap">ConfigMap</option>
+                <option value="Secret">Secret</option>
+                <option value="PersistentVolume">PersistentVolume</option>
+                <option value="PersistentVolumeClaim">PersistentVolumeClaim</option>
+                <option value="Ingress">Ingress</option>
+                <option value="Role">Role</option>
+                <option value="RoleBinding">RoleBinding</option>
+                <option value="ClusterRole">ClusterRole</option>
+                <option value="ClusterRoleBinding">ClusterRoleBinding</option>
+                <option value="NetworkPolicy">NetworkPolicy</option>
+            </select>
+            <button type="button" class="btn" onclick="goToK8sDetails()">Next</button>
+        </div>
+
+        <div id="k8sDetailsStep" class="hidden">
+            <form id="k8sManifestForm" class="form">
+                <div id="k8sFormFields" class="form-fields"></div>
+                <button type="button" class="btn" onclick="showK8sPreview()">Preview</button>
+            </form>
+            <button type="button" class="btn" onclick="goBackK8s()">Back</button>
+        </div>
+
+        <div id="k8sPreviewStep" class="preview hidden">
+            <h2>Preview</h2>
+            <pre id="k8sPreviewContent"></pre>
+            <button class="btn" onclick="generateK8sManifest()">Download</button>
+            <button class="btn" onclick="editK8sForm()">Edit</button>
+            <button class="btn" onclick="cancelK8sForm()">Cancel</button>
+        </div>
+        
+        <h1>Dockerfile Generator</h1>
+        <div id="dockerfileSelectionStep">
+            <label for="dockerfileBaseImage">Select Base Image:</label>
+            <select id="dockerfileBaseImage" name="dockerfileBaseImage">
+                <option value="node">Node.js</option>
+                <option value="python">Python</option>
+                <option value="golang">Go</option>
+                <option value="java">Java</option>
+                <option value="nginx">Nginx</option>
+                <option value="alpine">Alpine</option>
+            </select>
+            <button type="button" class="btn" onclick="goToDockerfileDetails()">Next</button>
+        </div>
+
+        <div id="dockerfileDetailsStep" class="hidden">
+            <form id="dockerfileForm" class="form">
+                <div id="dockerfileFormFields" class="form-fields"></div>
+                <button type="button" class="btn" onclick="showDockerfilePreview()">Preview</button>
+            </form>
+            <button type="button" class="btn" onclick="goBackDockerfile()">Back</button>
+        </div>
+
+        <div id="dockerfilePreviewStep" class="preview hidden">
+            <h2>Preview</h2>
+            <pre id="dockerfilePreviewContent"></pre>
+            <button class="btn" onclick="generateDockerfile()">Download</button>
+            <button class="btn" onclick="editDockerfileForm()">Edit</button>
+            <button class="btn" onclick="cancelDockerfileForm()">Cancel</button>
+        </div>
+        
+        <h1>Ansible Playbook Generator</h1>
+        <div id="ansibleSelectionStep">
+            <label for="ansiblePlaybookType">Select Playbook Tasks:</label>
+            <select id="ansiblePlaybookType" name="ansiblePlaybookType" multiple size="10">
+                <option value="package">Package</option>
+                <option value="service">Service</option>
+                <option value="file">File</option>
+                <option value="copy">Copy</option>
+                <option value="command">Command</option>
+                <option value="user">User</option>
+            </select>
+            <button type="button" class="btn" onclick="goToAnsibleDetails()">Next</button>
+        </div>
+
+        <div id="ansibleDetailsStep" class="hidden">
+            <form id="ansibleForm" class="form">
+                <div id="ansibleFormFields" class="form-fields"></div>
+                <button type="button" class="btn" onclick="showAnsiblePreview()">Preview</button>
+            </form>
+            <button type="button" class="btn" onclick="goBackAnsible()">Back</button>
+        </div>
+
+        <div id="ansiblePreviewStep" class="preview hidden">
+            <h2>Preview</h2>
+            <pre id="ansiblePreviewContent"></pre>
+            <button class="btn" onclick="generateAnsiblePlaybook()">Download</button>
+            <button class="btn" onclick="editAnsibleForm()">Edit</button>
+            <button class="btn" onclick="cancelAnsibleForm()">Cancel</button>
+        </div>
+        
+        <h1>Terraform Configuration Generator</h1>
+        <div id="terraformSelectionStep">
+            <label for="terraformResourceType">Select Resource Types:</label>
+            <select id="terraformResourceType" name="terraformResourceType" multiple size="10">
+                <option value="aws_instance">AWS EC2 Instance</option>
+                <option value="aws_s3_bucket">AWS S3 Bucket</option>
+                <option value="aws_security_group">AWS Security Group</option>
+                <option value="google_compute_instance">Google Compute Instance</option>
+                <option value="google_storage_bucket">Google Storage Bucket</option>
+                <option value="azure_virtual_machine">Azure Virtual Machine</option>
+            </select>
+            <button type="button" class="btn" onclick="goToTerraformDetails()">Next</button>
+        </div>
+
+        <div id="terraformDetailsStep" class="hidden">
+            <form id="terraformForm" class="form">
+                <div id="terraformFormFields" class="form-fields"></div>
+                <button type="button" class="btn" onclick="showTerraformPreview()">Preview</button>
+            </form>
+            <button type="button" class="btn" onclick="goBackTerraform()">Back</button>
+        </div>
+
+        <div id="terraformPreviewStep" class="preview hidden">
+            <h2>Preview</h2>
+            <pre id="terraformPreviewContent"></pre>
+            <button class="btn" onclick="generateTerraformConfig()">Download</button>
+            <button class="btn" onclick="editTerraformForm()">Edit</button>
+            <button class="btn" onclick="cancelTerraformForm()">Cancel</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
