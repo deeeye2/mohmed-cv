@@ -18,6 +18,9 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-ben-resume-style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+
+    <!-- jsyaml Library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     
     <style>
        body {
@@ -368,32 +371,32 @@ const dockerfileFields = {
     ]
 };
 
-onst ansibleFields = {
-        package: [
-            { name: "name", label: "Package Name", required: true },
-            { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
-        ],
-        service: [
-            { name: "name", label: "Service Name", required: true },
-            { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
-            { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
-        ],
-        file: [
-            { name: "path", label: "Path", required: true },
-            { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
-        ],
-        copy: [
-            { name: "src", label: "Source", required: true },
-            { name: "dest", label: "Destination", required: true },
-        ],
-        command: [
-            { name: "cmd", label: "Command", required: true },
-        ],
-        user: [
-            { name: "name", label: "Username", required: true },
-            { name: "state", label: "State", required: true, options: ["present", "absent"] },
-        ],
-    };
+const ansibleFields = {
+    package: [
+        { name: "name", label: "Package Name", required: true },
+        { name: "state", label: "State", required: true, options: ["present", "absent", "latest"] },
+    ],
+    service: [
+        { name: "name", label: "Service Name", required: true },
+        { name: "state", label: "State", required: true, options: ["started", "stopped", "restarted"] },
+        { name: "enabled", label: "Enabled", required: true, options: ["yes", "no"] },
+    ],
+    file: [
+        { name: "path", label: "Path", required: true },
+        { name: "state", label: "State", required: true, options: ["file", "directory", "absent"] },
+    ],
+    copy: [
+        { name: "src", label: "Source", required: true },
+        { name: "dest", label: "Destination", required: true },
+    ],
+    command: [
+        { name: "cmd", label: "Command", required: true },
+    ],
+    user: [
+        { name: "name", label: "Username", required: true },
+        { name: "state", label: "State", required: true, options: ["present", "absent"] },
+    ],
+};
 
 const terraformFields = {
     aws_instance: [
@@ -922,7 +925,7 @@ function goToAnsibleDetails() {
         document.getElementById("ansibleDetailsStep").classList.add("hidden");
         document.getElementById("ansiblePreviewStep").classList.add("hidden");
     }
-        
+
 function goToTerraformDetails() {
     const resourceTypeSelect = document.getElementById("terraformResourceType");
     const selectedOptions = Array.from(resourceTypeSelect.selectedOptions).map(option => option.value);
@@ -1028,7 +1031,7 @@ function cancelTerraformForm() {
     document.getElementById("terraformSelectionStep").classList.remove("hidden");
     document.getElementById("terraformDetailsStep").classList.add("hidden");
     document.getElementById("terraformPreviewStep").classList.add("hidden");
-        }
+    }
     </script>
 <br>
     <br>
