@@ -7,6 +7,11 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+# Copy the manifest generator HTML, JS, and CSS files
+COPY file_generator.html /app/templates/
+COPY script.js /app/static/
+COPY styles.css /app/static/
+
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
@@ -19,3 +24,4 @@ COPY .env /app/.env
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
+
