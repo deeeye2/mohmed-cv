@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Kubernetes Fields
+document.addEventListener('DOMContentLoaded', function() {
     const k8sFields = {
         Deployment: [
             { name: "name", label: "Name", required: true },
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
     };
 
-    // Dockerfile Fields
     const dockerfileFields = {
         node: [
             { name: "version", label: "Node.js Version", required: true, options: ["14", "16", "18"] },
@@ -94,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
         ]
     };
 
-    // Ansible Fields
     const ansibleFields = {
         package: [
             { name: "name", label: "Package Name", required: true },
@@ -122,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
     };
 
-    // Terraform Fields
     const terraformFields = {
         aws_instance: [
             { name: "ami", label: "AMI", required: true },
@@ -757,15 +753,4 @@ resource "${type}" "${config.name || config.bucket || config.name}" {
         document.getElementById("terraformDetailsStep").classList.add("hidden");
         document.getElementById("terraformPreviewStep").classList.add("hidden");
     }
-
-    // Event listeners for buttons
-    document.querySelectorAll(".generator-btn").forEach(button => {
-        button.addEventListener("click", function(event) {
-            const action = button.getAttribute("onclick");
-            if (action) {
-                event.preventDefault();
-                eval(action);
-            }
-        });
-    });
 });
