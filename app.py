@@ -123,6 +123,11 @@ def get_location(ip_address):
 def file_generator():
     return render_template('file_generator.html')
 
+@app.route('/main-page')
+def file_generator():
+    return render_template('index.html')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 
