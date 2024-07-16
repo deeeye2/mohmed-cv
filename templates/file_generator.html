@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom_styles.css') }}">
+
     
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-ben-resume-style.css') }}">
@@ -96,6 +98,26 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     }
+    .return-btn {
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.return-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
     .hidden {
         display: none;
     }
@@ -142,7 +164,8 @@
         </div>
     </nav>
 <br>
-    <a href="/main-page" class="btn">Return to Main Page</a>
+    <a href="/main-page" class="return-btn">Return to Main Page</a>
+
     <br>
     <div class="container">
 
