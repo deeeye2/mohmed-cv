@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from flask_mail import Mail, Message
 import smtplib
 from email.mime.text import MIMEText
@@ -13,6 +13,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = 'f0ckeh8wPoLrXMPKx4vbq9915QKY3wKE'  # Add a secret key for session management
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -119,14 +120,32 @@ def get_location(ip_address):
         logging.error(f'Error fetching location: {e}')
         return "Unknown"
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == 'admin' and password == 'admin':
+            session['logged_in'] = True
+            return redirect(url_for('file_generator'))
+        else:
+            return 'Invalid credentials. Please try again.'
+    return render_template('login.html')
+
 @app.route('/file-generator')
 def file_generator():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template('file_generator.html')
+
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return redirect(url_for('index'))
 
 @app.route('/main-page')
 def main_page():
     return render_template('index.html')
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
