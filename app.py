@@ -125,7 +125,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == 'admin' and password == 'admin':
+        if username == 'deeeye2' and password == 'safieeline':
             session['logged_in'] = True
             return redirect(url_for('file_generator'))
         else:
