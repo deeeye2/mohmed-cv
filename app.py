@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, flash
 from flask_mail import Mail, Message
 import smtplib
 from email.mime.text import MIMEText
@@ -7,6 +7,7 @@ import logging
 import requests
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
 
@@ -28,6 +29,11 @@ class Visit(db.Model):
     location = db.Column(db.String(100))
     visit_time = db.Column(db.DateTime, default=datetime.utcnow)
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
 # Set up Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.office365.com'
 app.config['MAIL_PORT'] = 587
@@ -46,6 +52,41 @@ with app.app_context():
 def index():
     log_visit(request)
     return render_template('index.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password, method='sha256')
+
+        new_user = User(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registration successful! Please log in.')
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        
+        if user and check_password_hash(user.password, password):
+            session['logged_in'] = True
+            session['username'] = user.username
+            return redirect(url_for('file_generator'))
+        else:
+            flash('Invalid credentials. Please try again.')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route('/visitors')
 def show_visitors():
@@ -120,28 +161,11 @@ def get_location(ip_address):
         logging.error(f'Error fetching location: {e}')
         return "Unknown"
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if username == 'deeeye2' and password == 'safieeline':
-            session['logged_in'] = True
-            return redirect(url_for('file_generator'))
-        else:
-            return 'Invalid credentials. Please try again.'
-    return render_template('login.html')
-
 @app.route('/file-generator')
 def file_generator():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     return render_template('file_generator.html')
-
-@app.route('/logout')
-def logout():
-    session['logged_in'] = False
-    return redirect(url_for('index'))
 
 @app.route('/main-page')
 def main_page():
