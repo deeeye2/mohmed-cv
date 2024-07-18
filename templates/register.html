@@ -8,15 +8,16 @@
             font-family: Arial, sans-serif;
             background: black;
             color: white;
-            margin: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-            width: 100%;
+            width: 80%;
             max-width: 800px;
-            padding: 20px;
         }
         .register-container, .info-container {
             background-color: #333;
@@ -25,59 +26,38 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 20px;
-            width: 100%;
         }
-        .register-container input[type="text"], .register-container input[type="password"] {
-            width: 80%;
+        input[type="text"], input[type="password"] {
+            width: 100%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #555;
-            background: #222;
+            border: 1px solid #ccc;
+            background: #555;
             color: white;
         }
-        .register-container button {
+        button {
             padding: 10px 20px;
             background-color: #007BFF;
-            color: #fff;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .register-container button:hover {
+        button:hover {
             background-color: #0056b3;
         }
-        a {
-            color: #007BFF;
-        }
-        a:hover {
-            color: #0056b3;
-        }
-        h1, h2, p, pre {
-            margin: 0 0 20px 0;
-        }
-        pre {
-            text-align: left;
-            background: #222;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        .success-message {
+        .message {
             display: none;
-            background-color: #4CAF50;
-            color: white;
+            margin-top: 10px;
             padding: 10px;
-            margin-bottom: 20px;
             border-radius: 5px;
         }
-        .error-message {
-            display: none;
-            background-color: #f44336;
-            color: white;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+        .error {
+            background-color: #ff4f4f;
+        }
+        .success {
+            background-color: #28a745;
         }
     </style>
 </head>
@@ -85,15 +65,12 @@
     <div class="container">
         <div class="register-container">
             <h1>Register</h1>
-            <form id="registerForm">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <br>
-                <button type="submit">Register</button>
-            </form>
-            <p>Already have an account? <a href="/login" style="color: #007BFF;">Login here</a>.</p>
-            <div class="success-message" id="successMessage">Registration successful! <a href="/login">Click here to login</a></div>
-            <div class="error-message" id="errorMessage">Registration failed. Please try again.</div>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="registerBtn">Register</button>
+            <p>Already have an account? <a href="/login">Login here.</a></p>
+            <div id="successMessage" class="message success">Registration successful! <a href="/login">Login here</a>.</div>
+            <div id="errorMessage" class="message error">Registration failed. Please try again.</div>
         </div>
         <div class="info-container">
             <h2>About DevOps Bot</h2>
@@ -205,20 +182,16 @@
     </div>
 
     <script>
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const data = {
-                username: formData.get('username'),
-                password: formData.get('password')
-            };
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
 
             fetch('/register', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({ username: username, password: password }),
             })
             .then(response => response.json())
             .then(data => {
@@ -239,6 +212,7 @@
     </script>
 </body>
 </html>
+
 
 
 
