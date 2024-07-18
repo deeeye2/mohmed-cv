@@ -81,15 +81,22 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+        try:
+            username = request.form['username']
+            password = request.form['password']
+            if not username or not password:
+                return jsonify({'success': False, 'message': 'Username and password are required'})
 
-        new_user = User(username=username, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Registration successful! Please log in.')
-        return jsonify({'success': True})
+            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+            new_user = User(username=username, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Registration successful! Please log in.')
+            return jsonify({'success': True})
+        except Exception as e:
+            app.logger.error(f"Error during registration: {e}")
+            return jsonify({'success': False, 'message': 'Registration failed. Please try again.'})
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
