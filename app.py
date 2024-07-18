@@ -97,11 +97,22 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        token = request.form['token']
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            return redirect(url_for('file_generator'))
+            try:
+                decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
+                if decoded['user_id'] == user.id:
+                    session['user_id'] = user.id
+                    flash('Login successful!')
+                    return redirect(url_for('file_generator'))
+                else:
+                    flash('Invalid token')
+            except jwt.ExpiredSignatureError:
+                flash('Token expired')
+            except jwt.InvalidTokenError:
+                flash('Invalid token')
         else:
             flash('Invalid username or password')
     return render_template('login.html')
