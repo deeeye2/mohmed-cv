@@ -23,7 +23,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Set up database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Set up Flask-Mail
@@ -68,7 +67,8 @@ def token_required(f):
         try:
             data = jwt.decode(token, app.secret_key, algorithms=["HS256"])
             current_user = User.query.filter_by(id=data['user_id']).first()
-        except:
+        except Exception as e:
+            logging.error(f'Token error: {e}')
             return jsonify({'message': 'Token is invalid!'}), 401
         return f(current_user, *args, **kwargs)
     return decorated_function
@@ -82,32 +82,40 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        
+        if not username or not password:
+            return jsonify({'success': False, 'message': 'Missing username or password'}), 400
+        
+        user = User.query.filter_by(username=username).first()
+        if user:
+            return jsonify({'success': False, 'message': 'Username already exists'}), 400
+
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+        new_user = User(username=username, password=hashed_password)
+
         try:
-            data = request.get_json()
-            username = data.get('username')
-            password = data.get('password')
-            if not username or not password:
-                return jsonify({'success': False, 'message': 'Username and password are required'})
-
-            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-
-            new_user = User(username=username, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
+            flash('Registration successful! Please log in.')
             return jsonify({'success': True})
         except Exception as e:
-            app.logger.error(f"Error during registration: {e}")
-            return jsonify({'success': False, 'message': 'Registration failed. Please try again.'})
+            logging.error(f'Error registering user: {e}')
+            db.session.rollback()
+            return jsonify({'success': False, 'message': 'Registration failed'}), 500
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        token = request.form['token']
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        token = data.get('token')
+        
         user = User.query.filter_by(username=username).first()
-
         if user and check_password_hash(user.password, password):
             try:
                 decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
@@ -123,7 +131,7 @@ def login():
                 flash('Invalid token')
         else:
             flash('Invalid username or password')
-        return jsonify({'success': False, 'message': 'Invalid username or password'})
+            return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
     return render_template('login.html')
 
 @app.route('/logout')
@@ -292,6 +300,7 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 
