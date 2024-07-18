@@ -23,6 +23,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Set up database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Set up Flask-Mail
@@ -82,8 +83,9 @@ def index():
 def register():
     if request.method == 'POST':
         try:
-            username = request.form['username']
-            password = request.form['password']
+            data = request.get_json()
+            username = data.get('username')
+            password = data.get('password')
             if not username or not password:
                 return jsonify({'success': False, 'message': 'Username and password are required'})
 
@@ -92,7 +94,6 @@ def register():
             new_user = User(username=username, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
-            flash('Registration successful! Please log in.')
             return jsonify({'success': True})
         except Exception as e:
             app.logger.error(f"Error during registration: {e}")
@@ -291,6 +292,7 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 
