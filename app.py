@@ -119,7 +119,8 @@ def file_generator():
 
 @app.route('/main-page')
 def main_page():
-    return render_template('index.html')
+    session.clear()
+    return redirect(url_for('register'))
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -129,10 +130,26 @@ def api_login():
     user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password, password):
-        token = jwt.encode({'user_id': user.id, 'exp': datetime.utcnow() + timedelta(hours=1)}, app.secret_key)
+        token = jwt.encode({'user_id': user.id, 'exp': datetime.utcnow() + timedelta(minutes=1)}, app.secret_key)
         return jsonify({'token': token})
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
+
+@app.route('/api/verify_token', methods=['POST'])
+def verify_token():
+    data = request.json
+    username = data.get('username')
+    token = data.get('token')
+    try:
+        decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
+        user = User.query.filter_by(id=decoded['user_id']).first()
+        if user and user.username == username:
+            return jsonify({'message': 'Token verified'}), 200
+    except jwt.ExpiredSignatureError:
+        return jsonify({'message': 'Token expired'}), 401
+    except jwt.InvalidTokenError:
+        return jsonify({'message': 'Invalid token'}), 401
+    return jsonify({'message': 'Invalid username or token'}), 401
 
 @app.route('/generate/k8s', methods=['POST'])
 @token_required
@@ -248,5 +265,6 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
