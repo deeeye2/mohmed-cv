@@ -3,3 +3,4 @@ requests
 flask_sqlalchemy
 python-dotenv
 Flask-Mail
+PyJWT
