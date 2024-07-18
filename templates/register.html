@@ -6,28 +6,37 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #f0f0f0, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: black;
+            color: white;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .register-container {
-            background-color: #fff;
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        .register-container, .info-container {
+            background-color: #333;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             padding: 20px;
             text-align: center;
-        }
-        input[type="text"], input[type="password"] {
+            margin-bottom: 20px;
             width: 100%;
+        }
+        .register-container input[type="text"], .register-container input[type="password"] {
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
         }
-        button {
+        .register-container button {
             padding: 10px 20px;
             background-color: #007BFF;
             color: #fff;
@@ -35,35 +44,176 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .register-container button:hover {
             background-color: #0056b3;
+        }
+        a {
+            color: #007BFF;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        h1, h2, p, pre {
+            margin: 0 0 20px 0;
+        }
+        pre {
+            text-align: left;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="register-container">
-        <h1>Register</h1>
-        <form id="registerForm">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="/login">Login here</a>.</p>
+    <div class="container">
+        <div class="register-container">
+            <h1>Register</h1>
+            <form id="registerForm" action="/register" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="/login">Login here</a>.</p>
+            <div class="success-message" id="successMessage">
+                Registration successful! <a href="/login">Login here</a>.
+            </div>
+        </div>
+        <div class="info-container">
+            <h2>About DevOps Bot</h2>
+            <p>
+                DevOps Bot is a powerful automation tool designed to streamline and simplify your DevOps workflows.
+                Built with Python and leveraging the Flask web framework, DevOps Bot provides a user-friendly CLI
+                (Command Line Interface) that helps manage infrastructure as code, continuous deployment, and other
+                DevOps-related tasks.
+            </p>
+            <p>
+                The backend of DevOps Bot is designed to handle various configuration management tasks including:
+            </p>
+            <ul>
+                <li>Generating Kubernetes manifests (e.g., Deployments, Services, ConfigMaps).</li>
+                <li>Creating Dockerfiles for containerized applications.</li>
+                <li>Setting up Ansible playbooks for configuration management.</li>
+                <li>Building Terraform scripts for infrastructure provisioning.</li>
+            </ul>
+            <p>
+                By using DevOps Bot, you can automate repetitive tasks, ensure consistency across environments, and
+                improve the efficiency of your DevOps pipeline.
+            </p>
+            <h2>Installation Instructions</h2>
+            <pre>
+<code>
+# System Requirements
+- Memory: 2GB RAM (4GB recommended)
+- CPU: 2 cores (4 cores recommended)
+- Disk Space: 1GB (5GB recommended)
+- OS: Ubuntu 20.04 or higher
+
+# Installation Steps
+1. Update and Install Required Packages:
+    sudo apt-get update
+    sudo apt-get install -y python3 python3-venv python3-pip git
+
+2. Clone the Repository:
+    git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
+
+3. Navigate to the Installation Directory:
+    cd ~/devops_bot
+
+4. Create a Virtual Environment:
+    python3 -m venv ~/devops_bot/env
+
+5. Activate the Virtual Environment:
+    source ~/devops_bot/env/bin/activate
+
+6. Upgrade pip and Install wheel:
+    pip install --upgrade pip
+    pip install wheel
+
+7. Install the Required Packages:
+    pip install -r requirements.txt
+
+8. Install the devops-bot Package:
+    pip install .
+    pip install PyJWT
+
+9. Create the systemd Service File:
+    sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+    [Unit]
+    Description=DevOps Bot Service
+    After=network.target
+
+    [Service]
+    User=$(whoami)
+    Group=$(whoami)
+    WorkingDirectory=/root/devops_bot
+    Environment="PATH=/root/devops_bot/env/bin"
+    ExecStart=/root/devops_bot/env/bin/gunicorn --config /root/devops_bot/gunicorn_config.py wsgi:app
+    StandardOutput=journal
+    StandardError=journal
+    SyslogIdentifier=devops_bot
+
+    [Install]
+    WantedBy=multi-user.target
+    EOL
+
+10. Reload systemd and Start the Service:
+    sudo systemctl daemon-reload
+    sudo systemctl enable devops_bot.service
+    sudo systemctl start devops_bot.service
+    sudo systemctl status devops_bot.service
+
+11. Create a Symlink for the devops-bot CLI:
+    sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
+</code>
+            </pre>
+            <h2>Uninstallation Guide</h2>
+            <pre>
+<code>
+1. Stop and Disable the Service:
+    sudo systemctl stop devops_bot.service
+    sudo systemctl disable devops_bot.service
+
+2. Remove the systemd Service File:
+    sudo rm /etc/systemd/system/devops_bot.service
+    sudo systemctl daemon-reload
+
+3. Remove the DevOps Bot Directory:
+    rm -rf ~/devops_bot
+
+4. Remove the Symlink:
+    sudo rm /usr/local/bin/devops-bot
+</code>
+            </pre>
+        </div>
     </div>
     <script>
         document.getElementById('registerForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const formData = new FormData(this);
+            const form = event.target;
+            const formData = new FormData(form);
+            const username = formData.get('username');
+            const password = formData.get('password');
+
             fetch('/register', {
                 method: 'POST',
-                body: formData,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    window.location.href = '/login';
+                if (data.message === 'Registration successful') {
+                    document.getElementById('successMessage').style.display = 'block';
                 } else {
-                    alert(data.message);
+                    alert('Registration failed: ' + data.message);
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -71,5 +221,6 @@
     </script>
 </body>
 </html>
+
 
 
