@@ -165,30 +165,37 @@ def verify_token():
 @app.route('/generate/k8s', methods=['POST'])
 @token_required
 def generate_k8s(current_user):
-    data = request.json.get('data')
-    # Process data and generate Kubernetes manifest
-    return jsonify({"message": "Kubernetes manifest generated", "data": data})
+    data = request.json
+    generated_data = yaml.dump(data)
+    return jsonify({"message": "Kubernetes manifest generated", "data": generated_data})
 
 @app.route('/generate/dockerfile', methods=['POST'])
 @token_required
 def generate_dockerfile(current_user):
-    data = request.json.get('data')
-    # Process data and generate Dockerfile
-    return jsonify({"message": "Dockerfile generated", "data": data})
+    data = request.json
+    generated_data = "FROM python:3.8-slim\n"  # Simplified example
+    for key, value in data.items():
+        generated_data += f"{key.upper()}={value}\n"
+    return jsonify({"message": "Dockerfile generated", "data": generated_data})
 
 @app.route('/generate/ansible', methods=['POST'])
 @token_required
 def generate_ansible(current_user):
-    data = request.json.get('data')
-    # Process data and generate Ansible playbook
-    return jsonify({"message": "Ansible playbook generated", "data": data})
+    data = request.json
+    generated_data = "---\n"  # Simplified example
+    for key, value in data.items():
+        generated_data += f"{key}: {value}\n"
+    return jsonify({"message": "Ansible playbook generated", "data": generated_data})
 
 @app.route('/generate/terraform', methods=['POST'])
 @token_required
 def generate_terraform(current_user):
-    data = request.json.get('data')
-    # Process data and generate Terraform configuration
-    return jsonify({"message": "Terraform configuration generated", "data": data})
+    data = request.json
+    generated_data = "resource \"example\" \"example\" {\n"  # Simplified example
+    for key, value in data.items():
+        generated_data += f"  {key} = \"{value}\"\n"
+    generated_data += "}\n"
+    return jsonify({"message": "Terraform configuration generated", "data": generated_data})
 
 @app.route('/visitors')
 def show_visitors():
@@ -276,6 +283,7 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 
