@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login and Register</title>
+    <title>Register</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,21 +10,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100vh;
             margin: 0;
         }
-        .container {
-            width: 80%;
-            max-width: 800px;
-        }
-        .login-container, .register-container, .info-container {
+        .register-container {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
         }
         input[type="text"], input[type="password"] {
             width: 100%;
@@ -44,228 +38,38 @@
         button:hover {
             background-color: #0056b3;
         }
-        pre {
-            text-align: left;
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        ul {
-            text-align: left;
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-        li {
-            margin: 5px 0;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-container">
-            <h1>Login</h1>
-            <form id="login-form">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="text" name="token" placeholder="Token" required>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a>.</p>
-        </div>
-        <div class="register-container" style="display:none;">
-            <h1>Register</h1>
-            <form id="register-form">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-            <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a>.</p>
-        </div>
-        <div class="info-container">
-            <h2>About DevOps Bot</h2>
-            <p>
-                DevOps Bot is a powerful automation tool designed to streamline and simplify your DevOps workflows.
-                Built with Python and leveraging the Flask web framework, DevOps Bot provides a user-friendly CLI
-                (Command Line Interface) that helps manage infrastructure as code, continuous deployment, and other
-                DevOps-related tasks.
-            </p>
-            <p>
-                The backend of DevOps Bot is designed to handle various configuration management tasks including:
-            </p>
-            <ul>
-                <li>Generating Kubernetes manifests (e.g., Deployments, Services, ConfigMaps).</li>
-                <li>Creating Dockerfiles for containerized applications.</li>
-                <li>Setting up Ansible playbooks for configuration management.</li>
-                <li>Building Terraform scripts for infrastructure provisioning.</li>
-            </ul>
-            <p>
-                By using DevOps Bot, you can automate repetitive tasks, ensure consistency across environments, and
-                improve the efficiency of your DevOps pipeline.
-            </p>
-            <h2>Installation Instructions</h2>
-            <pre>
-<code>
-# System Requirements
-- Memory: 2GB RAM (4GB recommended)
-- CPU: 2 cores (4 cores recommended)
-- Disk Space: 1GB (5GB recommended)
-- OS: Ubuntu 20.04 or higher
-
-# Installation Steps
-1. Update and Install Required Packages:
-    sudo apt-get update
-    sudo apt-get install -y python3 python3-venv python3-pip git
-
-2. Clone the Repository:
-    git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
-
-3. Navigate to the Installation Directory:
-    cd ~/devops_bot
-
-4. Create a Virtual Environment:
-    python3 -m venv ~/devops_bot/env
-
-5. Activate the Virtual Environment:
-    source ~/devops_bot/env/bin/activate
-
-6. Upgrade pip and Install wheel:
-    pip install --upgrade pip
-    pip install wheel
-
-7. Install the Required Packages:
-    pip install -r requirements.txt
-
-8. Install the devops-bot Package:
-    pip install .
-    pip install PyJWT
-
-9. Create the systemd Service File:
-    sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
-    [Unit]
-    Description=DevOps Bot Service
-    After=network.target
-
-    [Service]
-    User=$(whoami)
-    Group=$(whoami)
-    WorkingDirectory=/root/devops_bot
-    Environment="PATH=/root/devops_bot/env/bin"
-    ExecStart=/root/devops_bot/env/bin/gunicorn --config /root/devops_bot/gunicorn_config.py wsgi:app
-    StandardOutput=journal
-    StandardError=journal
-    SyslogIdentifier=devops_bot
-
-    [Install]
-    WantedBy=multi-user.target
-    EOL
-
-10. Reload systemd and Start the Service:
-    sudo systemctl daemon-reload
-    sudo systemctl enable devops_bot.service
-    sudo systemctl start devops_bot.service
-    sudo systemctl status devops_bot.service
-
-11. Create a Symlink for the devops-bot CLI:
-    sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
-</code>
-            </pre>
-            <h2>Uninstallation Guide</h2>
-            <pre>
-<code>
-1. Stop and Disable the Service:
-    sudo systemctl stop devops_bot.service
-    sudo systemctl disable devops_bot.service
-
-2. Remove the systemd Service File:
-    sudo rm /etc/systemd/system/devops_bot.service
-    sudo systemctl daemon-reload
-
-3. Remove the DevOps Bot Directory:
-    rm -rf ~/devops_bot
-
-4. Remove the Symlink:
-    sudo rm /usr/local/bin/devops-bot
-</code>
-            </pre>
-        </div>
+    <div class="register-container">
+        <h1>Register</h1>
+        <form id="registerForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
     </div>
     <script>
-        document.querySelector('#login-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the default way
-
-            const username = document.querySelector('#login-form input[name="username"]').value;
-            const password = document.querySelector('#login-form input[name="password"]').value;
-            const token = document.querySelector('#login-form input[name="token"]').value;
-
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                    token: token,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Handle successful login
-                    window.location.href = '/dashboard'; // Redirect to dashboard or another page
-                } else {
-                    // Handle login error
-                    alert('Login failed: ' + data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-
-        document.querySelector('#register-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the default way
-
-            const username = document.querySelector('#register-form input[name="username"]').value;
-            const password = document.querySelector('#register-form input[name="password"]').value;
-
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
             fetch('/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
+                body: formData,
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Handle successful registration
-                    alert('Registration successful!');
-                    showLoginForm(); // Show login form after successful registration
+                    window.location.href = '/login';
                 } else {
-                    // Handle registration error
-                    alert('Registration failed: ' + data.message);
+                    alert(data.message);
                 }
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            .catch(error => console.error('Error:', error));
         });
-
-        function showRegisterForm() {
-            document.querySelector('.login-container').style.display = 'none';
-            document.querySelector('.register-container').style.display = 'block';
-        }
-
-        function showLoginForm() {
-            document.querySelector('.register-container').style.display = 'none';
-            document.querySelector('.login-container').style.display = 'block';
-        }
     </script>
 </body>
 </html>
+
 
