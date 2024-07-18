@@ -79,7 +79,6 @@ def login():
     return render_template('login.html')
 
 @app.route('/logout')
-@login_required
 def logout():
     session.pop('user_id', None)
     flash('You have been logged out.')
@@ -96,3 +95,4 @@ def main_page():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
