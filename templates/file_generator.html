@@ -120,7 +120,7 @@
         .category-btn:hover {
             transform: scale(1.05);
         }
-        .return-btn {
+        .return-btn, .logout-btn {
             background-color: #007BFF;
             border: none;
             color: white;
@@ -137,7 +137,7 @@
             position: relative;
             z-index: 10; /* Ensure the button is on top */
         }
-        .return-btn:hover {
+        .return-btn:hover, .logout-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
@@ -154,6 +154,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Devops File Generator</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/logout" class="nav-link logout-btn">Logout</a></li>
                 </ul>
             </div>
         </div>
