@@ -142,11 +142,6 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
     </style>
-    <script>
-        window.onbeforeunload = function() {
-            navigator.sendBeacon('/logout');
-        };
-    </script>
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
     <!-- MENU BAR -->
@@ -159,7 +154,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Devops File Generator</a></li>
-                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -167,7 +161,6 @@
     <br>
     <br>
     <div class="container">
-    
         <h1>Kubernetes Manifest Generator</h1>
         <div id="k8sSelectionStep">
             <label for="k8sManifestType">Select Kubernetes Manifest Types:</label>
