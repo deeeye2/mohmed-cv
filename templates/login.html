@@ -10,9 +10,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
-            flex-direction: column;
             overflow: auto;
         }
         .container {
@@ -75,7 +75,26 @@
             <p>Don't have an account? <a href="/register">Register here</a>.</p>
         </div>
         <div class="instructions">
-            <h2>DevOps Bot Installation Guide</h2>
+            <h2>About DevOps Bot</h2>
+            <p>DevOps Bot is a powerful tool designed to assist with various DevOps tasks, making it easier to manage infrastructure and deployments. It offers functionalities for creating Kubernetes manifests, Dockerfiles, Ansible playbooks, and Terraform configurations.</p>
+            <p>DevOps Bot is written in Python and uses Flask for its web framework. The backend process involves handling HTTP requests, generating configuration files based on user input, and interacting with a knowledge base for issue resolution.</p>
+            <h3>Features</h3>
+            <ul>
+                <li><strong>Greet:</strong> A simple greeting command.</li>
+                <li><strong>Version:</strong> Displays the current version of DevOps Bot.</li>
+                <li><strong>mkdir:</strong> Creates a directory at the specified path.</li>
+                <li><strong>solve:</strong> Provides solutions to common issues using the knowledge base.</li>
+                <li><strong>login:</strong> Authenticates the user and retrieves an access token.</li>
+                <li><strong>create:</strong> Generates configuration files for Kubernetes, Docker, Ansible, and Terraform.</li>
+            </ul>
+            <h3>Backend Process</h3>
+            <p>The backend of DevOps Bot works as follows:</p>
+            <ol>
+                <li>The user interacts with the CLI, sending commands and parameters.</li>
+                <li>The CLI sends HTTP requests to the Flask-based backend server.</li>
+                <li>The server processes the requests, generating the required configuration files or providing solutions from the knowledge base.</li>
+                <li>The server responds with the generated files or the solution, which is displayed to the user via the CLI.</li>
+            </ol>
             <h3>System Requirements</h3>
             <p>Ensure your system meets the following requirements:</p>
             <ul>
@@ -86,99 +105,89 @@
             </ul>
             <h3>Installation Steps</h3>
             <pre>
-#!/bin/bash
+1. Update and install required packages:
+   sudo apt-get update
+   sudo apt-get install -y python3 python3-venv python3-pip git
 
-# Variables
-REPO_URL="https://github.com/deeeye2/devops-bot.git"
-INSTALL_DIR="$HOME/devops_bot"
+2. Clone the repository:
+   git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
 
-# Update and install required packages
-echo "Updating system and installing required packages..."
-sudo apt-get update
-sudo apt-get install -y python3 python3-venv python3-pip git
+3. Navigate to the installation directory:
+   cd ~/devops_bot
 
-# Clone the repository
-if [ -d "$INSTALL_DIR" ]; then
-    echo "Directory $INSTALL_DIR already exists. Please remove it before running this script."
-    exit 1
-fi
+4. Create a virtual environment:
+   python3 -m venv env
 
-git clone $REPO_URL $INSTALL_DIR
+5. Activate the virtual environment:
+   source env/bin/activate
 
-# Navigate to the installation directory
-cd $INSTALL_DIR
+6. Upgrade pip and install wheel:
+   pip install --upgrade pip
+   pip install wheel
 
-# Create a virtual environment
-python3 -m venv env
+7. Install the devops-bot package:
+   pip install .
 
-# Activate the virtual environment
-source env/bin/activate
+8. Create the systemd service file:
+   sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+   [Unit]
+   Description=DevOps Bot Service
+   After=network.target
 
-# Upgrade pip and install wheel
-pip install --upgrade pip
-pip install wheel
+   [Service]
+   User=$USER
+   Group=$USER
+   WorkingDirectory=$INSTALL_DIR
+   Environment="PATH=$INSTALL_DIR/env/bin"
+   ExecStart=$INSTALL_DIR/env/bin/gunicorn --config $INSTALL_DIR/gunicorn_config.py wsgi:app
 
-# Install the devops-bot package
-pip install .
+   [Install]
+   WantedBy=multi-user.target
+   EOL
 
-# Create the systemd service file
-sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
-[Unit]
-Description=DevOps Bot Service
-After=network.target
+9. Reload systemd to recognize the new service:
+   sudo systemctl daemon-reload
 
-[Service]
-User=$USER
-Group=$USER
-WorkingDirectory=$INSTALL_DIR
-Environment="PATH=$INSTALL_DIR/env/bin"
-ExecStart=$INSTALL_DIR/env/bin/gunicorn --config $INSTALL_DIR/gunicorn_config.py wsgi:app
+10. Enable and start the service:
+    sudo systemctl enable devops_bot.service
+    sudo systemctl start devops_bot.service
+    sudo systemctl status devops_bot.service
 
-[Install]
-WantedBy=multi-user.target
-EOL
+11. Create a symbolic link to the devops-bot executable:
+    sudo ln -s ~/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
 
-# Reload systemd to recognize the new service
-sudo systemctl daemon-reload
-
-# Enable and start the service
-sudo systemctl enable devops_bot.service
-sudo systemctl start devops_bot.service
-sudo systemctl status devops_bot.service
-
-echo "DevOps Bot setup completed successfully."
+12. Verify the installation:
+    devops-bot --help
             </pre>
             <h3>Uninstallation Guide</h3>
             <pre>
-#!/bin/bash
+1. Stop the DevOps Bot Service:
+   sudo systemctl stop devops_bot.service
 
-# Stop the DevOps Bot Service
-sudo systemctl stop devops_bot.service
+2. Disable the DevOps Bot Service:
+   sudo systemctl disable devops_bot.service
 
-# Disable the DevOps Bot Service
-sudo systemctl disable devops_bot.service
+3. Remove the systemd service file:
+   sudo rm /etc/systemd/system/devops_bot.service
 
-# Remove the systemd service file
-sudo rm /etc/systemd/system/devops_bot.service
+4. Reload systemd:
+   sudo systemctl daemon-reload
 
-# Reload systemd
-sudo systemctl daemon-reload
+5. Deactivate the virtual environment if active:
+   deactivate
 
-# Deactivate the virtual environment if active
-deactivate
+6. Remove the DevOps Bot directory:
+   rm -rf ~/devops_bot
 
-# Remove the DevOps Bot directory
-rm -rf ~/devops_bot
+7. Remove the symbolic link:
+   sudo rm /usr/local/bin/devops-bot
 
-# Remove the symbolic link
-sudo rm /usr/local/bin/devops-bot
+8. Optionally remove installed Python packages:
+   rm -rf ~/devops_bot/env
 
-# Optionally remove installed Python packages
-rm -rf ~/devops_bot/env
-
-# Optionally remove system-wide dependencies (be cautious)
-sudo apt-get remove --purge -y python3 python3-venv python3-pip git
-sudo apt-get autoremove -y
+9. Optionally remove system-wide dependencies (be cautious):
+   sudo apt-get remove --purge -y python3 python3-venv python3-pip git
+   sudo apt-get autoremove -y
 
 echo "DevOps Bot uninstalled successfully."
             </pre>
@@ -186,4 +195,5 @@ echo "DevOps Bot uninstalled successfully."
     </div>
 </body>
 </html>
+
 
