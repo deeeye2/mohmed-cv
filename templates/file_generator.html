@@ -1639,7 +1639,10 @@ function cancelTerraformForm() {
     document.getElementById("terraformPreviewStep").classList.add("hidden");
     }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    window.addEventListener('beforeunload', function (e) {
+    // Here you can call a function to clear the session or token
+    // Example: fetch('/logout', { method: 'POST' });
+});
 <br>
     <br>
    <!-- CONTACT SECTION -->
