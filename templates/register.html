@@ -8,16 +8,15 @@
             font-family: Arial, sans-serif;
             background: black;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .container {
-            width: 80%;
+            width: 100%;
             max-width: 800px;
+            padding: 20px;
         }
         .register-container, .info-container {
             background-color: #333;
@@ -26,38 +25,59 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 20px;
-        }
-        input[type="text"], input[type="password"] {
             width: 100%;
+        }
+        .register-container input[type="text"], .register-container input[type="password"] {
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            background: #555;
+            border: 1px solid #555;
+            background: #222;
             color: white;
         }
-        button {
+        .register-container button {
             padding: 10px 20px;
             background-color: #007BFF;
-            color: white;
+            color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .register-container button:hover {
             background-color: #0056b3;
         }
-        .message {
-            display: none;
-            margin-top: 10px;
+        a {
+            color: #007BFF;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        h1, h2, p, pre {
+            margin: 0 0 20px 0;
+        }
+        pre {
+            text-align: left;
+            background: #222;
             padding: 10px;
             border-radius: 5px;
+            overflow-x: auto;
         }
-        .error {
-            background-color: #ff4f4f;
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
-        .success {
-            background-color: #28a745;
+        .error-message {
+            display: none;
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -67,6 +87,7 @@
             <h1>Register</h1>
             <input type="text" id="username" placeholder="Username" required>
             <input type="password" id="password" placeholder="Password" required>
+            <br>
             <button id="registerBtn">Register</button>
             <p>Already have an account? <a href="/login">Login here.</a></p>
             <div id="successMessage" class="message success">Registration successful! <a href="/login">Login here</a>.</div>
