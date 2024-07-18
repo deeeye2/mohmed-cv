@@ -89,7 +89,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful! Please log in.')
-        return redirect(url_for('login'))
+        return jsonify({'success': True})
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -106,7 +106,7 @@ def login():
                 if decoded['user_id'] == user.id:
                     session['user_id'] = user.id
                     flash('Login successful!')
-                    return redirect(url_for('file_generator'))
+                    return jsonify({'success': True})
                 else:
                     flash('Invalid token')
             except jwt.ExpiredSignatureError:
@@ -115,6 +115,7 @@ def login():
                 flash('Invalid token')
         else:
             flash('Invalid username or password')
+        return jsonify({'success': False, 'message': 'Invalid username or password'})
     return render_template('login.html')
 
 @app.route('/logout')
