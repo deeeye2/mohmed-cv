@@ -12,6 +12,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
         }
         .login-container {
             background-color: #fff;
@@ -19,6 +25,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             padding: 20px;
             text-align: center;
+            margin-bottom: 20px;
         }
         input[type="text"], input[type="password"] {
             width: 100%;
@@ -38,17 +45,145 @@
         button:hover {
             background-color: #0056b3;
         }
+        .instructions {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .instructions h2 {
+            text-align: center;
+        }
+        .instructions pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="/register">Register here</a>.</p>
+    <div class="container">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/register">Register here</a>.</p>
+        </div>
+        <div class="instructions">
+            <h2>DevOps Bot Installation Guide</h2>
+            <h3>System Requirements</h3>
+            <p>Ensure your system meets the following requirements:</p>
+            <ul>
+                <li>Memory: 2GB RAM (4GB recommended)</li>
+                <li>CPU: 2 cores (4 cores recommended)</li>
+                <li>Disk Space: 1GB (5GB recommended)</li>
+                <li>OS: Ubuntu 20.04 or higher</li>
+            </ul>
+            <h3>Installation Steps</h3>
+            <pre>
+#!/bin/bash
+
+# Variables
+REPO_URL="https://github.com/deeeye2/devops-bot.git"
+INSTALL_DIR="$HOME/devops_bot"
+
+# Update and install required packages
+echo "Updating system and installing required packages..."
+sudo apt-get update
+sudo apt-get install -y python3 python3-venv python3-pip git
+
+# Clone the repository
+if [ -d "$INSTALL_DIR" ]; then
+    echo "Directory $INSTALL_DIR already exists. Please remove it before running this script."
+    exit 1
+fi
+
+git clone $REPO_URL $INSTALL_DIR
+
+# Navigate to the installation directory
+cd $INSTALL_DIR
+
+# Create a virtual environment
+python3 -m venv env
+
+# Activate the virtual environment
+source env/bin/activate
+
+# Upgrade pip and install wheel
+pip install --upgrade pip
+pip install wheel
+
+# Install the devops-bot package
+pip install .
+
+# Create the systemd service file
+sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+[Unit]
+Description=DevOps Bot Service
+After=network.target
+
+[Service]
+User=$USER
+Group=$USER
+WorkingDirectory=$INSTALL_DIR
+Environment="PATH=$INSTALL_DIR/env/bin"
+ExecStart=$INSTALL_DIR/env/bin/gunicorn --config $INSTALL_DIR/gunicorn_config.py wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Reload systemd to recognize the new service
+sudo systemctl daemon-reload
+
+# Enable and start the service
+sudo systemctl enable devops_bot.service
+sudo systemctl start devops_bot.service
+sudo systemctl status devops_bot.service
+
+echo "DevOps Bot setup completed successfully."
+            </pre>
+            <h3>Uninstallation Guide</h3>
+            <pre>
+#!/bin/bash
+
+# Stop the DevOps Bot Service
+sudo systemctl stop devops_bot.service
+
+# Disable the DevOps Bot Service
+sudo systemctl disable devops_bot.service
+
+# Remove the systemd service file
+sudo rm /etc/systemd/system/devops_bot.service
+
+# Reload systemd
+sudo systemctl daemon-reload
+
+# Deactivate the virtual environment if active
+deactivate
+
+# Remove the DevOps Bot directory
+rm -rf ~/devops_bot
+
+# Remove the symbolic link
+sudo rm /usr/local/bin/devops-bot
+
+# Optionally remove installed Python packages
+rm -rf ~/devops_bot/env
+
+# Optionally remove system-wide dependencies (be cautious)
+sudo apt-get remove --purge -y python3 python3-venv python3-pip git
+sudo apt-get autoremove -y
+
+echo "DevOps Bot uninstalled successfully."
+            </pre>
+        </div>
     </div>
 </body>
 </html>
+
