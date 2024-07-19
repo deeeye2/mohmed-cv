@@ -7,7 +7,11 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
 import jwt
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import logging
+import requests
 
 load_dotenv()
 
@@ -78,23 +82,27 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+        if User.query.filter_by(username=username).first():
+            return jsonify({'success': False, 'message': 'Username already exists'})
 
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Registration successful! Please log in.')
         return jsonify({'success': True})
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        token = request.form['token']
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        token = data.get('token')
         
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
@@ -281,6 +289,7 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 
