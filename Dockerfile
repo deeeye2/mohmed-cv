@@ -11,6 +11,9 @@ COPY . /app
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install PyYAML
+RUN pip install PyYAML
+
 # Copy the static files
 COPY static /app/static
 
