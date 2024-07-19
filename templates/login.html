@@ -12,11 +12,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100vh; /* Ensure the body takes the full viewport height */
         }
         .container {
             width: 100%;
             max-width: 800px;
             padding: 20px;
+            overflow-y: auto; /* Enable vertical scrolling */
+            flex-grow: 1; /* Allow the container to grow and take available space */
         }
         .login-container, .info-container {
             background-color: #333;
@@ -61,13 +64,8 @@
             background: #222;
             padding: 10px;
             border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap; /* This makes the code block wrap lines */
-        }
-        code {
-            white-space: pre-wrap;
-            display: block;
-            overflow-x: auto;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: pre-wrap; /* Ensure long lines wrap */
         }
     </style>
 </head>
@@ -75,7 +73,7 @@
     <div class="container">
         <div class="login-container">
             <h1>Login</h1>
-            <form id="loginForm">
+            <form id="loginForm" action="/login" method="POST">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="text" name="token" placeholder="Token" required>
