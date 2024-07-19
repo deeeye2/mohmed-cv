@@ -12,6 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import logging
 import requests
+import yaml
 
 load_dotenv()
 
@@ -92,7 +93,6 @@ def register():
         db.session.commit()
         return jsonify({'success': True})
     return render_template('register.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
