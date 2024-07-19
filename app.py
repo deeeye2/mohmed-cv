@@ -108,7 +108,7 @@ def login():
                 decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
                 if decoded['user_id'] == user.id:
                     session['user_id'] = user.id
-                    return jsonify({'success': True})
+                    return jsonify({'success': True, 'redirect': url_for('file_generator')})
                 else:
                     return jsonify({'success': False, 'message': 'Invalid token'}), 401
             except jwt.ExpiredSignatureError:
