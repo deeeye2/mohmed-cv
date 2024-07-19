@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- Favicon -->
+    <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/png">
 
@@ -15,10 +15,39 @@
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #007BFF;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .navbar .logout-btn {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .navbar .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
         .container {
             background-color: #fff;
@@ -85,45 +114,15 @@
             text-align: left;
             width: 100%;
         }
-        .logout-btn {
-            background-color: #dc3545;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 5px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
     </style>
 </head>
-</head>
-<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+<body>
     <!-- MENU BAR -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">Mohamed DevOps</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a href="#intro" class="nav-link smoothScroll">Devops File Generator</a></li>
-                </ul>
-            </div>
-        </div>
+    <nav class="navbar">
+        <a href="#">Mohamed DevOps</a>
+        <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
     </nav>
-    <br>
-    <br>
+
     <div class="container">
         <h1>Kubernetes Manifest Generator</h1>
         <div id="k8sSelectionStep">
@@ -1009,51 +1008,6 @@ resource "${type}" "${config.name || config.bucket || config.name}" {
             ],
         };
     </script>
-
-    <!-- CONTACT SECTION -->
-    <section class="contact section-padding pt-0" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <form action="/send-email" method="post" class="contact-form webform" role="form">
-                        <div class="form-group d-flex flex-column-reverse">
-                            <input type="text" class="form-control" name="name" id="cf-name" placeholder="Your Name" required>
-                            <label for="cf-name" class="webform-label">Full Name</label>
-                        </div>
-                        <div class="form-group d-flex flex-column-reverse">
-                            <input type="email" class="form-control" name="email" id="cf-email" placeholder="Your Email" required>
-                            <label for="cf-email" class="webform-label">Your Email</label>
-                        </div>
-                        <div class="form-group d-flex flex-column-reverse">
-                            <textarea class="form-control" rows="5" name="message" id="cf-message" placeholder="Your Message" required></textarea>
-                            <label for="cf-message" class="webform-label">Message</label>
-                        </div>
-                        <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
-                    </form>
-                </div>
-                <div class="mx-auto col-lg-4 col-md-6 col-12">
-                    <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
-                    <p class="mb-1">+4915901773752</p>
-                    <p>
-                        <a href="mailto:mohamed.sesay@outlook.com.au">
-                            mohamed.sesay@outlook.com.au
-                        <i class="fas fa-arrow-right custom-icon"></i>
-                        </a>
-                    </p>
-                    <a href="https://wa.me/491783547905" class="btn btn-success">
-                        <i class="fab fa-whatsapp"></i> Contact me on WhatsApp
-                    </a>
-                    <ul class="social-links mt-2">
-                        <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
-                        <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
-                    </ul>
-                    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2024 Mohamed Resume Page</p>
-                </div>
-            </div>
-        </div>
-    </section>
 </body>
 </html>
+
