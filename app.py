@@ -7,11 +7,7 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
 import jwt
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import logging
-import requests
 
 load_dotenv()
 
@@ -90,16 +86,15 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful! Please log in.')
-        return redirect(url_for('login'))
+        return jsonify({'success': True})
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
-        token = data.get('token')
+        username = request.form['username']
+        password = request.form['password']
+        token = request.form['token']
         
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
@@ -286,6 +281,7 @@ def send_email_notification():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 
