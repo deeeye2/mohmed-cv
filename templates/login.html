@@ -62,6 +62,12 @@
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
+            white-space: pre-wrap; /* This makes the code block wrap lines */
+        }
+        code {
+            white-space: pre-wrap;
+            display: block;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -69,7 +75,7 @@
     <div class="container">
         <div class="login-container">
             <h1>Login</h1>
-            <form id="loginForm" action="/login" method="POST">
+            <form id="loginForm">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="text" name="token" placeholder="Token" required>
@@ -204,7 +210,19 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'Token verified') {
-                    form.submit();
+                    fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password, token })
+                    })
+                    .then(response => response.json())
+                    .then(loginData => {
+                        if (loginData.success) {
+                            window.location.href = loginData.redirect_url;
+                        } else {
+                            alert(loginData.message);
+                        }
+                    });
                 } else {
                     alert('Invalid token');
                 }
@@ -214,6 +232,7 @@
     </script>
 </body>
 </html>
+
 
 
 
