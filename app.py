@@ -82,29 +82,15 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
-        
-        if not username or not password:
-            return jsonify({'success': False, 'message': 'Missing username or password'}), 400
-        
-        user = User.query.filter_by(username=username).first()
-        if user:
-            return jsonify({'success': False, 'message': 'Username already exists'}), 400
-
+        username = request.form['username']
+        password = request.form['password']
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-        new_user = User(username=username, password=hashed_password)
 
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Registration successful! Please log in.')
-            return jsonify({'success': True})
-        except Exception as e:
-            logging.error(f'Error registering user: {e}')
-            db.session.rollback()
-            return jsonify({'success': False, 'message': 'Registration failed'}), 500
+        new_user = User(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registration successful! Please log in.')
+        return redirect(url_for('login'))
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
