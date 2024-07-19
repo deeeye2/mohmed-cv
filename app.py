@@ -97,27 +97,25 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.json
         username = data.get('username')
         password = data.get('password')
         token = data.get('token')
-        
+
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             try:
                 decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
                 if decoded['user_id'] == user.id:
                     session['user_id'] = user.id
-                    flash('Login successful!')
                     return jsonify({'success': True})
                 else:
-                    flash('Invalid token')
+                    return jsonify({'success': False, 'message': 'Invalid token'}), 401
             except jwt.ExpiredSignatureError:
-                flash('Token expired')
+                return jsonify({'success': False, 'message': 'Token expired'}), 401
             except jwt.InvalidTokenError:
-                flash('Invalid token')
+                return jsonify({'success': False, 'message': 'Invalid token'}), 401
         else:
-            flash('Invalid username or password')
             return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
     return render_template('login.html')
 
