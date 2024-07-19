@@ -82,19 +82,17 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.json
         username = data.get('username')
         password = data.get('password')
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-
-        if User.query.filter_by(username=username).first():
-            return jsonify({'success': False, 'message': 'Username already exists'})
 
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'success': True})
     return render_template('register.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
