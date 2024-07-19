@@ -127,34 +127,34 @@
 
 # Installation Steps
 1. Update and Install Required Packages:
-    sudo apt-get update
-    sudo apt-get install -y python3 python3-venv python3-pip git
+    $ sudo apt-get update
+    $ sudo apt-get install -y python3 python3-venv python3-pip git
 
 2. Clone the Repository:
-    git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
+    $ git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
 
 3. Navigate to the Installation Directory:
-    cd ~/devops_bot
+    $ cd ~/devops_bot
 
 4. Create a Virtual Environment:
-    python3 -m venv ~/devops_bot/env
+    $ python3 -m venv ~/devops_bot/env
 
 5. Activate the Virtual Environment:
-    source ~/devops_bot/env/bin/activate
+    $ source ~/devops_bot/env/bin/activate
 
 6. Upgrade pip and Install wheel:
-    pip install --upgrade pip
-    pip install wheel
+    $ pip install --upgrade pip
+    $ pip install wheel
 
 7. Install the Required Packages:
-    pip install -r requirements.txt
+    $ pip install -r requirements.txt
 
 8. Install the devops-bot Package:
-    pip install .
-    pip install PyJWT
+    $ pip install .
+    $ pip install PyJWT
 
 9. Create the systemd Service File:
-    sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+    $ sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
     [Unit]
     Description=DevOps Bot Service
     After=network.target
@@ -174,31 +174,31 @@
     EOL
 
 10. Reload systemd and Start the Service:
-    sudo systemctl daemon-reload
-    sudo systemctl enable devops_bot.service
-    sudo systemctl start devops_bot.service
-    sudo systemctl status devops_bot.service
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable devops_bot.service
+    $ sudo systemctl start devops_bot.service
+    $ sudo systemctl status devops_bot.service
 
 11. Create a Symlink for the devops-bot CLI:
-    sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
+    $ sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
 </code>
             </pre>
             <h2>Uninstallation Guide</h2>
             <pre>
 <code>
 1. Stop and Disable the Service:
-    sudo systemctl stop devops_bot.service
-    sudo systemctl disable devops_bot.service
+    $ sudo systemctl stop devops_bot.service
+    $ sudo systemctl disable devops_bot.service
 
 2. Remove the systemd Service File:
-    sudo rm /etc/systemd/system/devops_bot.service
-    sudo systemctl daemon-reload
+    $ sudo rm /etc/systemd/system/devops_bot.service
+    $ sudo systemctl daemon-reload
 
 3. Remove the DevOps Bot Directory:
-    rm -rf ~/devops_bot
+    $ rm -rf ~/devops_bot
 
 4. Remove the Symlink:
-    sudo rm /usr/local/bin/devops-bot
+    $ sudo rm /usr/local/bin/devops-bot
 </code>
             </pre>
         </div>
