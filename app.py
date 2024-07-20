@@ -164,40 +164,42 @@ def verify_token():
         return jsonify({'message': 'Invalid token'}), 401
     return jsonify({'message': 'Invalid username or token'}), 401
 
-@app.route('/generate/k8s', methods=['POST'])
+# Added the following endpoints
+@app.route('/generate/k8s/<manifest_type>', methods=['POST'])
 @token_required
-def generate_k8s(current_user):
+def generate_k8s(current_user, manifest_type):
     data = request.json
     generated_data = yaml.dump(data)
     return jsonify({"message": "Kubernetes manifest generated", "data": generated_data})
 
-@app.route('/generate/dockerfile', methods=['POST'])
+@app.route('/generate/dockerfile/<base_image>', methods=['POST'])
 @token_required
-def generate_dockerfile(current_user):
+def generate_dockerfile(current_user, base_image):
     data = request.json
-    generated_data = "FROM python:3.8-slim\n"  # Simplified example
+    generated_data = f"FROM {base_image}\n"
     for key, value in data.items():
         generated_data += f"{key.upper()}={value}\n"
     return jsonify({"message": "Dockerfile generated", "data": generated_data})
 
-@app.route('/generate/ansible', methods=['POST'])
+@app.route('/generate/ansible/<task>', methods=['POST'])
 @token_required
-def generate_ansible(current_user):
+def generate_ansible(current_user, task):
     data = request.json
-    generated_data = "---\n"  # Simplified example
+    generated_data = "---\n"
     for key, value in data.items():
         generated_data += f"{key}: {value}\n"
     return jsonify({"message": "Ansible playbook generated", "data": generated_data})
 
-@app.route('/generate/terraform', methods=['POST'])
+@app.route('/generate/terraform/<resource_type>', methods=['POST'])
 @token_required
-def generate_terraform(current_user):
+def generate_terraform(current_user, resource_type):
     data = request.json
-    generated_data = "resource \"example\" \"example\" {\n"  # Simplified example
+    generated_data = f"resource \"{resource_type}\" \"example\" {{\n"
     for key, value in data.items():
         generated_data += f"  {key} = \"{value}\"\n"
     generated_data += "}\n"
     return jsonify({"message": "Terraform configuration generated", "data": generated_data})
+
 
 @app.route('/visitors')
 def show_visitors():
