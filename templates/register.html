@@ -164,32 +164,31 @@
     $ pip install .
     $ pip install PyJWT
 
-9. Reload systemd and Start the Service:
+9. Create the systemd Service File, make sure to remove the $:
+    $ sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+    $ [Unit]
+    $ Description=DevOps Bot Service
+    % After=network.target
+
+    $ [Service]
+    % User=$(whoami)
+    $ Group=$(whoami)
+    $ WorkingDirectory=/root/devops_bot
+    $ Environment="PATH=/root/devops_bot/env/bin"
+    $ ExecStart=/root/devops_bot/env/bin/gunicorn --config /root/devops_bot/gunicorn_config.py wsgi:app
+    $ StandardOutput=journal
+    $ StandardError=journal
+    $ SyslogIdentifier=devops_bot
+
+    $ [Install]
+    $ WantedBy=multi-user.target
+    $ EOL
+        
+10. Reload systemd and Start the Service:
     $ sudo systemctl daemon-reload
     $ sudo systemctl enable devops_bot.service
     $ sudo systemctl start devops_bot.service
     $ sudo systemctl status devops_bot.service
-
-10. Create the systemd Service File:
-    $ sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
-    [Unit]
-    Description=DevOps Bot Service
-    After=network.target
-
-    [Service]
-    User=$(whoami)
-    Group=$(whoami)
-    WorkingDirectory=/root/devops_bot
-    Environment="PATH=/root/devops_bot/env/bin"
-    ExecStart=/root/devops_bot/env/bin/gunicorn --config /root/devops_bot/gunicorn_config.py wsgi:app
-    StandardOutput=journal
-    StandardError=journal
-    SyslogIdentifier=devops_bot
-
-    [Install]
-    WantedBy=multi-user.target
-    EOL
-
 
 11. Create a Symlink for the devops-bot CLI:
     $ sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
