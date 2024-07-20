@@ -190,6 +190,102 @@
     $ sudo rm /usr/local/bin/devops-bot
 </code>
             </pre>
+            <h2>Commands and Functions</h2>
+            <h3>Configure AWS Credentials</h3>
+            <p>This command sets up the AWS credentials and region for the CLI tool.</p>
+            <pre>
+<code>
+Usage:
+devops-bot configure-aws --aws_access_key_id &lt;YOUR_AWS_ACCESS_KEY_ID&gt; --aws_secret_access_key &lt;YOUR_AWS_SECRET_ACCESS_KEY&gt; --region &lt;YOUR_AWS_REGION&gt;
+
+Example:
+devops-bot configure-aws --aws_access_key_id AKIAIOSFODNN7EXAMPLE --aws_secret_access_key wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY --region us-east-1
+</code>
+            </pre>
+
+            <h3>Create AWS Instances</h3>
+            <p>This command creates one or more AWS EC2 instances with optional tags, security group, and key pair.</p>
+            <pre>
+<code>
+Usage:
+devops-bot create-aws-instance --params "image_id=&lt;IMAGE_ID&gt; instance_type=&lt;INSTANCE_TYPE&gt;" --count &lt;NUMBER_OF_INSTANCES&gt; [--tag1 "Key=Value"] [--tag2 "Key=Value"] [--tag3 "Key=Value"] [--tag4 "Key=Value"] [--tag5 "Key=Value"] [--security_group &lt;SECURITY_GROUP_ID&gt;] [--key_name &lt;KEY_PAIR_NAME&gt;]
+
+Example:
+devops-bot create-aws-instance --params "image_id=ami-0b72821e2f351e396 instance_type=t2.micro" --count 2 --tag1 "Environment=Test" --tag2 "Role=WebServer" --security_group sg-0abcd1234abcd1234 --key_name my-key-pair
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--params</code>: Required parameters for the instance creation such as <code>image_id</code> and <code>instance_type</code>.</li>
+                <li><code>--count</code>: The number of instances to create (default is 1).</li>
+                <li><code>--tag1</code> to <code>--tag5</code>: Optional tags for the instances.</li>
+                <li><code>--security_group</code>: Optional security group ID.</li>
+                <li><code>--key_name</code>: Optional key pair name.</li>
+            </ul>
+
+            <h3>Delete AWS Instances</h3>
+            <p>This command deletes one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot delete-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot delete-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to delete.</li>
+            </ul>
+
+            <h3>List All EC2 Instances and Their Statuses</h3>
+            <p>This command lists all EC2 instances and their statuses for the specified cloud provider.</p>
+            <pre>
+<code>
+Usage:
+devops-bot list-instances --provider &lt;PROVIDER&gt;
+
+Example:
+devops-bot list-instances --provider aws
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--provider</code>: The cloud provider (e.g., aws).</li>
+            </ul>
+
+            <h3>Stop AWS Instances</h3>
+            <p>This command stops one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot stop-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot stop-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to stop.</li>
+            </ul>
+
+            <h3>Start AWS Instances</h3>
+            <p>This command starts one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot start-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot start-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to start.</li>
+            </ul>
         </div>
     </div>
     <script>
