@@ -8,3 +8,5 @@ devops_bot/cli.py
 devops_bot/cli.py
 .DS_Store
 .gitignore.bak
+.DS_Store
+.gitignore.bak
