@@ -164,7 +164,13 @@
     $ pip install .
     $ pip install PyJWT
 
-9. Create the systemd Service File:
+9. Reload systemd and Start the Service:
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable devops_bot.service
+    $ sudo systemctl start devops_bot.service
+    $ sudo systemctl status devops_bot.service
+
+10. Create the systemd Service File:
     $ sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
     [Unit]
     Description=DevOps Bot Service
@@ -184,11 +190,6 @@
     WantedBy=multi-user.target
     EOL
 
-10. Reload systemd and Start the Service:
-    $ sudo systemctl daemon-reload
-    $ sudo systemctl enable devops_bot.service
-    $ sudo systemctl start devops_bot.service
-    $ sudo systemctl status devops_bot.service
 
 11. Create a Symlink for the devops-bot CLI:
     $ sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
