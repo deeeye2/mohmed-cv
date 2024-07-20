@@ -143,7 +143,7 @@ def api_login():
     user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password, password):
-        token = jwt.encode({'user_id': user.id, 'exp': datetime.utcnow() + timedelta(minutes=1)}, app.secret_key)
+        token = jwt.encode({'user_id': user.id, 'exp': datetime.utcnow() + timedelta(hours=1)}, app.secret_key)
         return jsonify({'token': token})
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
