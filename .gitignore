@@ -9,7 +9,3 @@ devops_bot/cli.py
 .gitignore.bak
 .DS_Store
 .gitignore.bak
-app.py
-.env
-app.py
-.env
