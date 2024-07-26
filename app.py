@@ -27,6 +27,15 @@ def call_cli_service(endpoint, method='GET', data=None):
         response = requests.post(url, json=data, headers=headers)
     return response.json()
 
+
+def run_cli_command(command):
+    try:
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return result.stdout, result.stderr
+    except subprocess.CalledProcessError as e:
+        return e.stdout, e.stderr
+
+
 load_dotenv()
 
 app = Flask(__name__)
