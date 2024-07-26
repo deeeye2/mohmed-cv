@@ -19,6 +19,10 @@ import subprocess
 # Get the CLI service URL from the environment variable or default to localhost
 CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
 
+# Ensure that dob is in the PATH
+os.environ["PATH"] += os.pathsep + "/root/devops_bot/env/bin"
+
+
 def call_cli_service(endpoint, method='GET', data=None):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
     headers = {'Content-Type': 'application/json'}
