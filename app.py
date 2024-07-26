@@ -14,8 +14,6 @@ import logging
 import requests
 import yaml
 from subprocess import Popen, PIPE
-from flask_socketio import SocketIO, emit
-import uuid
 
 load_dotenv()
 
