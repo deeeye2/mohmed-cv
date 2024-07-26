@@ -14,6 +14,7 @@ import logging
 import requests
 import yaml
 from subprocess import Popen, PIPE
+import subprocess
 
 # Get the CLI service URL from the environment variable or default to localhost
 CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
