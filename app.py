@@ -128,8 +128,8 @@ def logout():
 
 @app.route('/file-generator')
 @login_required
-def file_generator():
-    return render_template('file_generator.html')
+def cli_dashboard():
+    return render_template('cli_dashboard.html')
 
 @app.route('/main-page')
 def main_page():
