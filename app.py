@@ -15,7 +15,7 @@ import requests
 import yaml
 from subprocess import Popen, PIPE
 
-CLI_SERVICE_URL = "http://127.0.0.1:5001/api"  # Use 127.0.0.1 if both are on the same machine
+CLI_SERVICE_URL = "http://54.162.127.237:5001/api"  # Use 127.0.0.1 if both are on the same machine
 
 
 load_dotenv()
