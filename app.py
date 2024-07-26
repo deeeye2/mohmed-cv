@@ -132,6 +132,12 @@ def login():
             return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
     return render_template('login.html')
 
+@app.route('/file-generator')
+@login_required
+def file_generator():
+    return render_template('file_generator.html')
+
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
