@@ -14,7 +14,6 @@ import logging
 import requests
 import yaml
 from subprocess import Popen, PIPE
-from devops_bot.cli import cli 
 from flask_socketio import SocketIO, emit
 import uuid
 
