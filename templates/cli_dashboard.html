@@ -133,211 +133,166 @@
 
     </div>
     <script>
-        function viewVersions() {
-            fetch('/api/view_versions')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = data.stdout || data.stderr;
-                });
-        }
+    const CLI_SERVICE_URL = "/api";
 
-        function listEc2Instances() {
-            fetch('/api/list_ec2_instances')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = data.stdout || data.stderr;
-                });
-        }
-
-        function listS3Buckets() {
-            fetch('/api/list_s3_buckets')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = data.stdout || data.stderr;
-                });
-        }
-
-        function createEc2Instance() {
-            const instanceType = document.getElementById('instanceType').value;
-            const amiId = document.getElementById('amiId').value;
-            const keyName = document.getElementById('keyName').value;
-            const securityGroup = document.getElementById('securityGroup').value;
-            const count = document.getElementById('count').value;
-            const tags = {};  // You can modify this to capture tags as needed
-
-            const data = {
-                instance_type: instanceType,
-                ami_id: amiId,
-                key_name: keyName,
-                security_group: securityGroup,
-                count: count,
-                tags: tags
-            };
-
-            fetch('/api/create_ec2_instance', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
+    function viewVersions() {
+        fetch(`${CLI_SERVICE_URL}/view_versions`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('output').innerText = data.stdout || data.stderr;
             });
-        }
+    }
 
-        function createEc2Dob() {
-            const dobScreenplay = document.getElementById('dobScreenplay').value;
-
-            const data = {
-                dob_screenplay: dobScreenplay
-            };
-
-            fetch('/api/create_ec2_dob', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
+    function listEc2Instances() {
+        fetch(`${CLI_SERVICE_URL}/list_ec2_instances`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('output').innerText = data.stdout || data.stderr;
             });
-        }
+    }
 
-        function recreateEc2() {
-            const versionId = document.getElementById('versionId').value;
-
-            const data = {
-                version_id: versionId
-            };
-
-            fetch('/api/recreate_ec2', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
+    function listS3Buckets() {
+        fetch(`${CLI_SERVICE_URL}/list_s3_buckets`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('output').innerText = data.stdout || data.stderr;
             });
-        }
+    }
 
-        function deleteEc2() {
-            const instanceIds = document.getElementById('deleteInstanceIds').value.split(',');
-            const versionId = document.getElementById('deleteVersionId').value;
+    function createEc2Instance(instanceType, amiId, keyName, securityGroup, count, tags) {
+        const data = {
+            instance_type: instanceType,
+            ami_id: amiId,
+            key_name: keyName,
+            security_group: securityGroup,
+            count: count,
+            tags: tags
+        };
+        fetch(`${CLI_SERVICE_URL}/create_ec2_instance`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-            const data = {
-                ids: instanceIds
-            };
+    function createEc2Dob(dobScreenplay) {
+        fetch(`${CLI_SERVICE_URL}/create_ec2_dob`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dobScreenplay)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-            if (versionId) {
-                data.version_id = versionId;
-            }
+    function recreateEc2(versionId) {
+        const data = { version_id: versionId };
+        fetch(`${CLI_SERVICE_URL}/recreate_ec2`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-            fetch('/api/delete_ec2', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
-            });
-        }
+    function deleteEc2(instanceIds, versionId) {
+        const data = { ids: instanceIds };
+        if (versionId) data.version_id = versionId;
+        fetch(`${CLI_SERVICE_URL}/delete_ec2`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-        function listS3Objects() {
-            const bucketName = document.getElementById('bucketName').value;
+    function listS3Objects(bucketName) {
+        const data = { bucket_name: bucketName };
+        fetch(`${CLI_SERVICE_URL}/list_s3_objects`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-            const data = {
-                bucket_name: bucketName
-            };
+    function deleteS3Bucket(bucketName) {
+        const data = { bucket_name: bucketName };
+        fetch(`${CLI_SERVICE_URL}/delete_s3_bucket`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-            fetch('/api/list_s3_objects', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
-            });
-        }
+    function deleteS3Object(bucketName, objectKey) {
+        const data = {
+            bucket_name: bucketName,
+            object_key: objectKey
+        };
+        fetch(`${CLI_SERVICE_URL}/delete_s3_object`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
 
-        function deleteS3Bucket() {
-            const bucketName = document.getElementById('deleteBucketName').value;
-
-            const data = {
-                bucket_name: bucketName
-            };
-
-            fetch('/api/delete_s3_bucket', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
-            });
-        }
-
-        function deleteS3Object() {
-            const bucketName = document.getElementById('deleteObjectBucketName').value;
-            const objectKey = document.getElementById('objectKey').value;
-
-            const data = {
-                bucket_name: bucketName,
-                object_key: objectKey
-            };
-
-            fetch('/api/delete_s3_object', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
-            });
-        }
-
-        function configureAws() {
-            const accessKeyId = document.getElementById('accessKeyId').value;
-            const secretAccessKey = document.getElementById('secretAccessKey').value;
-            const region = document.getElementById('region').value;
-
-            const data = {
-                aws_access_key_id: accessKeyId,
-                aws_secret_access_key: secretAccessKey,
-                region: region
-            };
-
-            fetch('/api/configure_aws', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
-            });
-        }
-    </script>
+    function configureAws(accessKeyId, secretAccessKey, region) {
+        const data = {
+            aws_access_key_id: accessKeyId,
+            aws_secret_access_key: secretAccessKey,
+            region: region
+        };
+        fetch(`${CLI_SERVICE_URL}/configure_aws`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.stdout || data.stderr;
+        });
+    }
+</script>
 </body>
 </html>
 
