@@ -34,4 +34,3 @@ elif [ "$1" == "include" ]; then
 else
     echo "Usage: $0 {exclude|include}"
 fi
-

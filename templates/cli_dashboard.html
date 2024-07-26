@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>CLI Dashboard</h1>
+        <div id="output"></div>
+
+        <h2>EC2 Instances</h2>
+        <button class="btn btn-primary" onclick="listEc2Instances()">List EC2 Instances</button>
+        <button class="btn btn-primary" onclick="viewVersions()">View Versions</button>
+        <button class="btn btn-primary" onclick="listS3Buckets()">List S3 Buckets</button>
+
+        <!-- Create EC2 Instance Form -->
+        <form onsubmit="createEc2Instance(document.getElementById('instanceType').value, document.getElementById('amiId').value, document.getElementById('keyName').value, document.getElementById('securityGroup').value, document.getElementById('count').value, {}); return false;">
+            <h3>Create EC2 Instance</h3>
+            <div class="form-group">
+                <label for="instanceType">Instance Type:</label>
+                <input type="text" id="instanceType" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="amiId">AMI ID:</label>
+                <input type="text" id="amiId" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="keyName">Key Name:</label>
+                <input type="text" id="keyName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="securityGroup">Security Group:</label>
+                <input type="text" id="securityGroup" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="count">Count:</label>
+                <input type="number" id="count" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create EC2 Instance</button>
+        </form>
+
+        <!-- Create EC2 using DOB Form -->
+        <form onsubmit="createEc2Dob({instance_type: document.getElementById('dobInstanceType').value, ami_id: document.getElementById('dobAmiId').value, key_name: document.getElementById('dobKeyName').value, security_group: document.getElementById('dobSecurityGroup').value, count: document.getElementById('dobCount').value, tags: {}}); return false;">
+            <h3>Create EC2 Instance using DOB</h3>
+            <div class="form-group">
+                <label for="dobInstanceType">Instance Type:</label>
+                <input type="text" id="dobInstanceType" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dobAmiId">AMI ID:</label>
+                <input type="text" id="dobAmiId" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dobKeyName">Key Name:</label>
+                <input type="text" id="dobKeyName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dobSecurityGroup">Security Group:</label>
+                <input type="text" id="dobSecurityGroup" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dobCount">Count:</label>
+                <input type="number" id="dobCount" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create EC2 using DOB</button>
+        </form>
+
+        <!-- Recreate EC2 Form -->
+        <form onsubmit="recreateEc2(document.getElementById('versionId').value); return false;">
+            <h3>Recreate EC2 Instance</h3>
+            <div class="form-group">
+                <label for="versionId">Version ID:</label>
+                <input type="text" id="versionId" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Recreate EC2</button>
+        </form>
+
+        <!-- Delete EC2 Form -->
+        <form onsubmit="deleteEc2(document.getElementById('deleteInstanceIds').value.split(','), document.getElementById('deleteVersionId').value); return false;">
+            <h3>Delete EC2 Instance</h3>
+            <div class="form-group">
+                <label for="deleteInstanceIds">Instance IDs (comma separated):</label>
+                <input type="text" id="deleteInstanceIds" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="deleteVersionId">Version ID (optional):</label>
+                <input type="text" id="deleteVersionId" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-danger">Delete EC2</button>
+        </form>
+
+        <!-- List S3 Objects Form -->
+        <form onsubmit="listS3Objects(document.getElementById('bucketName').value); return false;">
+            <h3>List S3 Objects</h3>
+            <div class="form-group">
+                <label for="bucketName">Bucket Name:</label>
+                <input type="text" id="bucketName" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">List S3 Objects</button>
+        </form>
+
+        <!-- Delete S3 Bucket Form -->
+        <form onsubmit="deleteS3Bucket(document.getElementById('deleteBucketName').value); return false;">
+            <h3>Delete S3 Bucket</h3>
+            <div class="form-group">
+                <label for="deleteBucketName">Bucket Name:</label>
+                <input type="text" id="deleteBucketName" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete S3 Bucket</button>
+        </form>
+
+        <!-- Delete S3 Object Form -->
+        <form onsubmit="deleteS3Object(document.getElementById('deleteObjectBucketName').value, document.getElementById('objectKey').value); return false;">
+            <h3>Delete S3 Object</h3>
+            <div class="form-group">
+                <label for="deleteObjectBucketName">Bucket Name:</label>
+                <input type="text" id="deleteObjectBucketName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="objectKey">Object Key:</label>
+                <input type="text" id="objectKey" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete S3 Object</button>
+        </form>
+
+        <!-- Configure AWS Form -->
+        <form onsubmit="configureAws(document.getElementById('accessKeyId').value, document.getElementById('secretAccessKey').value, document.getElementById('region').value); return false;">
+            <h3>Configure AWS</h3>
+            <div class="form-group">
+                <label for="accessKeyId">AWS Access Key ID:</label>
+                <input type="text" id="accessKeyId" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="secretAccessKey">AWS Secret Access Key:</label>
+                <input type="text" id="secretAccessKey" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="region">Region:</label>
+                <input type="text" id="region" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Configure AWS</button>
+        </form>
+
+    </div>
+    <script>
+        function viewVersions() {
+            fetch('/api/view_versions')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = data.stdout || data.stderr;
+                });
+        }
+
+        function listEc2Instances() {
+            fetch('/api/list_ec2_instances')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = data.stdout || data.stderr;
+                });
+        }
+
+        function listS3Buckets() {
+            fetch('/api/list_s3_buckets')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = data.stdout || data.stderr;
+                });
+        }
+
+        function createEc2Instance(instanceType, amiId, keyName, securityGroup, count, tags) {
+            const data = {
+                instance_type: instanceType,
+                ami_id: amiId,
+                key_name: keyName,
+                security_group: securityGroup,
+                count: count,
+                tags: tags
+            };
+            fetch('/api/create_ec2_instance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function createEc2Dob(dobScreenplay) {
+            fetch('/api/create_ec2_dob', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dobScreenplay)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function recreateEc2(versionId) {
+            const data = { version_id: versionId };
+            fetch('/api/recreate_ec2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function deleteEc2(instanceIds, versionId) {
+            const data = { ids: instanceIds };
+            if (versionId) data.version_id = versionId;
+            fetch('/api/delete_ec2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function listS3Objects(bucketName) {
+            const data = { bucket_name: bucketName };
+            fetch('/api/list_s3_objects', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function deleteS3Bucket(bucketName) {
+            const data = { bucket_name: bucketName };
+            fetch('/api/delete_s3_bucket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function deleteS3Object(bucketName, objectKey) {
+            const data = {
+                bucket_name: bucketName,
+                object_key: objectKey
+            };
+            fetch('/api/delete_s3_object', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+
+        function configureAws(accessKeyId, secretAccessKey, region) {
+            const data = {
+                aws_access_key_id: accessKeyId,
+                aws_secret_access_key: secretAccessKey,
+                region: region
+            };
+            fetch('/api/configure_aws', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.stdout || data.stderr;
+            });
+        }
+    </script>
+</body>
+</html>
