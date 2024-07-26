@@ -16,8 +16,11 @@
         <button class="btn btn-primary" onclick="viewVersions()">View Versions</button>
         <button class="btn btn-primary" onclick="listS3Buckets()">List S3 Buckets</button>
 
+        <!-- Button to go to File Generator -->
+        <a href="{{ url_for('file_generator') }}" class="btn btn-secondary mt-3">Go to File Generator</a>
+
         <!-- Create EC2 Instance Form -->
-        <form onsubmit="createEc2Instance(document.getElementById('instanceType').value, document.getElementById('amiId').value, document.getElementById('keyName').value, document.getElementById('securityGroup').value, document.getElementById('count').value, {}); return false;">
+        <form onsubmit="createEc2Instance(); return false;">
             <h3>Create EC2 Instance</h3>
             <div class="form-group">
                 <label for="instanceType">Instance Type:</label>
@@ -43,33 +46,17 @@
         </form>
 
         <!-- Create EC2 using DOB Form -->
-        <form onsubmit="createEc2Dob({instance_type: document.getElementById('dobInstanceType').value, ami_id: document.getElementById('dobAmiId').value, key_name: document.getElementById('dobKeyName').value, security_group: document.getElementById('dobSecurityGroup').value, count: document.getElementById('dobCount').value, tags: {}}); return false;">
+        <form onsubmit="createEc2Dob(); return false;">
             <h3>Create EC2 Instance using DOB</h3>
             <div class="form-group">
-                <label for="dobInstanceType">Instance Type:</label>
-                <input type="text" id="dobInstanceType" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="dobAmiId">AMI ID:</label>
-                <input type="text" id="dobAmiId" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="dobKeyName">Key Name:</label>
-                <input type="text" id="dobKeyName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="dobSecurityGroup">Security Group:</label>
-                <input type="text" id="dobSecurityGroup" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="dobCount">Count:</label>
-                <input type="number" id="dobCount" class="form-control" required>
+                <label for="dobScreenplay">DOB Screenplay:</label>
+                <input type="text" id="dobScreenplay" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-success">Create EC2 using DOB</button>
         </form>
 
         <!-- Recreate EC2 Form -->
-        <form onsubmit="recreateEc2(document.getElementById('versionId').value); return false;">
+        <form onsubmit="recreateEc2(); return false;">
             <h3>Recreate EC2 Instance</h3>
             <div class="form-group">
                 <label for="versionId">Version ID:</label>
@@ -79,7 +66,7 @@
         </form>
 
         <!-- Delete EC2 Form -->
-        <form onsubmit="deleteEc2(document.getElementById('deleteInstanceIds').value.split(','), document.getElementById('deleteVersionId').value); return false;">
+        <form onsubmit="deleteEc2(); return false;">
             <h3>Delete EC2 Instance</h3>
             <div class="form-group">
                 <label for="deleteInstanceIds">Instance IDs (comma separated):</label>
@@ -93,7 +80,7 @@
         </form>
 
         <!-- List S3 Objects Form -->
-        <form onsubmit="listS3Objects(document.getElementById('bucketName').value); return false;">
+        <form onsubmit="listS3Objects(); return false;">
             <h3>List S3 Objects</h3>
             <div class="form-group">
                 <label for="bucketName">Bucket Name:</label>
@@ -103,7 +90,7 @@
         </form>
 
         <!-- Delete S3 Bucket Form -->
-        <form onsubmit="deleteS3Bucket(document.getElementById('deleteBucketName').value); return false;">
+        <form onsubmit="deleteS3Bucket(); return false;">
             <h3>Delete S3 Bucket</h3>
             <div class="form-group">
                 <label for="deleteBucketName">Bucket Name:</label>
@@ -113,7 +100,7 @@
         </form>
 
         <!-- Delete S3 Object Form -->
-        <form onsubmit="deleteS3Object(document.getElementById('deleteObjectBucketName').value, document.getElementById('objectKey').value); return false;">
+        <form onsubmit="deleteS3Object(); return false;">
             <h3>Delete S3 Object</h3>
             <div class="form-group">
                 <label for="deleteObjectBucketName">Bucket Name:</label>
@@ -127,7 +114,7 @@
         </form>
 
         <!-- Configure AWS Form -->
-        <form onsubmit="configureAws(document.getElementById('accessKeyId').value, document.getElementById('secretAccessKey').value, document.getElementById('region').value); return false;">
+        <form onsubmit="configureAws(); return false;">
             <h3>Configure AWS</h3>
             <div class="form-group">
                 <label for="accessKeyId">AWS Access Key ID:</label>
@@ -170,7 +157,14 @@
                 });
         }
 
-        function createEc2Instance(instanceType, amiId, keyName, securityGroup, count, tags) {
+        function createEc2Instance() {
+            const instanceType = document.getElementById('instanceType').value;
+            const amiId = document.getElementById('amiId').value;
+            const keyName = document.getElementById('keyName').value;
+            const securityGroup = document.getElementById('securityGroup').value;
+            const count = document.getElementById('count').value;
+            const tags = {};  // You can modify this to capture tags as needed
+
             const data = {
                 instance_type: instanceType,
                 ami_id: amiId,
@@ -179,6 +173,7 @@
                 count: count,
                 tags: tags
             };
+
             fetch('/api/create_ec2_instance', {
                 method: 'POST',
                 headers: {
@@ -192,13 +187,19 @@
             });
         }
 
-        function createEc2Dob(dobScreenplay) {
+        function createEc2Dob() {
+            const dobScreenplay = document.getElementById('dobScreenplay').value;
+
+            const data = {
+                dob_screenplay: dobScreenplay
+            };
+
             fetch('/api/create_ec2_dob', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dobScreenplay)
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(data => {
@@ -206,8 +207,13 @@
             });
         }
 
-        function recreateEc2(versionId) {
-            const data = { version_id: versionId };
+        function recreateEc2() {
+            const versionId = document.getElementById('versionId').value;
+
+            const data = {
+                version_id: versionId
+            };
+
             fetch('/api/recreate_ec2', {
                 method: 'POST',
                 headers: {
@@ -221,9 +227,18 @@
             });
         }
 
-        function deleteEc2(instanceIds, versionId) {
-            const data = { ids: instanceIds };
-            if (versionId) data.version_id = versionId;
+        function deleteEc2() {
+            const instanceIds = document.getElementById('deleteInstanceIds').value.split(',');
+            const versionId = document.getElementById('deleteVersionId').value;
+
+            const data = {
+                ids: instanceIds
+            };
+
+            if (versionId) {
+                data.version_id = versionId;
+            }
+
             fetch('/api/delete_ec2', {
                 method: 'POST',
                 headers: {
@@ -237,8 +252,13 @@
             });
         }
 
-        function listS3Objects(bucketName) {
-            const data = { bucket_name: bucketName };
+        function listS3Objects() {
+            const bucketName = document.getElementById('bucketName').value;
+
+            const data = {
+                bucket_name: bucketName
+            };
+
             fetch('/api/list_s3_objects', {
                 method: 'POST',
                 headers: {
@@ -252,8 +272,13 @@
             });
         }
 
-        function deleteS3Bucket(bucketName) {
-            const data = { bucket_name: bucketName };
+        function deleteS3Bucket() {
+            const bucketName = document.getElementById('deleteBucketName').value;
+
+            const data = {
+                bucket_name: bucketName
+            };
+
             fetch('/api/delete_s3_bucket', {
                 method: 'POST',
                 headers: {
@@ -267,11 +292,15 @@
             });
         }
 
-        function deleteS3Object(bucketName, objectKey) {
+        function deleteS3Object() {
+            const bucketName = document.getElementById('deleteObjectBucketName').value;
+            const objectKey = document.getElementById('objectKey').value;
+
             const data = {
                 bucket_name: bucketName,
                 object_key: objectKey
             };
+
             fetch('/api/delete_s3_object', {
                 method: 'POST',
                 headers: {
@@ -285,12 +314,17 @@
             });
         }
 
-        function configureAws(accessKeyId, secretAccessKey, region) {
+        function configureAws() {
+            const accessKeyId = document.getElementById('accessKeyId').value;
+            const secretAccessKey = document.getElementById('secretAccessKey').value;
+            const region = document.getElementById('region').value;
+
             const data = {
                 aws_access_key_id: accessKeyId,
                 aws_secret_access_key: secretAccessKey,
                 region: region
             };
+
             fetch('/api/configure_aws', {
                 method: 'POST',
                 headers: {
@@ -306,3 +340,4 @@
     </script>
 </body>
 </html>
+
