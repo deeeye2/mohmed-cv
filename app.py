@@ -15,6 +15,9 @@ import requests
 import yaml
 from subprocess import Popen, PIPE
 
+CLI_SERVICE_URL = "http://127.0.0.1:5001/api"  # Use 127.0.0.1 if both are on the same machine
+
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -288,84 +291,73 @@ def send_email_notification():
 
 
 
-def run_cli_command(command):
-    process = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
-    stdout, stderr = process.communicate()
-    return {"stdout": stdout.decode('utf-8'), "stderr": stderr.decode('utf-8')}
+def run_cli_command(endpoint, method='GET', data=None):
+    url = f"{CLI_SERVICE_URL}/{endpoint}"
+    response = requests.request(method, url, json=data)
+    return response.json()
 
 @app.route('/api/view_versions', methods=['GET'])
 def view_versions():
-    result = run_cli_command('dob view-versions')
+    result = run_cli_command('view_versions')
     return jsonify(result)
 
 @app.route('/api/list_ec2_instances', methods=['GET'])
 def list_ec2_instances():
-    result = run_cli_command('dob list-ec2')
+    result = run_cli_command('list_ec2_instances')
     return jsonify(result)
 
 @app.route('/api/list_s3_buckets', methods=['GET'])
 def list_s3_buckets():
-    result = run_cli_command('dob list-s3-buckets')
+    result = run_cli_command('list_s3_buckets')
     return jsonify(result)
 
 @app.route('/api/create_ec2_instance', methods=['POST'])
 def create_ec2_instance():
     data = request.json
-    command = f"dob create-ec2 --instance-type {data['instance_type']} --ami-id {data['ami_id']} --key-name {data['key_name']} --security-group {data['security_group']} --count {data['count']} --tags {data['tags']}"
-    result = run_cli_command(command)
+    result = run_cli_command('create_ec2_instance', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/create_ec2_dob', methods=['POST'])
 def create_ec2_dob():
     data = request.json
-    command = f"dob create-ec2-dob {data['dob_screenplay']}"
-    result = run_cli_command(command)
+    result = run_cli_command('create_ec2_dob', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/recreate_ec2', methods=['POST'])
 def recreate_ec2():
     data = request.json
-    command = f"dob recreate-ec2 --version-id {data['version_id']}"
-    result = run_cli_command(command)
+    result = run_cli_command('recreate_ec2', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/delete_ec2', methods=['POST'])
 def delete_ec2():
     data = request.json
-    command = f"dob delete-ec2 --ids {','.join(data['ids'])}"
-    if 'version_id' in data:
-        command += f" --version-id {data['version_id']}"
-    result = run_cli_command(command)
+    result = run_cli_command('delete_ec2', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/list_s3_objects', methods=['POST'])
 def list_s3_objects():
     data = request.json
-    command = f"dob list-s3-objects --bucket-name {data['bucket_name']}"
-    result = run_cli_command(command)
+    result = run_cli_command('list_s3_objects', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/delete_s3_bucket', methods=['POST'])
 def delete_s3_bucket():
     data = request.json
-    command = f"dob delete-s3-bucket --bucket-name {data['bucket_name']}"
-    result = run_cli_command(command)
+    result = run_cli_command('delete_s3_bucket', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/delete_s3_object', methods=['POST'])
 def delete_s3_object():
     data = request.json
-    command = f"dob delete-s3-object --bucket-name {data['bucket_name']} --object-key {data['object_key']}"
-    result = run_cli_command(command)
+    result = run_cli_command('delete_s3_object', method='POST', data=data)
     return jsonify(result)
 
 @app.route('/api/configure_aws', methods=['POST'])
 def configure_aws():
     data = request.json
-    command = f"dob configure-aws --aws-access-key-id {data['aws_access_key_id']} --aws-secret-access-key {data['aws_secret_access_key']} --region {data['region']}"
-    result = run_cli_command(command)
+    result = run_cli_command('configure_aws', method='POST', data=data)
     return jsonify(result)
-
 
 
 if __name__ == '__main__':
