@@ -16,7 +16,7 @@ import yaml
 from subprocess import Popen, PIPE
 
 # Get the CLI service URL from the environment variable or default to localhost
-CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://54.162.127.237:5001/api')
+CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
 
 def call_cli_service(endpoint, method='GET', data=None):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
