@@ -126,9 +126,9 @@ def logout():
     flash('You have been logged out.')
     return redirect(url_for('login'))
 
-@app.route('/file-generator')
+@app.route('/clidashboard')
 @login_required
-def cli_dashboard():
+def clidashboard():
     return render_template('cli_dashboard.html')
 
 @app.route('/main-page')
