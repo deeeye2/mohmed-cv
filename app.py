@@ -316,7 +316,7 @@ def send_email_notification():
 
 @app.route('/api/view_versions', methods=['GET'])
 def view_versions():
-    result = run_cli_command('dob view-versions')
+    result = run_cli_command('dob view-version')
     return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/list_ec2_instances', methods=['GET'])
