@@ -5,16 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLI Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .output-section {
+            margin-top: 20px;
+        }
+        .output-section h3 {
+            margin-top: 20px;
+        }
+        .output {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1>CLI Dashboard</h1>
-        <div id="output"></div>
 
-        <h2>EC2 Instances</h2>
-        <button class="btn btn-primary" onclick="listEc2Instances()">List EC2 Instances</button>
-        <button class="btn btn-primary" onclick="viewVersions()">View Versions</button>
-        <button class="btn btn-primary" onclick="listS3Buckets()">List S3 Buckets</button>
+        <div class="output-section" id="general-output">
+            <h2>General Output</h2>
+            <div class="output" id="output"></div>
+        </div>
+
+        <div class="output-section" id="ec2-output">
+            <h2>EC2 Instances</h2>
+            <button class="btn btn-primary" onclick="listEc2Instances()">List EC2 Instances</button>
+            <button class="btn btn-primary" onclick="viewVersions()">View Versions</button>
+            <button class="btn btn-primary" onclick="listS3Buckets()">List S3 Buckets</button>
+            <div class="output" id="ec2-instances-output"></div>
+        </div>
+
+        <div class="output-section" id="s3-output">
+            <h2>S3 Buckets</h2>
+            <div class="output" id="s3-buckets-output"></div>
+            <div class="output" id="s3-objects-output"></div>
+        </div>
 
         <!-- Button to go to File Generator -->
         <a href="{{ url_for('file_generator') }}" class="btn btn-secondary mt-3">Go to File Generator</a>
@@ -135,7 +162,6 @@
     <script>
     const CLI_SERVICE_URL = "http://localhost:5001/api";
 
-
     function viewVersions() {
         fetch(`${CLI_SERVICE_URL}/view_versions`)
             .then(response => response.json())
@@ -148,7 +174,7 @@
         fetch(`${CLI_SERVICE_URL}/list_ec2_instances`)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
+                document.getElementById('ec2-instances-output').innerText = data.stdout || data.stderr;
             });
     }
 
@@ -156,19 +182,25 @@
         fetch(`${CLI_SERVICE_URL}/list_s3_buckets`)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('output').innerText = data.stdout || data.stderr;
+                document.getElementById('s3-buckets-output').innerText = data.stdout || data.stderr;
             });
     }
 
-    function createEc2Instance(instanceType, amiId, keyName, securityGroup, count, tags) {
+    function createEc2Instance() {
+        const instanceType = document.getElementById('instanceType').value;
+        const amiId = document.getElementById('amiId').value;
+        const keyName = document.getElementById('keyName').value;
+        const securityGroup = document.getElementById('securityGroup').value;
+        const count = document.getElementById('count').value;
+
         const data = {
             instance_type: instanceType,
             ami_id: amiId,
             key_name: keyName,
             security_group: securityGroup,
-            count: count,
-            tags: tags
+            count: count
         };
+
         fetch(`${CLI_SERVICE_URL}/create_ec2_instance`, {
             method: 'POST',
             headers: {
@@ -182,13 +214,15 @@
         });
     }
 
-    function createEc2Dob(dobScreenplay) {
+    function createEc2Dob() {
+        const dobScreenplay = document.getElementById('dobScreenplay').value;
+
         fetch(`${CLI_SERVICE_URL}/create_ec2_dob`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dobScreenplay)
+            body: JSON.stringify({ screenplay: dobScreenplay })
         })
         .then(response => response.json())
         .then(data => {
@@ -196,14 +230,15 @@
         });
     }
 
-    function recreateEc2(versionId) {
-        const data = { version_id: versionId };
+    function recreateEc2() {
+        const versionId = document.getElementById('versionId').value;
+
         fetch(`${CLI_SERVICE_URL}/recreate_ec2`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ version_id: versionId })
         })
         .then(response => response.json())
         .then(data => {
@@ -211,9 +246,13 @@
         });
     }
 
-    function deleteEc2(instanceIds, versionId) {
+    function deleteEc2() {
+        const instanceIds = document.getElementById('deleteInstanceIds').value.split(',');
+        const versionId = document.getElementById('deleteVersionId').value;
+
         const data = { ids: instanceIds };
         if (versionId) data.version_id = versionId;
+
         fetch(`${CLI_SERVICE_URL}/delete_ec2`, {
             method: 'POST',
             headers: {
@@ -227,29 +266,31 @@
         });
     }
 
-    function listS3Objects(bucketName) {
-        const data = { bucket_name: bucketName };
+    function listS3Objects() {
+        const bucketName = document.getElementById('bucketName').value;
+
         fetch(`${CLI_SERVICE_URL}/list_s3_objects`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ bucket_name: bucketName })
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('output').innerText = data.stdout || data.stderr;
+            document.getElementById('s3-objects-output').innerText = data.stdout || data.stderr;
         });
     }
 
-    function deleteS3Bucket(bucketName) {
-        const data = { bucket_name: bucketName };
+    function deleteS3Bucket() {
+        const bucketName = document.getElementById('deleteBucketName').value;
+
         fetch(`${CLI_SERVICE_URL}/delete_s3_bucket`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ bucket_name: bucketName })
         })
         .then(response => response.json())
         .then(data => {
@@ -257,17 +298,16 @@
         });
     }
 
-    function deleteS3Object(bucketName, objectKey) {
-        const data = {
-            bucket_name: bucketName,
-            object_key: objectKey
-        };
+    function deleteS3Object() {
+        const bucketName = document.getElementById('deleteObjectBucketName').value;
+        const objectKey = document.getElementById('objectKey').value;
+
         fetch(`${CLI_SERVICE_URL}/delete_s3_object`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ bucket_name: bucketName, object_key: objectKey })
         })
         .then(response => response.json())
         .then(data => {
@@ -275,12 +315,17 @@
         });
     }
 
-    function configureAws(accessKeyId, secretAccessKey, region) {
+    function configureAws() {
+        const accessKeyId = document.getElementById('accessKeyId').value;
+        const secretAccessKey = document.getElementById('secretAccessKey').value;
+        const region = document.getElementById('region').value;
+
         const data = {
             aws_access_key_id: accessKeyId,
             aws_secret_access_key: secretAccessKey,
             region: region
         };
+
         fetch(`${CLI_SERVICE_URL}/configure_aws`, {
             method: 'POST',
             headers: {
@@ -293,7 +338,8 @@
             document.getElementById('output').innerText = data.stdout || data.stderr;
         });
     }
-</script>
+    </script>
 </body>
 </html>
+
 
