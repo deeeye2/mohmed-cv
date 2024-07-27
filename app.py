@@ -16,7 +16,6 @@ import yaml
 from subprocess import Popen, PIPE
 import subprocess
 
-app = Flask(__name__)
 
 # Get the CLI service URL from the environment variable or default to localhost
 CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
