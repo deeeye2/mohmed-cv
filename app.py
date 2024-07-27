@@ -18,10 +18,16 @@ import subprocess
 from cli_service import run_cli_command  # adjust the import as necessary
 
 
+CLI_SERVICE_URL = 'http://localhost:5001/api'
+
 def call_cli_service(endpoint):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
-    response = requests.get(url)
-    return response.json()
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        return {"error": str(e)}
     
 load_dotenv()
 
