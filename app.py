@@ -18,7 +18,7 @@ import subprocess
 from cli_service import run_cli_command  # adjust the import as necessary
 
 
-CLI_SERVICE_URL = 'http://127.0.0.1:5001/api'
+const CLI_SERVICE_URL = "http://host.docker.internal:5001/api";
 
 def call_cli_service(endpoint):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
