@@ -16,31 +16,13 @@ import yaml
 from subprocess import Popen, PIPE
 import subprocess
 
+CLI_SERVICE_URL = 'http://localhost:5001/api'
 
-# Get the CLI service URL from the environment variable or default to localhost
-CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
-
-# Ensure that dob is in the PATH
-os.environ["PATH"] += os.pathsep + "/root/devops_bot/env/bin"
-
-def call_cli_service(endpoint, method='GET', data=None):
+def call_cli_service(endpoint):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
-    headers = {'Content-Type': 'application/json'}
-    if method == 'GET':
-        response = requests.get(url, headers=headers)
-    else:
-        response = requests.post(url, json=data, headers=headers)
+    response = requests.get(url)
     return response.json()
-
-def run_cli_command(command):
-    try:
-        # Use the full path to dob
-        command = f'/usr/local/bin/{command}'
-        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        return result.stdout, result.stderr
-    except subprocess.CalledProcessError as e:
-        return e.stdout, e.stderr
-
+    
 load_dotenv()
 
 app = Flask(__name__)
