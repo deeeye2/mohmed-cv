@@ -1,3 +1,23 @@
+from flask import Flask, request, jsonify, render_template, redirect, url_for, flash, session
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+from datetime import datetime, timedelta
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+import os
+import jwt
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import logging
+import requests
+import yaml
+from subprocess import Popen, PIPE
+import subprocess
+
+app = Flask(__name__)
+
 # Get the CLI service URL from the environment variable or default to localhost
 CLI_SERVICE_URL = os.getenv('CLI_SERVICE_URL', 'http://localhost:5001/api')
 
@@ -12,8 +32,6 @@ def call_cli_service(endpoint, method='GET', data=None):
     else:
         response = requests.post(url, json=data, headers=headers)
     return response.json()
-
-
 load_dotenv()
 
 app = Flask(__name__)
