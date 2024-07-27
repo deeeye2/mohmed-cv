@@ -15,8 +15,17 @@ import requests
 import yaml
 from subprocess import Popen, PIPE
 import subprocess
+from cli_service import run_cli_command  # adjust the import as necessary
 
 CLI_SERVICE_URL = 'http://localhost:5001/api'
+
+def run_cli_command(command):
+    try:
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return result.stdout, result.stderr
+    except subprocess.CalledProcessError as e:
+        return e.stdout, e.stderr
+
 
 def call_cli_service(endpoint):
     url = f"{CLI_SERVICE_URL}/{endpoint}"
