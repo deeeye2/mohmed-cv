@@ -14,10 +14,21 @@ import logging
 import requests
 import yaml
 from subprocess import Popen, PIPE
-from devops_bot.cli import cli 
-from flask_socketio import SocketIO, emit
-import uuid
+import subprocess
+from cli_service import run_cli_command  # adjust the import as necessary
 
+
+CLI_SERVICE_URL = "http://host.docker.internal:5001/api";
+
+def call_cli_service(endpoint):
+    url = f"{CLI_SERVICE_URL}/{endpoint}"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        return {"error": str(e)}
+    
 load_dotenv()
 
 app = Flask(__name__)
@@ -112,7 +123,7 @@ def login():
                 decoded = jwt.decode(token, app.secret_key, algorithms=["HS256"])
                 if decoded['user_id'] == user.id:
                     session['user_id'] = user.id
-                    return jsonify({'success': True, 'redirect_url': url_for('file_generator')})
+                    return jsonify({'success': True, 'redirect_url': url_for('clidashboard')})
                 else:
                     return jsonify({'success': False, 'message': 'Invalid token'}), 401
             except jwt.ExpiredSignatureError:
@@ -123,16 +134,22 @@ def login():
             return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
     return render_template('login.html')
 
+@app.route('/file-generator')
+@login_required
+def file_generator():
+    return render_template('file_generator.html')
+
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('You have been logged out.')
     return redirect(url_for('login'))
 
-@app.route('/file-generator')
+@app.route('/clidashboard')
 @login_required
-def file_generator():
-    return render_template('file_generator.html')
+def clidashboard():
+    return render_template('cli_dashboard.html')
 
 @app.route('/main-page')
 def main_page():
@@ -290,47 +307,41 @@ def send_email_notification():
         logging.error(f'Error sending notification email: {e}')
 
 
-
-def run_cli_command(command):
-    process = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
-    stdout, stderr = process.communicate()
-    return {"stdout": stdout.decode('utf-8'), "stderr": stderr.decode('utf-8')}
-
 @app.route('/api/view_versions', methods=['GET'])
 def view_versions():
-    result = run_cli_command('dob view-versions')
-    return jsonify(result)
+    result = run_cli_command('dob view-version')
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/list_ec2_instances', methods=['GET'])
 def list_ec2_instances():
     result = run_cli_command('dob list-ec2')
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/list_s3_buckets', methods=['GET'])
 def list_s3_buckets():
     result = run_cli_command('dob list-s3-buckets')
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/create_ec2_instance', methods=['POST'])
 def create_ec2_instance():
     data = request.json
     command = f"dob create-ec2 --instance-type {data['instance_type']} --ami-id {data['ami_id']} --key-name {data['key_name']} --security-group {data['security_group']} --count {data['count']} --tags {data['tags']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/create_ec2_dob', methods=['POST'])
 def create_ec2_dob():
     data = request.json
     command = f"dob create-ec2-dob {data['dob_screenplay']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/recreate_ec2', methods=['POST'])
 def recreate_ec2():
     data = request.json
     command = f"dob recreate-ec2 --version-id {data['version_id']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/delete_ec2', methods=['POST'])
 def delete_ec2():
@@ -339,35 +350,35 @@ def delete_ec2():
     if 'version_id' in data:
         command += f" --version-id {data['version_id']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/list_s3_objects', methods=['POST'])
 def list_s3_objects():
     data = request.json
     command = f"dob list-s3-objects --bucket-name {data['bucket_name']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/delete_s3_bucket', methods=['POST'])
 def delete_s3_bucket():
     data = request.json
     command = f"dob delete-s3-bucket --bucket-name {data['bucket_name']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/delete_s3_object', methods=['POST'])
 def delete_s3_object():
     data = request.json
     command = f"dob delete-s3-object --bucket-name {data['bucket_name']} --object-key {data['object_key']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 @app.route('/api/configure_aws', methods=['POST'])
 def configure_aws():
     data = request.json
     command = f"dob configure-aws --aws-access-key-id {data['aws_access_key_id']} --aws-secret-access-key {data['aws_secret_access_key']} --region {data['region']}"
     result = run_cli_command(command)
-    return jsonify(result)
+    return jsonify({"stdout": result[0], "stderr": result[1]})
 
 
 
