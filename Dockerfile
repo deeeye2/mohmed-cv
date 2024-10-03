@@ -5,7 +5,8 @@ FROM node:16-alpine as builder
 WORKDIR /app
 
 # Copy only the necessary files to install dependencies
-COPY package.json package-lock.json ./
+# Change the path to match the actual location of your files
+COPY frontend/package.json frontend/package-lock.json ./
 
 # Install dependencies
 RUN npm install --production
@@ -13,7 +14,7 @@ RUN npm install --production
 # Copy the rest of the source files (HTML, CSS, JS, etc.)
 COPY static/ static/
 COPY templates/ templates/
-COPY index.html ./
+COPY templates/index.html ./  # Adjust this if `index.html` is in `templates`
 
 # If you have a build script for your frontend, run it here (e.g., npm run build)
 # RUN npm run build
@@ -43,4 +44,3 @@ EXPOSE 80
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
-
