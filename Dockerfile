@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM python:3.8-slim as builder
+FROM --platform=linux/amd64 python:3.8-slim as builder
 
 WORKDIR /app
 
@@ -11,11 +11,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Stage 2: Final stage - Smaller image
-FROM python:3.8-slim
+FROM --platform=linux/amd64 python:3.8-slim
 
 WORKDIR /app
 
-# Copy only necessary files from the builder stage
+# Copy necessary files from the builder stage
 COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
 COPY --from=builder /app /app
 
@@ -31,8 +31,9 @@ EXPOSE 5000
 # Copy the .env file for environment variables
 COPY .env /app/.env
 
-# Explicitly override the entrypoint from the base image
-ENTRYPOINT [""]
+# Set the default command to run the application
+CMD ["python", "app.py"]
+
 
 # Set the default command to run the application
 CMD ["python", "app.py"]
