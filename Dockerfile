@@ -1,36 +1,43 @@
 # Stage 1: Build stage
-FROM python:3.8-slim as builder
+FROM node:16-alpine as builder
 
+# Create and set working directory
 WORKDIR /app
 
-# Copy and install dependencies
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy only the necessary files to install dependencies
+COPY package.json package-lock.json ./
 
-# Copy the source code
+# Install dependencies
+RUN npm install --production
+
+# Copy the rest of the source files (e.g., HTML, CSS, JS)
 COPY . .
 
-# Stage 2: Final stage
-FROM python:3.8-slim
+# Build the frontend assets (e.g., if using React, Vue, or Angular)
+RUN npm run build
 
-WORKDIR /app
+# Stage 2: Final stage (serve-only image)
+FROM nginx:alpine
 
-# Copy only the necessary files from the builder stage
-COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
-COPY --from=builder /app /app
+# Set the working directory
+WORKDIR /usr/share/nginx/html
 
-# Copy the static files
-COPY static /app/static
+# Copy built files from the builder stage
+COPY --from=builder /app/build .
 
-# Install PyYAML separately if needed
-RUN pip install PyYAML
+# Create a non-root user and group for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Change permissions for nginx folder and configuration
+RUN chown -R appuser:appgroup /usr/share/nginx/html && \
+    chown -R appuser:appgroup /var/cache/nginx && \
+    chown -R appuser:appgroup /var/log/nginx
 
-# Copy the .env file into the container at /app
-COPY .env /app/.env
+# Switch to non-root user
+USER appuser
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+# Expose port 80 to access the application
+EXPOSE 80
 
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
