@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the source code into the container
 COPY . .
 
-# Stage 2: Final stage - Smaller image
+# Stage 2: Final stage
 FROM --platform=linux/amd64 python:3.8-slim
 
 WORKDIR /app
@@ -34,7 +34,4 @@ COPY .env /app/.env
 # Set the default command to run the application
 CMD ["python", "app.py"]
 
-
-# Set the default command to run the application
-CMD ["python", "app.py"]
 
