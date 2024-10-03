@@ -25,8 +25,9 @@ COPY static /app/static
 # Install PyYAML separately if needed
 RUN pip install PyYAML
 
-# Set up Nginx configuration and permissions
+# Install Nginx and create necessary directories
 RUN apt-get update && apt-get install -y nginx \
+    && mkdir -p /var/run/nginx /var/cache/nginx /var/log/nginx \
     && chown -R root:root /var/run/nginx \
     && chown -R root:root /var/cache/nginx \
     && chown -R root:root /var/log/nginx
