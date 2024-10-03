@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: black;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh; /* Ensure the body takes the full viewport height */
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            flex-grow: 1; /* Allow the container to grow and take available space */
+        }
+        .login-container, .info-container {
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .login-container input[type="text"], .login-container input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
+        }
+        .login-container button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: #007BFF;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        h1, h2, p, pre {
+            margin: 0 0 20px 0;
+        }
+        pre {
+            text-align: left;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 300px; /* Set a max height for the pre element */
+            white-space: pre-wrap; /* Ensure long lines wrap */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form id="loginForm" action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="token" placeholder="Token" required>
+                <br>
+                <button type="submit">Login</button>
+                <br>
+            </form>
+            <p>Don't have an account? <a href="/register">Register here</a>.</p>
+        </div>
+        <div class="info-container">
+            <h2>About DevOps Bot</h2>
+            <p>
+                DevOps Bot is a powerful automation tool designed to streamline and simplify your DevOps workflows.
+                Built with Python and leveraging the Flask web framework, DevOps Bot provides a user-friendly CLI
+                (Command Line Interface) that helps manage infrastructure as code, continuous deployment, and other
+                DevOps-related tasks.
+            </p>
+            <p>
+                The backend of DevOps Bot is designed to handle various configuration management tasks including:
+            </p>
+            <ul>
+                <li>Generating Kubernetes manifests (e.g., Deployments, Services, ConfigMaps).</li>
+                <li>Creating Dockerfiles for containerized applications.</li>
+                <li>Setting up Ansible playbooks for configuration management.</li>
+                <li>Building Terraform scripts for infrastructure provisioning.</li>
+            </ul>
+            <p>
+                By using DevOps Bot, you can automate repetitive tasks, ensure consistency across environments, and
+                improve the efficiency of your DevOps pipeline.
+            </p>
+            <h2>Installation Instructions</h2>
+            <pre>
+<code>
+# System Requirements
+- Memory: 2GB RAM (4GB recommended)
+- CPU: 2 cores (4 cores recommended)
+- Disk Space: 1GB (5GB recommended)
+- OS: Ubuntu 20.04 or higher
+
+# Installation Steps
+1. Update and Install Required Packages:
+    $ sudo apt-get update
+    $ sudo apt-get install -y python3 python3-venv python3-pip git
+
+2. Clone the Repository:
+    $ git clone https://github.com/deeeye2/devops-bot.git ~/devops_bot
+
+3. Navigate to the Installation Directory:
+    $ cd ~/devops_bot
+
+4. Create a Virtual Environment:
+    $ python3 -m venv ~/devops_bot/env
+
+5. Activate the Virtual Environment:
+    $ source ~/devops_bot/env/bin/activate
+
+6. Upgrade pip and Install wheel:
+    $ pip install --upgrade pip
+    $ pip install wheel
+
+7. Install the Required Packages:
+    $ pip install -r requirements.txt
+
+8. Install the devops-bot Package:
+    $ pip install .
+    $ pip install PyJWT
+
+9. Create the systemd Service File, make sure to remove the $:
+    $ sudo tee /etc/systemd/system/devops_bot.service > /dev/null <<EOL
+    $ [Unit]
+    $ Description=DevOps Bot Service
+    % After=network.target
+
+    $ [Service]
+    % User=$(whoami)
+    $ Group=$(whoami)
+    $ WorkingDirectory=/root/devops_bot
+    $ Environment="PATH=/root/devops_bot/env/bin"
+    $ ExecStart=/root/devops_bot/env/bin/gunicorn --config /root/devops_bot/gunicorn_config.py wsgi:app
+    $ StandardOutput=journal
+    $ StandardError=journal
+    $ SyslogIdentifier=devops_bot
+
+    $ [Install]
+    $ WantedBy=multi-user.target
+    $ EOL
+        
+10. Reload systemd and Start the Service:
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable devops_bot.service
+    $ sudo systemctl start devops_bot.service
+    $ sudo systemctl status devops_bot.service
+
+11. Create a Symlink for the devops-bot CLI:
+    $ sudo ln -sf $HOME/devops_bot/env/bin/devops-bot /usr/local/bin/devops-bot
+</code>
+            </pre>
+            <h2>Uninstallation Guide</h2>
+            <pre>
+<code>
+1. Stop and Disable the Service:
+    $ sudo systemctl stop devops_bot.service
+    $ sudo systemctl disable devops_bot.service
+
+2. Remove the systemd Service File:
+    $ sudo rm /etc/systemd/system/devops_bot.service
+    $ sudo systemctl daemon-reload
+
+3. Remove the DevOps Bot Directory:
+    $ rm -rf ~/devops_bot
+
+4. Remove the Symlink:
+    $ sudo rm /usr/local/bin/devops-bot
+</code>
+            </pre>
+            <h2>Commands and Functions</h2>
+            <h3>Configure AWS Credentials</h3>
+            <p>This command sets up the AWS credentials and region for the CLI tool.</p>
+            <pre>
+<code>
+Usage:
+devops-bot configure-aws --aws_access_key_id &lt;YOUR_AWS_ACCESS_KEY_ID&gt; --aws_secret_access_key &lt;YOUR_AWS_SECRET_ACCESS_KEY&gt; --region &lt;YOUR_AWS_REGION&gt;
+
+Example:
+devops-bot configure-aws --aws_access_key_id AKIAIOSFODNN7EXAMPLE --aws_secret_access_key wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY --region us-east-1
+</code>
+            </pre>
+
+            <h3>Create AWS Instances</h3>
+            <p>This command creates one or more AWS EC2 instances with optional tags, security group, and key pair.</p>
+            <pre>
+<code>
+Usage:
+devops-bot create-aws-instance --params "image_id=&lt;IMAGE_ID&gt; instance_type=&lt;INSTANCE_TYPE&gt;" --count &lt;NUMBER_OF_INSTANCES&gt; [--tag1 "Key=Value"] [--tag2 "Key=Value"] [--tag3 "Key=Value"] [--tag4 "Key=Value"] [--tag5 "Key=Value"] [--security_group &lt;SECURITY_GROUP_ID&gt;] [--key_name &lt;KEY_PAIR_NAME&gt;]
+
+Example:
+devops-bot create-aws-instance --params "image_id=ami-0b72821e2f351e396 instance_type=t2.micro" --count 2 --tag1 "Environment=Test" --tag2 "Role=WebServer" --security_group sg-0abcd1234abcd1234 --key_name my-key-pair
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--params</code>: Required parameters for the instance creation such as <code>image_id</code> and <code>instance_type</code>.</li>
+                <li><code>--count</code>: The number of instances to create (default is 1).</li>
+                <li><code>--tag1</code> to <code>--tag5</code>: Optional tags for the instances.</li>
+                <li><code>--security_group</code>: Optional security group ID.</li>
+                <li><code>--key_name</code>: Optional key pair name.</li>
+            </ul>
+
+            <h3>Delete AWS Instances</h3>
+            <p>This command deletes one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot delete-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot delete-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to delete.</li>
+            </ul>
+
+            <h3>List All EC2 Instances and Their Statuses</h3>
+            <p>This command lists all EC2 instances and their statuses for the specified cloud provider.</p>
+            <pre>
+<code>
+Usage:
+devops-bot list-instances --provider &lt;PROVIDER&gt;
+
+Example:
+devops-bot list-instances --provider aws
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--provider</code>: The cloud provider (e.g., aws).</li>
+            </ul>
+
+            <h3>Stop AWS Instances</h3>
+            <p>This command stops one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot stop-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot stop-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to stop.</li>
+            </ul>
+
+            <h3>Start AWS Instances</h3>
+            <p>This command starts one or more AWS EC2 instances.</p>
+            <pre>
+<code>
+Usage:
+devops-bot start-aws-instances --instance_ids "&lt;INSTANCE_ID1&gt; &lt;INSTANCE_ID2&gt; ..."
+
+Example:
+devops-bot start-aws-instances --instance_ids "i-1234567890abcdef0 i-0987654321fedcba0"
+</code>
+            </pre>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>--instance_ids</code>: Space-separated IDs of the instances to start.</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const username = formData.get('username');
+            const password = formData.get('password');
+            const token = formData.get('token');
+
+            fetch('/api/verify_token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, token })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Token verified') {
+                    fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password, token })
+                    })
+                    .then(response => response.json())
+                    .then(loginData => {
+                        if (loginData.success) {
+                            window.location.href = loginData.redirect_url;
+                        } else {
+                            alert(loginData.message);
+                        }
+                    });
+                } else {
+                    alert('Invalid token');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
