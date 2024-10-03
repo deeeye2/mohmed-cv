@@ -25,21 +25,17 @@ COPY static /app/static
 # Install PyYAML separately if needed
 RUN pip install PyYAML
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Set up Nginx configuration and permissions
+RUN apt-get update && apt-get install -y nginx \
+    && chown -R root:root /var/run/nginx \
+    && chown -R root:root /var/cache/nginx \
+    && chown -R root:root /var/log/nginx
 
 # Copy the .env file into the container at /app
 COPY .env /app/.env
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+# Expose ports 5000 (Python app) and 80 (Nginx)
+EXPOSE 5000 80
 
-    chown -R root:root /var/run/nginx && \
-    chown -R root:root /var/cache/nginx && \
-    chown -R root:root /var/log/nginx
-
-# Expose port 80 to access the application
-EXPOSE 80
-
-# Start Nginx server as root user
-CMD ["nginx", "-g", "daemon off;"]
+# Run both Python app and Nginx server using a shell command
+CMD /bin/bash -c "python app.py & nginx -g 'daemon off;'"
