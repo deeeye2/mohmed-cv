@@ -1,34 +1,36 @@
-# Stage 1: Builder Stage
-# Use a Node.js image to build the frontend assets
+# Stage 1: Build Stage (Only needed if you have a build step like npm build)
+# Skip this stage if you're not using a frontend build tool like npm, yarn, etc.
 FROM node:16-alpine as builder
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to install dependencies (if applicable)
-COPY templates/package.json templates/package-lock.json ./
+# (Optional) If you have a build step, you would copy your source files here
+# COPY templates/package.json templates/package-lock.json ./
 
-# Install the dependencies
-RUN npm install --production
+# (Optional) Install dependencies if you have package.json files
+# RUN npm install
 
 # Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
-COPY templates/index.html ./
+COPY templates/ templates/
 COPY static/ static/
+COPY templates/index.html ./
 
-
-# If your frontend requires a build step (e.g., React or Vue.js), run it here
-# Replace 'npm run build' with your actual build command if applicable
-RUN npm run build
+# (Optional) If your frontend requires a build step (e.g., React or Vue.js), run it here
+# RUN npm run build
 
 # Stage 2: Nginx Stage
-# Use the nginx:alpine image to serve the built frontend files
+# Use the nginx:alpine image to serve the static frontend files
 FROM nginx:alpine
 
 # Set the working directory inside Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copy only the build output from the previous stage to Nginx
-COPY --from=builder /app/build .  # Adjust the path if your build output directory is different
+# Copy only the build output or source files from the builder stage to Nginx
+# If you skipped the builder stage, use the paths directly from your local directory
+COPY static/ static/
+COPY templates/ templates/
+COPY templates/index.html ./
 
 # Create a non-root user and group for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
