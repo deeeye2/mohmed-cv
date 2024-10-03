@@ -1,35 +1,39 @@
-# Stage 1: Build Stage (Only needed if you have a build step like npm build)
-# Skip this stage if you're not using a frontend build tool like npm, yarn, etc.
-FROM node:16-alpine as builder
+# Stage 1: Build stage
+FROM python:3.8-slim as builder
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
-COPY templates/ templates/
-COPY static/ static/
-COPY templates/index.html ./
+# Copy and install dependencies
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# (Optional) If your frontend requires a build step (e.g., React or Vue.js), run it here
-# RUN npm run build
+# Copy the source code
+COPY . .
 
-# Stage 2: Nginx Stage
-# Use the nginx:alpine image to serve the static frontend files
-FROM nginx:alpine
+# Stage 2: Final stage
+FROM python:3.8-slim
 
-# Set the working directory inside Nginx
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
-# Copy only the frontend files directly to Nginx's HTML directory
-COPY static/ static/
-COPY templates/ templates/
-COPY templates/index.html ./
+# Copy only the necessary files from the builder stage
+COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=builder /app /app
 
-# (Optional) If you have a custom nginx.conf file, copy it here
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the static files
+COPY static /app/static
 
-# Allow nginx to write the PID file by setting proper permissions
-RUN mkdir -p /var/run/nginx && \
+# Install PyYAML separately if needed
+RUN pip install PyYAML
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Copy the .env file into the container at /app
+COPY .env /app/.env
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+
     chown -R root:root /var/run/nginx && \
     chown -R root:root /var/cache/nginx && \
     chown -R root:root /var/log/nginx
