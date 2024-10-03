@@ -1,37 +1,39 @@
-# Stage 1: Build stage
-FROM python:3.8-slim as builder
-
-WORKDIR /app
-
-# Copy and install dependencies
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the source code
-COPY . .
-
-# Stage 2: Final stage
+# Use the Python base image
 FROM python:3.8-slim
 
+# Set environment variables
+ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV LANG=C.UTF-8
+ENV GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+ENV PYTHON_VERSION=3.8.19
+ENV PYTHON_PIP_VERSION=23.0.1
+ENV PYTHON_SETUPTOOLS_VERSION=57.5.0
+ENV PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/e03e1607ad60522cf34a92e834138eb89f57667c/public/get-pip.py
+ENV PYTHON_GET_PIP_SHA256=ee09098395e42eb1f82ef4acb231a767a6ae85504a9cf9983223df0a7cbd35d7
+
+# Install necessary packages and Python
+RUN set -eux; \
+    apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev
+
+# Set working directory
 WORKDIR /app
 
-# Copy only the necessary files from the builder stage
-COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
-COPY --from=builder /app /app
-
-# Copy the static files
+# Copy necessary files
+COPY /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY /app /app
 COPY static /app/static
-
-# Install PyYAML separately if needed
-RUN pip install PyYAML
-
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
-
-# Copy the .env file into the container at /app
 COPY .env /app/.env
 
-# Run app.py when the container launches
+# Install Python dependencies
+RUN pip install -r /app/requirements.txt
+
+# Expose the application port
+EXPOSE 5000
+
+# Final command to run the application
 CMD ["python", "app.py"]
-
-
