@@ -1,32 +1,34 @@
-# Stage 1: Build stage
+# Stage 1: Builder Stage
+# Use a Node.js image to build the frontend assets
 FROM node:16-alpine as builder
 
-# Create and set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy only the necessary files to install dependencies
-# Change the path to match the actual location of your files
-COPY frontend/package.json frontend/package-lock.json ./
+# Copy the package.json and package-lock.json files to install dependencies (if applicable)
+COPY templates/package.json templates/package-lock.json ./
 
-# Install dependencies
+# Install the dependencies
 RUN npm install --production
 
-# Copy the rest of the source files (HTML, CSS, JS, etc.)
+# Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
+COPY templates/index.html ./
 COPY static/ static/
-COPY templates/ templates/
-COPY templates/index.html ./  # Adjust this if `index.html` is in `templates`
 
-# If you have a build script for your frontend, run it here (e.g., npm run build)
-# RUN npm run build
 
-# Stage 2: Final stage - Serve with Nginx
+# If your frontend requires a build step (e.g., React or Vue.js), run it here
+# Replace 'npm run build' with your actual build command if applicable
+RUN npm run build
+
+# Stage 2: Nginx Stage
+# Use the nginx:alpine image to serve the built frontend files
 FROM nginx:alpine
 
 # Set the working directory inside Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copy built frontend files from the builder stage
-COPY --from=builder /app .
+# Copy only the build output from the previous stage to Nginx
+COPY --from=builder /app/build .  # Adjust the path if your build output directory is different
 
 # Create a non-root user and group for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
