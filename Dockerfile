@@ -6,7 +6,7 @@ FROM node:16-alpine as builder
 WORKDIR /app
 
 # Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
-COPY ..
+COPY . .
 
 
 # (Optional) If your frontend requires a build step (e.g., React or Vue.js), run it here
@@ -20,7 +20,7 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
 # Copy only the frontend files directly to Nginx's HTML directory
-COPY ..
+COPY . .
 
 
 # (Optional) If you have a custom nginx.conf file, copy it here
