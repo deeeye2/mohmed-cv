@@ -10,20 +10,22 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm install --production
 
-# Copy the rest of the source files (e.g., HTML, CSS, JS)
-COPY . .
+# Copy the rest of the source files (HTML, CSS, JS, etc.)
+COPY static/ static/
+COPY templates/ templates/
+COPY index.html ./
 
-# Build the frontend assets (e.g., if using React, Vue, or Angular)
-RUN npm run build
+# If you have a build script for your frontend, run it here (e.g., npm run build)
+# RUN npm run build
 
-# Stage 2: Final stage (serve-only image)
+# Stage 2: Final stage - Serve with Nginx
 FROM nginx:alpine
 
-# Set the working directory
+# Set the working directory inside Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copy built files from the builder stage
-COPY --from=builder /app/build .
+# Copy built frontend files from the builder stage
+COPY --from=builder /app .
 
 # Create a non-root user and group for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
@@ -41,3 +43,4 @@ EXPOSE 80
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
+
