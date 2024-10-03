@@ -22,21 +22,16 @@ COPY --from=builder /app /app
 # Copy the static files
 COPY static /app/static
 
-# Install PyYAML and Nginx separately if needed
-RUN pip install PyYAML && apt-get update && apt-get install -y nginx \
-    && mkdir -p /var/run/nginx /var/cache/nginx /var/log/nginx \
-    && chown -R root:root /var/run/nginx /var/cache/nginx /var/log/nginx
+# Install PyYAML separately if needed
+RUN pip install PyYAML
 
-# Copy the start script into the container
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Copy the .env file into the container at /app
 COPY .env /app/.env
 
-# Expose ports 5000 (Python app) and 80 (Nginx)
-EXPOSE 5000 80
+# Run app.py when the container launches
+CMD ["python", "app.py"]
 
-# Use the custom script as the entrypoint
-ENTRYPOINT ["/start.sh"]
 
