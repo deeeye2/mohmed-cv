@@ -5,10 +5,8 @@ FROM node:16-alpine as builder
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
-COPY templates/ templates/
-COPY static/ static/
-COPY templates/index.html ./
+# Copy all necessary frontend source files to the container (HTML, CSS, JS, images, etc.)
+COPY . .
 
 # (Optional) If your frontend requires a build step (e.g., React or Vue.js), run it here
 # RUN npm run build
@@ -20,10 +18,9 @@ FROM nginx:alpine
 # Set the working directory inside Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copy only the frontend files directly to Nginx's HTML directory
-COPY static/ static/
-COPY templates/ templates/
-COPY templates/index.html ./
+# Copy all files from the build stage (or directly from local directory)
+# This will include all HTML, CSS, JS, images, and any other assets in your project directory
+COPY --from=builder /app .
 
 # (Optional) If you have a custom nginx.conf file, copy it here
 # COPY nginx.conf /etc/nginx/nginx.conf
@@ -39,5 +36,3 @@ EXPOSE 80
 
 # Start Nginx server as root user
 CMD ["nginx", "-g", "daemon off;"]
-
-
