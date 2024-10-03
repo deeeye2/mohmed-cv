@@ -1,57 +1,43 @@
-# Stage 1: Optional Build Stage (Skip if not needed)
-# Only include this stage if you have build steps, like `npm install` or `npm run build`.
-# You can comment out or remove this stage if you are not building a frontend application.
+# Stage 1: Build Stage (Only needed if you have a build step like npm build)
+# Skip this stage if you're not using a frontend build tool like npm, yarn, etc.
+FROM node:16-alpine as builder
 
-# FROM node:16-alpine as builder
-# Set working directory inside the container
-# WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /app
 
-# Copy the package.json and package-lock.json files for dependency installation
-# COPY templates/package.json templates/package-lock.json ./
+# Copy all necessary frontend source files to the container (HTML, CSS, JS, etc.)
+COPY templates/ templates/
+COPY static/ static/
+COPY templates/index.html ./
 
-# Install dependencies
-# RUN npm install
-
-# Copy the frontend source files (HTML, CSS, JS, etc.) to the container
-# COPY templates/ templates/
-# COPY static/ static/
-# COPY templates/index.html ./
-
-# (Optional) If the frontend requires a build step, run it here
+# (Optional) If your frontend requires a build step (e.g., React or Vue.js), run it here
 # RUN npm run build
 
-# Stage 2: Nginx Stage to Serve Static Files
+# Stage 2: Nginx Stage
+# Use the nginx:alpine image to serve the static frontend files
 FROM nginx:alpine
 
 # Set the working directory inside Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copy static files and templates directly to the Nginx HTML directory
+# Copy only the frontend files directly to Nginx's HTML directory
 COPY static/ static/
 COPY templates/ templates/
 COPY templates/index.html ./
 
-# Copy a custom Nginx configuration file (if applicable)
-# Uncomment the next line if you have a custom nginx.conf file
+# (Optional) If you have a custom nginx.conf file, copy it here
 # COPY nginx.conf /etc/nginx/nginx.conf
 
-# Create a non-root user and group for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# Allow nginx to write the PID file by setting proper permissions
+RUN mkdir -p /var/run/nginx && \
+    chown -R root:root /var/run/nginx && \
+    chown -R root:root /var/cache/nginx && \
+    chown -R root:root /var/log/nginx
 
-# Change ownership and permissions of necessary folders
-RUN chown -R appuser:appgroup /usr/share/nginx/html && \
-    chown -R appuser:appgroup /var/cache/nginx && \
-    chown -R appuser:appgroup /var/log/nginx && \
-    mkdir -p /var/run/nginx && \
-    chown -R appuser:appgroup /var/run/nginx
-
-# Switch to the non-root user
-USER appuser
-
-# Expose the port Nginx will run on
+# Expose port 80 to access the application
 EXPOSE 80
 
-# Start Nginx server
+# Start Nginx server as root user
 CMD ["nginx", "-g", "daemon off;"]
 
 
