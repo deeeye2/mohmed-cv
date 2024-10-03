@@ -1,7 +1,7 @@
 # Stage 1: Build stage
 FROM python:3.8-slim as builder
 
-# Set working directory in the container
+# Set the working directory in the container
 WORKDIR /app
 
 # Copy and install dependencies
@@ -24,7 +24,7 @@ COPY --from=builder /app /app
 # Copy static files if needed
 COPY static /app/static
 
-# Install additional dependencies separately
+# Install additional dependencies separately if required
 RUN pip install PyYAML
 
 # Make port 5000 available to the world outside this container
@@ -33,5 +33,5 @@ EXPOSE 5000
 # Copy the .env file for environment variables
 COPY .env /app/.env
 
-# Set the default command to run the application
-CMD ["python", "app.py"]
+# Override any existing entrypoint to ensure `python app.py` runs
+ENTRYPOINT ["python", "app.py"]
