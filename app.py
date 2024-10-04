@@ -15,7 +15,7 @@ import requests
 import yaml
 from subprocess import Popen, PIPE
 import subprocess
-from cli_service import run_cli_command  # adjust the import as necessary
+
 
 
 CLI_SERVICE_URL = os.getenv("CLI_SERVICE_URL", "http://host.docker.internal:5001/api")
